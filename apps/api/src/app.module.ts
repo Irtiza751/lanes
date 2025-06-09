@@ -8,6 +8,7 @@ import dbConfig from './config/db.config';
 import jwtConfig from './config/jwt.config';
 import envSchema from './config/env.validator';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UtilsModule } from './utils/utils.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: configService.get('db.synchronize'),
       }),
     }),
+    UtilsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
