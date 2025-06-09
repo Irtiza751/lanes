@@ -10,7 +10,7 @@ async function bootstrap() {
     origin: allowedOrigins,
   });
 
-   /**
+  /**
    * Setting the global prefix api/endpoint
    */
   app.setGlobalPrefix('api');
