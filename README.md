@@ -8,33 +8,33 @@ A RESTful API for managing tasks with support for user authentication, task cate
 
 ## **1. Core Features**
 
-* User registration & login (JWT)
-* Create, Read, Update, Delete (CRUD) for tasks
-* Task priorities (Low, Medium, High)
-* Task status (To-do, In Progress, Done)
-* Due dates and reminders
-* Tags (optional labels for filtering)
+- User registration & login (JWT)
+- Create, Read, Update, Delete (CRUD) for tasks
+- Task priorities (Low, Medium, High)
+- Task status (To-do, In Progress, Done)
+- Due dates and reminders
+- Tags (optional labels for filtering)
 
 ---
 
 ## **2. Advanced Features**
 
-* Task sharing with other users (collaboration)
-* Real-time updates using WebSocket (e.g., Socket.io)
-* Pagination and filtering
-* Activity logs (e.g., task updated, status changed)
-* Background job for reminder notifications (e.g., using Bull or Agenda)
+- Task sharing with other users (collaboration)
+- Real-time updates using WebSocket (e.g., Socket.io)
+- Pagination and filtering
+- Activity logs (e.g., task updated, status changed)
+- Background job for reminder notifications (e.g., using Bull or Agenda)
 
 ---
 
 ## **3. Tech Stack Suggestions**
 
-* **Node.js** with **Express** or **NestJS**
-* **PostgreSQL** or **MongoDB**
-* **Redis** (for caching or WebSocket sessions)
-* **JWT** for authentication
-* **Socket.io** or **WebSockets** for real-time updates
-* **BullMQ** or **Agenda** for background jobs
+- **Node.js** with **Express** or **NestJS**
+- **PostgreSQL** or **MongoDB**
+- **Redis** (for caching or WebSocket sessions)
+- **JWT** for authentication
+- **Socket.io** or **WebSockets** for real-time updates
+- **BullMQ** or **Agenda** for background jobs
 
 ---
 
@@ -86,11 +86,11 @@ A RESTful API for managing tasks with support for user authentication, task cate
 ### **User**
 
 ```ts
-id: string
-name: string
-email: string
-password: string (hashed)
-createdAt, updatedAt
+id: string;
+name: string;
+email: string;
+password: string(hashed);
+createdAt, updatedAt;
 ```
 
 ### **Task**
@@ -111,16 +111,16 @@ createdAt, updatedAt
 ### **Tag**
 
 ```ts
-id: string
-name: string
-userId: string
+id: string;
+name: string;
+userId: string;
 ```
 
 ---
 
 ## **6. Optional Stretch Goals**
 
-* REST to GraphQL upgrade
-* Mobile app integration (with React Native or Flutter)
-* Role-based access control
-* GitHub Actions or Docker for deployment
+- REST to GraphQL upgrade
+- Mobile app integration (with React Native or Flutter)
+- Role-based access control
+- GitHub Actions or Docker for deployment
