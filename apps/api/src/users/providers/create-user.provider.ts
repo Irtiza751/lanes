@@ -11,7 +11,7 @@ export class CreateUserProvider {
     private readonly userRepository: Repository<User>,
     /**
      * @description hashing provider
-    */
+     */
     private readonly hashingProvider: HashingProvider,
   ) {}
 

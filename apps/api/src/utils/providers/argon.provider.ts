@@ -9,6 +9,6 @@ export class ArgonProvider extends HashingProvider {
   }
 
   async compare(data: string | Buffer, encrypted: string): Promise<boolean> {
-      return await argon2.verify(encrypted, data);
+    return await argon2.verify(encrypted, data);
   }
 }
