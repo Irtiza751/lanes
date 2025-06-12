@@ -9,7 +9,6 @@ async function bootstrap() {
   app.enableCors({
     origin: allowedOrigins,
   });
-
   /**
    * Setting the global prefix api/endpoint
    */
