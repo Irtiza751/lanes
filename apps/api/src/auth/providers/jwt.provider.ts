@@ -3,6 +3,7 @@ import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import jwtConfig from 'src/config/jwt.config';
 import { JwtUserPayload } from '../interfaces/jwt-user-payload';
+import { JwtUserResponse } from '../interfaces/jwt-user-response';
 
 @Injectable()
 export class JwtProvider {
@@ -32,8 +33,8 @@ export class JwtProvider {
     });
   }
 
-  public varifyToken(token: string) {
-    return this.jwtService.verifyAsync(token, {
+  public varifyAccessToken(token: string) {
+    return this.jwtService.verifyAsync<JwtUserResponse>(token, {
       secret: this.jwtConfigService.secret,
     });
   }

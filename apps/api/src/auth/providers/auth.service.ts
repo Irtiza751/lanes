@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { LoginDto } from '../dto/login.dto';
 import { UserProvider } from 'src/users/providers/user.provider';
 import { HashingProvider } from 'src/utils/providers/hashing.provider';
