@@ -3,11 +3,14 @@ import { LoginDto } from '../dto/login.dto';
 import { UserProvider } from 'src/users/providers/user.provider';
 import { HashingProvider } from 'src/utils/providers/hashing.provider';
 import { JwtProvider } from './jwt.provider';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserProvider } from 'src/users/providers/create-user.provider';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userProvider: UserProvider,
+    private readonly createUserProvider: CreateUserProvider,
     private readonly hashingProvider: HashingProvider,
     private readonly jwtProvider: JwtProvider,
   ) {}
@@ -39,5 +42,10 @@ export class AuthService {
     // remove the password from the reponse.
     delete response.password;
     return response;
+  }
+
+  public async register(createUserDto: CreateUserDto) {
+    const user = await this.createUserProvider.create(createUserDto);
+    return user;
   }
 }

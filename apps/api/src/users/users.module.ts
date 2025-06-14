@@ -11,6 +11,6 @@ import { UserProvider } from './providers/user.provider';
   controllers: [UsersController],
   providers: [UsersService, CreateUserProvider, UserProvider],
   imports: [TypeOrmModule.forFeature([User]), UtilsModule],
-  exports: [UserProvider],
+  exports: [UserProvider, CreateUserProvider],
 })
 export class UsersModule {}
