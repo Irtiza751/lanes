@@ -42,6 +42,6 @@ export class AuthService {
     const response: Partial<typeof data> = data;
     // remove the password from the reponse.
     delete response.password;
-    return response
+    return response;
   }
 }
