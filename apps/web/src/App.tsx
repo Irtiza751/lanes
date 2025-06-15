@@ -1,12 +1,19 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import AuthLayout from "./modules/auth";
+import BoardLayout from "./modules/board";
+import Login from "./modules/auth/login";
 
 const router = createBrowserRouter([
   {
     path: "",
-    element: <div>Hello World</div>,
+    Component: BoardLayout,
+    children: [
+      {
+        index: true,
+        element: <div>Home Page</div>,        
+      }
+    ]
   },
-
   {
     path: "auth",
     // element: <AuthLayout />,
@@ -15,7 +22,7 @@ const router = createBrowserRouter([
       {
         path: "login",
         index: true,
-        element: <div>Login Page</div>,
+        element: <Login />,
       }
     ]
   },
