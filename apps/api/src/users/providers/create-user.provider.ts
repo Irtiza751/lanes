@@ -13,7 +13,7 @@ export class CreateUserProvider {
      * @description hashing provider
      */
     private readonly hashingProvider: HashingProvider,
-  ) { }
+  ) {}
 
   async create(user: CreateUserDto) {
     const existingUser = await this.userRepository.findOne({
