@@ -1,13 +1,23 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
+import AuthLayout from "./modules/auth";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <div>Hello World</div>,
   },
+
   {
-    path: "/about",
-    element: <div>Hi, this is Muhammad Irtiza</div>,
+    path: "auth",
+    // element: <AuthLayout />,
+    Component: AuthLayout,
+    children: [
+      {
+        path: "login",
+        index: true,
+        element: <div>Login Page</div>,
+      }
+    ]
   },
 ]);
 
