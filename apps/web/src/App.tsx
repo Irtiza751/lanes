@@ -1,7 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
 const router = createBrowserRouter([
   {
@@ -10,12 +7,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/about",
-    element: <div>Hi, this is Muhammad Irtiza</div>
-  }
+    element: <div>Hi, this is Muhammad Irtiza</div>,
+  },
 ]);
 
 export default () => {
-  return (
-    <RouterProvider router={router} />
-  )
-}
+  return <RouterProvider router={router} />;
+};
