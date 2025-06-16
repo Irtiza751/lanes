@@ -9,6 +9,7 @@ import jwtConfig from './config/jwt.config';
 import envSchema from './config/env.validator';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UtilsModule } from './utils/utils.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UtilsModule } from './utils/utils.module';
       }),
     }),
     UtilsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
