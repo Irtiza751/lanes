@@ -1,0 +1,22 @@
+{
+  "home": {
+    "welcome": "Welcome to Sparkit Boilerplate!",
+    "description": "Build scalable apps with ease."
+  },
+  "about": {
+    "title": "About Spartkit",
+    "desc": "sparkit-boilerplate is a modern, scalable React boilerplate built on top of Vite, designed to help teams build production-grade web apps faster and more efficiently.",
+    "tech": {
+      "React + Vite": "Fast development with instant HMR and lightweight builds.",
+      "TypeScript": "Full type safety across the app.",
+      "Zustand": "Scalable and simple state management.",
+      "TanStack Query": "Powerful async data fetching and caching.",
+      "Tailwind CSS": "Utility-first styling for fast UI development.",
+      "i18n (i18next)": "Internationalization out of the box.",
+      "React Hook Form": "Performant and flexible form handling.",
+      "TanStack Router": "Type-safe and declarative routing.",
+      "Custom CLI": "Quickly scaffold components, interfaces, and classes using EJS templates."
+    },
+    "inspired": "Inspired by Ignite for React Native, this boilerplate promotes clean architecture, modular design, and a productive development experience."
+  }
+}
