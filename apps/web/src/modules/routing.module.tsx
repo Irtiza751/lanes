@@ -4,6 +4,7 @@ import Home from './home'
 import HomeLayout from '@/layouts/home.layout'
 import AuthLayout from '@/layouts/auth.layout'
 import Protected from '@/shared/components/protected'
+import { dashboardRoutes } from './dashboard/dashboard.routing'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  dashboardRoutes,
 ])
 
 export default () => {
