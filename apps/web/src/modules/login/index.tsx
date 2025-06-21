@@ -20,6 +20,11 @@ import {
 } from '@/shared/components/ui/form'
 import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
+import { api } from '@/api'
+import { LoginResponse } from './login-response.interface'
+import { AxiosError } from 'axios'
+// import { LoginError } from './login-error.interface'
 
 const loginSchema = z.object({
   email: z.string({ required_error: 'Email is required' }).email('Invalid email address'),
@@ -28,27 +33,29 @@ const loginSchema = z.object({
 
 type LoginForm = z.infer<typeof loginSchema>
 
-const user = {
-  email: 'test@test.com',
-  password: 'password',
-}
-
 export default function Login() {
-  const [showCredsError, setShowCredsError] = useState(false)
+  const [showCredsError, setShowCredsError] = useState('')
+  const navigate = useNavigate()
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   })
 
-  const onSubmit = (creds: LoginForm) => {
+  const onSubmit = async (creds: LoginForm) => {
     console.log(creds)
-    setShowCredsError(false)
-    if (creds.email === user.email && creds.password === user.password) {
-      LocalStorage.setItem('auth', true)
-      // Redirect to home page or dashboard
-    } else {
-      setShowCredsError(true)
+    setShowCredsError('')
+    try {
+      const res = await api.post<LoginResponse>('/auth/signin', creds);
+      LocalStorage.setItem('token', res.data.token);
+      LocalStorage.setItem('sessionId', res.data.id);
+      navigate('/home', { replace: true });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if(error.status === 404) {
+          setShowCredsError(error.response?.data.message)
+        }
+      }
     }
   }
 
@@ -57,7 +64,7 @@ export default function Login() {
       <Card>
         {showCredsError && (
           <div className="text-center py-2 bg-red-500 mt-3 mx-3 rounded">
-            <span>Invalid credentials</span>
+            <span>{showCredsError}</span>
           </div>
         )}
         <CardHeader>
