@@ -14,5 +14,21 @@ export const dashboardRoutes: RouteObject = {
       path: 'projects',
       element: <Projects />,
     },
+    {
+      path: 'kanban',
+      element: <div>Kanban</div>
+    },
+    {
+      path: 'tasks',
+      element: <div>Tasks</div>
+    },
+    {
+      path: 'members',
+      element: <div>Members</div>
+    },
+    {
+      path: 'plans',
+      element: <div>Plans</div>
+    },
   ],
 }

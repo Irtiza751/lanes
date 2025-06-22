@@ -1,4 +1,4 @@
-import { CheckCircle, FolderOpenDot, LayoutDashboard, SquareKanban, Users } from "lucide-react";
+import { ChartGantt, CheckCircle, FolderOpenDot, LayoutDashboard, SquareKanban, Users } from "lucide-react";
 
 export const sidebarLinks = [
   {
@@ -25,5 +25,10 @@ export const sidebarLinks = [
     title: 'Members',
     href: '/dashboard/members',
     icon: <Users size={16} />
+  },
+  {
+    title: 'Plans',
+    href: '/dashboard/plans',
+    icon: <ChartGantt size={16} />
   },
 ]
