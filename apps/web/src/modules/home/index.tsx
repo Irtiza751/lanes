@@ -6,7 +6,7 @@ function Home() {
   const { t } = useTranslation()
 
   return (
-    <div className="min-h-screen container mx-auto pt-5">
+    <div className="min-h-screen container px-4 mx-auto pt-5">
       <Helmet>
         <title>Taskmaster</title>
       </Helmet>
