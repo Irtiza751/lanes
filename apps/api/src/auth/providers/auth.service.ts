@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from '../dto/login.dto';
 import { UserProvider } from 'src/users/providers/user.provider';
 import { HashingProvider } from 'src/utils/providers/hashing.provider';
@@ -46,6 +46,14 @@ export class AuthService {
 
   public async register(createUserDto: CreateUserDto) {
     const user = await this.createUserProvider.create(createUserDto);
+    return user;
+  }
+
+  public async findUserById(id: number) {
+    const user = await this.userProvider.findById(id);
+    if(!user) {
+      throw new UnauthorizedException();
+    }
     return user;
   }
 }

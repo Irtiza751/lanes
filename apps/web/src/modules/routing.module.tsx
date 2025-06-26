@@ -5,6 +5,8 @@ import HomeLayout from '@/layouts/home.layout'
 import AuthLayout from '@/layouts/auth.layout'
 import Protected from '@/shared/components/protected'
 import { dashboardRoutes } from './dashboard/dashboard.routing'
+import { loginRoutes } from './login/login-routring.module'
+import { homeRoutes } from './home/home-routring.module'
 
 const router = createBrowserRouter([
   {
@@ -22,14 +24,17 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: 'home',
+    Component: HomeLayout,
+    children: [
+      homeRoutes
+    ],
+  },
+  {
     path: 'auth',
     Component: AuthLayout,
     children: [
-      {
-        path: 'login',
-        index: true,
-        element: <Login />,
-      },
+      loginRoutes,
     ],
   },
   dashboardRoutes,
