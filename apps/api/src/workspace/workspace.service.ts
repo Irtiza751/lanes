@@ -26,7 +26,7 @@ export class WorkspaceService {
   }
 
   findAll() {
-    return `This action returns all workspace`;
+    return this.workspaceRepository.find();
   }
 
   findOne(id: number) {
