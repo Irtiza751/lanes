@@ -4,6 +4,8 @@ import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { Repository } from 'typeorm';
 import { Workspace } from './entities/workspace.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { DuplicateException } from 'src/filters/postgres-exception/duplicate-exception';
+import { PostgresErrorCode } from 'src/filters/postgres-exception/postgres-error-codes';
 
 @Injectable()
 export class WorkspaceService {
@@ -12,9 +14,15 @@ export class WorkspaceService {
     private readonly workspaceRepository: Repository<Workspace>
   ) {}
 
-  create(createWorkspaceDto: CreateWorkspaceDto) {
-    const workspace = this.workspaceRepository.create(createWorkspaceDto);
-    return this.workspaceRepository.save(workspace);
+  async create(createWorkspaceDto: CreateWorkspaceDto) {
+    try {
+      const workspace = this.workspaceRepository.create(createWorkspaceDto);
+      return await this.workspaceRepository.save(workspace);
+    } catch (error) {
+      if(error.code === PostgresErrorCode.PG_UNIQUE_VIOLATION) {
+        throw new DuplicateException('Workspace with this name already exists');
+      }
+    }
   }
 
   findAll() {
