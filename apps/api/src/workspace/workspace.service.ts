@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { Repository } from 'typeorm';
@@ -28,19 +28,27 @@ export class WorkspaceService {
     }
   }
 
-  findAll() {
-    return this.workspaceRepository.find();
+  findAll(ownerId: number) {
+    return this.workspaceRepository.find({ where: { owner: { id: ownerId } } });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} workspace`;
+    return this.workspaceRepository.findOne({ where: { id: id } });
   }
 
-  update(id: number, updateWorkspaceDto: UpdateWorkspaceDto) {
-    return `This action updates a #${id} workspace`;
+  async update(id: number, updateWorkspaceDto: UpdateWorkspaceDto) {
+    const result = await this.workspaceRepository.update(id, updateWorkspaceDto);
+    if(result.affected === 0) {
+      throw new NotFoundException(`Workspace with ID ${id} not found`);
+    }
+    return {success: true, message: 'Workspace updated successfully'};
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} workspace`;
+  async remove(id: number) {
+    const result = await this.workspaceRepository.delete(id);
+    if(result.affected === 0) {
+      throw new NotFoundException(`Workspace with ID ${id} not found`);
+    }
+    return {success: true, message: 'Workspace deleted successfully'};
   }
 }
