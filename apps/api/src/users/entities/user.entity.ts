@@ -1,7 +1,10 @@
+import { Workspace } from 'src/workspace/entities/workspace.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -32,6 +35,10 @@ export class User {
     length: 100,
   })
   password: string;
+
+  @OneToMany(() => Workspace, (workspace) => workspace.owner)
+  @JoinColumn()
+  workspaces: Workspace[];
 
   @CreateDateColumn({
     name: 'created_at',
