@@ -12,14 +12,17 @@ export class WorkspaceService {
   constructor(
     @InjectRepository(Workspace)
     private readonly workspaceRepository: Repository<Workspace>
-  ) {}
+  ) { }
 
   async create(createWorkspaceDto: CreateWorkspaceDto) {
     try {
-      const workspace = this.workspaceRepository.create(createWorkspaceDto);
+      const workspace = this.workspaceRepository.create({
+        ...createWorkspaceDto,
+        owner: { id: createWorkspaceDto.ownerId }
+      });
       return await this.workspaceRepository.save(workspace);
     } catch (error) {
-      if(error.code === PostgresErrorCode.PG_UNIQUE_VIOLATION) {
+      if (error.code === PostgresErrorCode.PG_UNIQUE_VIOLATION) {
         throw new DuplicateException('Workspace with this name already exists');
       }
     }

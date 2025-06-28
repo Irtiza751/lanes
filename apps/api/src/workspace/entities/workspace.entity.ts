@@ -1,5 +1,5 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Workspace {
@@ -31,7 +31,8 @@ export class Workspace {
   })
   logoUrl?: string;
 
-  @ManyToOne(() => User, (user) => user.workspaces)
+  @ManyToOne(() => User, (user) => user.workspaces, { cascade: true })
+  @JoinColumn({ name: 'owner_id' })
   owner: User;
 
   @CreateDateColumn({

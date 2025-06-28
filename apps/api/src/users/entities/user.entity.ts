@@ -37,7 +37,6 @@ export class User {
   password: string;
 
   @OneToMany(() => Workspace, (workspace) => workspace.owner)
-  @JoinColumn()
   workspaces: Workspace[];
 
   @CreateDateColumn({
