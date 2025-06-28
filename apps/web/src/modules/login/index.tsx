@@ -46,13 +46,13 @@ export default function Login() {
     console.log(creds)
     setShowCredsError('')
     try {
-      const res = await api.post<LoginResponse>('/auth/signin', creds);
-      LocalStorage.setItem('token', res.data.token);
-      LocalStorage.setItem('sessionId', res.data.id);
-      navigate('/dashboard', { replace: true });
+      const res = await api.post<LoginResponse>('/auth/signin', creds)
+      LocalStorage.setItem('token', res.data.token)
+      LocalStorage.setItem('sessionId', res.data.id)
+      navigate('/dashboard', { replace: true })
     } catch (error) {
       if (error instanceof AxiosError) {
-        if(error.status === 404) {
+        if (error.status === 404) {
           setShowCredsError(error.response?.data.message)
         }
       }

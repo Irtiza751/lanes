@@ -9,16 +9,12 @@ const router = createBrowserRouter([
   {
     path: '',
     Component: HomeLayout,
-    children: [
-      homeRoutes
-    ],
+    children: [homeRoutes],
   },
   {
     path: 'auth',
     Component: AuthLayout,
-    children: [
-      loginRoutes,
-    ],
+    children: [loginRoutes],
   },
   dashboardRoutes,
 ])

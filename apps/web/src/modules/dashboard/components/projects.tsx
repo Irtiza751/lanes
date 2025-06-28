@@ -32,7 +32,7 @@ export function Projects() {
 
   return (
     <div>
-      <h2 className='text-lg font-semibold'>Projects</h2>
+      <h2 className="text-lg font-semibold">Projects</h2>
       <Table>
         <TableCaption>List of all you projects.</TableCaption>
         <TableHeader>
@@ -44,7 +44,7 @@ export function Projects() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {projects.map(project => (
+          {projects.map((project) => (
             <TableRow>
               <TableCell className="font-medium">{project.id}</TableCell>
               <TableCell className="font-medium">{project.name}</TableCell>
