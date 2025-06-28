@@ -1,13 +1,21 @@
-import { Guard } from '@/types/Guard'
+import { api } from '@/api';
 import { LocalStorage } from './LocalStorage'
-import { redirect } from '@tanstack/react-router'
+import { redirect } from 'react-router'
 
-class AuthGuard implements Guard {
-  resolve(): boolean {
-    const token = LocalStorage.getItem('auth')
-    if (token) return true
-    throw redirect({ to: '/login' })
+export class AuthGuard {
+  static async resolve() {
+    const token = LocalStorage.getItem<string>('token');
+    const sessionId = LocalStorage.getItem<number>('sessionId');
+    if (token) {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      try {
+        const res = await api.get(`/users/${sessionId}`);
+        return res.data;
+      } catch (error) {
+        LocalStorage.delete('id', 'token');
+        return redirect('/auth/login')
+      }
+    }
+    return redirect('/auth/login')
   }
 }
-
-export const authGuard = new AuthGuard()
