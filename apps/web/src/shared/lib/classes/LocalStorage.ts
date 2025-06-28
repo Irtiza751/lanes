@@ -12,14 +12,14 @@ export class LocalStorage {
   }
 
   public static deleteItem(key: string): void {
-    localStorage.removeItem(key);
+    localStorage.removeItem(key)
   }
 
   public static deleteAll(): void {
-    localStorage.clear();
+    localStorage.clear()
   }
 
   public static delete(...keys: string[]): void {
-    keys.forEach(key => localStorage.removeItem(key));
+    keys.forEach((key) => localStorage.removeItem(key))
   }
 }
