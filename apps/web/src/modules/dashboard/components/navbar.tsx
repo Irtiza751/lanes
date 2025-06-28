@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avat
 import { Button } from '@/shared/components/ui/button'
 import { Input } from '@/shared/components/ui/input'
 import { cn } from '@/shared/lib/cn'
-import { Bell, PanelLeftClose, Plus, Search, Settings } from 'lucide-react'
+import { Bell, PanelLeftClose, Plus, Settings } from 'lucide-react'
 import { Link } from 'react-router'
 
 interface NavbarProps extends Partial<HTMLDivElement> {}
@@ -17,8 +17,8 @@ export function Navbar({ className }: NavbarProps) {
             <PanelLeftClose />
           </Button>
           <h4 className="text-xl">
-            <Link className="font-semibold text-primary" to="/dashboard/projects">
-              Taskmaster
+            <Link className='block w-32' to="/dashboard/projects">
+              <img src='src/assets/taskmaster.png' alt="Taskmaster" />
             </Link>
           </h4>
         </div>
