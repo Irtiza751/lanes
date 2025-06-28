@@ -10,7 +10,7 @@ interface NavbarProps extends Partial<HTMLDivElement> {}
 export function Navbar({ className }: NavbarProps) {
   return (
     <nav className={cn('border-b', className)}>
-      <div className="flex items-center justify-between gap-2 container px-4 py-2 mx-auto">
+      <div className="flex items-center justify-between gap-2 px-4 py-2 mx-auto">
         {/* logo and sidebar toggler */}
         <div className="flex items-center gap-2">
           <Button size="icon" variant="ghost">
