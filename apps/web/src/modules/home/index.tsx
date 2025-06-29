@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className="min-h-screen container px-4 mx-auto pt-5">
       <Helmet>
-        <title>Taskmaster</title>
+        <title>Taskmaster | Home</title>
       </Helmet>
       <div className="pt-6 mb-5">
         <h1 className="text-5xl font-bold">{t('home.welcome')}</h1>
