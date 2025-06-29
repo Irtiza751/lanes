@@ -8,7 +8,10 @@ export const dashboardRoutes: RouteObject = {
   children: [
     {
       index: true,
-      element: <div>Dashboard</div>,
+      element: <div>
+        <h2>Dashboard</h2>
+        <p>It will display all the projects as cards</p>
+      </div>,
     },
     {
       path: 'projects',
