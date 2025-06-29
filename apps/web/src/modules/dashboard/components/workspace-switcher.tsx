@@ -6,15 +6,15 @@ import { useState } from "react";
 const WORKSPACES = [
   {
     name: 'My Workspace',
-    image: 'https://www.gradvatar.com/MyWorkspace1',
+    image: '',
   },
   {
     name: 'Shispare',
-    image: 'https://www.gradvatar.com/MyWorkspace2',
+    image: '',
   },
   {
     name: 'Sphere WMS',
-    image: 'https://www.gradvatar.com/MyWorkspace3',
+    image: '',
   },
 ]
 
@@ -26,7 +26,9 @@ export function WorkspaceSwitcher() {
         <div className="cursor-pointer bg-foreground/10 rounded-md p-2 flex gap-2 items-center mb-2">
           <Avatar className="rounded-md">
             <AvatarImage src={selectedWorkspace.image} alt="Irtiza" />
-            <AvatarFallback className="rounded-md">MI</AvatarFallback>
+            <AvatarFallback className="rounded-md bg-primary text-white">
+              {selectedWorkspace.name.charAt(0)}
+            </AvatarFallback>
           </Avatar>
           <h5 className="flex-1 trucate font-semibold">{selectedWorkspace.name}</h5>
           <ChevronsUpDown size={14} />
