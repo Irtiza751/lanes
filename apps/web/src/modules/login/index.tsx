@@ -61,7 +61,8 @@ export default function Login() {
 
   return (
     <div className="flex flex-col gap-6">
-      <Card>
+      <Card className='w-md'>
+        {/* error */}
         {showCredsError && (
           <div className="text-center py-2 bg-red-500 mt-3 mx-3 rounded">
             <span>{showCredsError}</span>

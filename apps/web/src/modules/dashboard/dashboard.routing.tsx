@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router'
 import DashboardLayout from '.'
 import { Projects } from './components/projects'
+import { AuthGuard } from '@/shared/lib/classes/AuthGuard'
 
 export const dashboardRoutes: RouteObject = {
   path: 'dashboard',
@@ -12,6 +13,7 @@ export const dashboardRoutes: RouteObject = {
         <h2>Dashboard</h2>
         <p>It will display all the projects as cards</p>
       </div>,
+      loader: AuthGuard.resolve,
     },
     {
       path: 'projects',
