@@ -46,13 +46,13 @@ export default function Login() {
     console.log(creds)
     setShowCredsError('')
     try {
-      const res = await api.post<LoginResponse>('/auth/signin', creds);
-      LocalStorage.setItem('token', res.data.token);
-      LocalStorage.setItem('sessionId', res.data.id);
-      navigate('/home', { replace: true });
+      const res = await api.post<LoginResponse>('/auth/signin', creds)
+      LocalStorage.setItem('token', res.data.token)
+      LocalStorage.setItem('sessionId', res.data.id)
+      navigate('/dashboard', { replace: true })
     } catch (error) {
       if (error instanceof AxiosError) {
-        if(error.status === 404) {
+        if (error.status === 404) {
           setShowCredsError(error.response?.data.message)
         }
       }
@@ -61,7 +61,8 @@ export default function Login() {
 
   return (
     <div className="flex flex-col gap-6">
-      <Card>
+      <Card className='w-md'>
+        {/* error */}
         {showCredsError && (
           <div className="text-center py-2 bg-red-500 mt-3 mx-3 rounded">
             <span>{showCredsError}</span>
