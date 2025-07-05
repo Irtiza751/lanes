@@ -1,7 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/shared/components/ui/dropdown";
-import { ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/shared/components/ui/dropdown'
+import { ChevronsUpDown } from 'lucide-react'
+import { useState } from 'react'
 
 const WORKSPACES = [
   {
@@ -19,7 +26,7 @@ const WORKSPACES = [
 ]
 
 export function WorkspaceSwitcher() {
-  const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0]);
+  const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0])
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -34,10 +41,10 @@ export function WorkspaceSwitcher() {
           <ChevronsUpDown size={14} />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='start' className="w-[240px]">
+      <DropdownMenuContent align="start" className="w-[240px]">
         <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {WORKSPACES.map(workspace => (
+        {WORKSPACES.map((workspace) => (
           <DropdownMenuItem key={workspace.name} onClick={() => setSelectedWorkspace(workspace)}>
             <Avatar className="rounded-md">
               <AvatarImage src={workspace.image} alt="Irtiza" />

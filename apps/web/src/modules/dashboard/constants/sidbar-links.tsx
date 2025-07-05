@@ -1,8 +1,4 @@
-import {
-  CheckCircle,
-  LayoutDashboard,
-  Users,
-} from 'lucide-react'
+import { CheckCircle, LayoutDashboard, Users } from 'lucide-react'
 
 export const sidebarLinks = [
   {

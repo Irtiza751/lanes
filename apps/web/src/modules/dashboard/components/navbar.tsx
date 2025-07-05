@@ -17,8 +17,8 @@ export function Navbar({ className }: NavbarProps) {
             <PanelLeftClose />
           </Button>
           <h4 className="text-xl">
-            <Link className='block w-32' to="/dashboard/projects">
-              <img src='src/assets/taskmaster.png' alt="Taskmaster" />
+            <Link className="block w-32" to="/dashboard/projects">
+              <img src="src/assets/taskmaster.png" alt="Taskmaster" />
             </Link>
           </h4>
         </div>

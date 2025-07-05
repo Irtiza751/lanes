@@ -7,7 +7,7 @@ function Home() {
       <Helmet>
         <title>Taskmaster | Home</title>
       </Helmet>
-      
+
       <Button>Hi there</Button>
     </div>
   )
