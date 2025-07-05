@@ -1,3 +1,4 @@
+import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-switcher'
 import { Logo } from '@/shared/components/ui/logo'
 import { Separator } from '@/shared/components/ui/seperator'
 import { cn } from '@/shared/lib/cn'
@@ -60,6 +61,7 @@ export function Sidebar() {
         <Logo size={26} />
       </div>
       <nav>
+        <WorkspaceSwitcher />
         <ul>
           {menus.map((menu) => (
             <li key={menu.name} className="mb-2">

@@ -30,10 +30,10 @@ export function WorkspaceSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer bg-foreground/10 rounded-md px-2 py-2 flex gap-2 items-center mb-2">
+        <div className="cursor-pointer bg-foreground/5 hover:bg-foreground/8 rounded-md px-2 py-2 flex gap-2 items-center mb-2">
           <Avatar className="rounded-md">
             <AvatarImage src={selectedWorkspace.image} alt="Irtiza" />
-            <AvatarFallback className="rounded-md bg-primary text-white">
+            <AvatarFallback className="rounded-md bg-orange-500 text-white">
               {selectedWorkspace.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
