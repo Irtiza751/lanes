@@ -49,7 +49,7 @@ export default function Login() {
       const res = await api.post<LoginResponse>('/auth/signin', creds)
       LocalStorage.setItem('token', res.data.token)
       LocalStorage.setItem('sessionId', res.data.id)
-      navigate('/dashboard', { replace: true })
+      navigate('/home', { replace: true })
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.status === 404) {
