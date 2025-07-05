@@ -30,7 +30,7 @@ export function WorkspaceSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer bg-foreground/10 rounded-md p-2 flex gap-2 items-center mb-2">
+        <div className="cursor-pointer bg-foreground/10 rounded-md px-2 py-2 flex gap-2 items-center mb-2">
           <Avatar className="rounded-md">
             <AvatarImage src={selectedWorkspace.image} alt="Irtiza" />
             <AvatarFallback className="rounded-md bg-primary text-white">
@@ -41,7 +41,7 @@ export function WorkspaceSwitcher() {
           <ChevronsUpDown size={14} />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-[240px]">
+      <DropdownMenuContent align="start" className="w-[255px]">
         <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {WORKSPACES.map((workspace) => (
