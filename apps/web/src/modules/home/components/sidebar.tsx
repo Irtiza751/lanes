@@ -62,7 +62,7 @@ const menus = [
 
 export function Sidebar() {
   return (
-    <aside className="min-h-screen inline-block w-2xs bg-secondary p-4">
+    <aside className="inline-block w-2xs bg-background p-4">
       <div className="flex justify-between items-center mb-5">
         <Logo size={26} />
       </div>
@@ -70,7 +70,7 @@ export function Sidebar() {
         <ul>
           {menus.map((menu) => (
             <li key={menu.name} className="mb-2">
-              <div className="flex items-center mb-2">
+              <div className="flex items-center mb-2 hover:bg-muted cursor-pointer p-1 rounded-md">
                 <span className="flex-1 uppercase text-xs text-muted-foreground">{menu.name}</span>
                 <ChevronDown size={12} className="text-muted-foreground" />
               </div>
