@@ -1,16 +1,16 @@
 import { Link } from 'react-router'
 
 interface LogoProps {
-  color?: string;
-  size?: number;
+  color?: string
+  size?: number
 }
 
 export function Logo({ color = 'var(--primary)', size = 10 }: LogoProps) {
-  const width = 182;
-  const height = 40;
-  const aspectRatio = width / height;
-  const svgHeight = size;
-  const svgWidth = size * aspectRatio;
+  const width = 182
+  const height = 40
+  const aspectRatio = width / height
+  const svgHeight = size
+  const svgWidth = size * aspectRatio
 
   return (
     <Link className="block w-32" to="/">

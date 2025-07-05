@@ -1,17 +1,8 @@
 import { Logo } from '@/shared/components/ui/logo'
 import { Separator } from '@/shared/components/ui/seperator'
-import {
-  CheckCircle,
-  ChevronDown,
-  ChevronLeft,
-  Files,
-  Folder,
-  FolderArchive,
-  Home,
-  PanelLeftClose,
-  Users,
-} from 'lucide-react'
-import { Link } from 'react-router'
+import { cn } from '@/shared/lib/cn'
+import { Box, CheckCircle, ChevronDown, Files, FolderArchive, Home, Users } from 'lucide-react'
+import { Link, useLocation } from 'react-router'
 
 const menus = [
   {
@@ -54,13 +45,15 @@ const menus = [
       {
         name: 'Projects',
         href: '/projects', // list of all projects assigned to you.
-        icon: <Folder size={15} />,
+        icon: <Box size={15} />,
       },
     ],
   },
 ]
 
 export function Sidebar() {
+  const location = useLocation()
+
   return (
     <aside className="inline-block w-2xs bg-background p-4">
       <div className="flex justify-between items-center mb-5">
@@ -79,7 +72,10 @@ export function Sidebar() {
                 menu.children.map((item) => (
                   <Link
                     key={item.name}
-                    className="flex items-center gap-2 py-2 px-1"
+                    className={cn(
+                      'flex items-center gap-2 py-2 px-1 hover:bg-muted rounded-md mb-2',
+                      { 'bg-muted': location.pathname === item.href },
+                    )}
                     to={item.href}
                   >
                     {item.icon}
