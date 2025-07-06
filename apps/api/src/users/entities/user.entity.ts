@@ -1,9 +1,9 @@
+import { Project } from 'src/projects/entities/project.entity';
 import { Workspace } from 'src/workspace/entities/workspace.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -38,6 +38,9 @@ export class User {
 
   @OneToMany(() => Workspace, (workspace) => workspace.owner)
   workspaces: Workspace[];
+
+  @OneToMany(() => Project, (project) => project.creator)
+  projects: Project[];
 
   @CreateDateColumn({
     name: 'created_at',
