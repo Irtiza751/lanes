@@ -5,4 +5,5 @@ export interface SideNav {
   href: string
   icon: React.ReactNode
   children?: SideNav[]
+  options?: SideNav[]
 }

@@ -1,4 +1,4 @@
-import { Box, Inbox, Target } from 'lucide-react'
+import { Box, Inbox, ListTodo, RefreshCcwDot, Split, Target, Users } from 'lucide-react'
 import { SideNav } from '../models/side-nav'
 
 export const sideLinks: SideNav[] = [
@@ -28,26 +28,33 @@ export const sideLinks: SideNav[] = [
         name: 'Waredrop',
         href: '/',
         icon: <Box size={15} color='red'/>,
+        options: [
+          {
+            name: 'Settings',
+            href: '/',
+            icon: null,
+          }
+        ],
         children: [
           {
             name: 'Tasks',
             href: '/',
-            icon: null,
+            icon: <ListTodo size={15} />,
           },
           {
             name: 'Epics',
             href: '/',
-            icon: null,
+            icon: <Split size={15} />,
           },
           {
             name: 'Members',
             href: '/',
-            icon: null,
+            icon: <Users size={14}/>,
           },
           {
             name: 'sprints',
             href: '/',
-            icon: null,
+            icon: <RefreshCcwDot size={15}/>,
           },
         ]
       },
@@ -55,6 +62,35 @@ export const sideLinks: SideNav[] = [
         name: 'Taskmaster',
         href: '/',
         icon: <Box size={15} color='green'/>,
+        options: [
+          {
+            name: 'Settings',
+            href: '/',
+            icon: null,
+          }
+        ],
+        children: [
+          {
+            name: 'Tasks',
+            href: '/',
+            icon: <ListTodo size={15} />,
+          },
+          {
+            name: 'Epics',
+            href: '/',
+            icon: <Split size={15} />,
+          },
+          {
+            name: 'Members',
+            href: '/',
+            icon: <Users size={14}/>,
+          },
+          {
+            name: 'sprints',
+            href: '/',
+            icon: <RefreshCcwDot size={15}/>,
+          },
+        ]
       },
     ]
   },
