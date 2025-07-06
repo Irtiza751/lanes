@@ -1,5 +1,5 @@
 import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-switcher'
-import { Logo } from '@/shared/components/ui/logo'
+// import { Logo } from '@/shared/components/ui/logo'
 import { Separator } from '@/shared/components/ui/seperator'
 import { cn } from '@/shared/lib/cn'
 import { Box, CheckCircle, ChevronDown, Files, FolderArchive, Home, Users } from 'lucide-react'
@@ -56,16 +56,16 @@ export function Sidebar() {
   const location = useLocation()
 
   return (
-    <aside className="inline-block w-2xs p-4">
-      <div className="flex justify-between items-center mb-5">
-        <Logo size={26} />
-      </div>
-      <nav>
+    <aside className="inline-block w-2xs">
+      <div className="flex justify-between items-center mb-2 px-4 pt-2">
+        {/* <Logo size={26} /> */}
         <WorkspaceSwitcher />
+      </div>
+      <nav className='px-4'>
         <ul>
           {menus.map((menu) => (
             <li key={menu.name} className="mb-2">
-              <div className="flex items-center mb-2 hover:bg-muted cursor-pointer p-1 rounded-md">
+              <div className="flex items-center mb-2 hover:bg-foreground/5 cursor-pointer py-1 px-2 rounded-md">
                 <span className="flex-1 uppercase text-xs text-muted-foreground">{menu.name}</span>
                 <ChevronDown size={12} className="text-muted-foreground" />
               </div>
@@ -75,8 +75,8 @@ export function Sidebar() {
                   <Link
                     key={item.name}
                     className={cn(
-                      'flex items-center gap-2 py-2 px-1 hover:bg-muted rounded-md mb-2',
-                      { 'bg-muted': location.pathname === item.href },
+                      'flex items-center gap-2 py-1 px-2 hover:bg-foreground/5 rounded-md mb-2',
+                      { 'bg-foreground/5': location.pathname === item.href },
                     )}
                     to={item.href}
                   >
