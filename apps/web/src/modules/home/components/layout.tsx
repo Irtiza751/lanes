@@ -14,11 +14,11 @@ export default function HomeLayout() {
           <div className="flex-1 flex items-center gap-2">
             <Button
               size="sicon"
-              variant="outline"
+              variant="secondary"
               className="shadow-none bg-transparent"
               onClick={() => toggleSidebar()}
             >
-              <PanelLeft size={20} className="text-lg" />
+              <PanelLeft className="text-lg text-muted-foreground" />
             </Button>
             <h2 className="text-md font-semibold">Home</h2>
           </div>

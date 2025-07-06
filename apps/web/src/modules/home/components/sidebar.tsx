@@ -3,7 +3,7 @@ import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-swit
 import { Separator } from '@/shared/components/ui/seperator'
 import { cn } from '@/shared/lib/cn'
 import { useAppStore } from '@/stores/use-app-store'
-import { Box, CheckCircle, ChevronDown, Files, FolderArchive, Home, Users } from 'lucide-react'
+import { Box, ChevronDown, Crosshair, Inbox } from 'lucide-react'
 import { Link, useLocation } from 'react-router'
 
 const menus = [
@@ -13,41 +13,38 @@ const menus = [
     icon: '',
     children: [
       {
-        name: 'Home',
+        name: 'Messages',
         href: '/home',
-        icon: <Home size={15} />, // main home page, with project stats etc..
+        icon: <Inbox size={15} />, // list of task assigned to the logedin in user
       },
       {
         name: 'My Tasks',
         href: '/tasks',
-        icon: <CheckCircle size={15} />, // list of task assigned to the logedin in user
-      },
-      {
-        name: 'Docments',
-        href: '/documents',
-        icon: <Files size={15} />, // project specific documentation
+        icon: <Crosshair size={15} />, // list of task assigned to the logedin in user
       },
     ],
   },
   {
-    name: 'My Workspace', // this should be the active workspace name
+    name: 'Workspace', // this should be the active workspace name
     href: '',
     icon: '',
     children: [
       {
-        name: 'Teams',
-        href: '/teams',
-        icon: <Users size={15} />, // table of team member management on a project(s)
-      },
-      {
-        name: 'Archive',
-        href: '/archive',
-        icon: <FolderArchive size={15} />, // list archived tasks
-      },
-      {
         name: 'Projects',
         href: '/projects', // list of all projects assigned to you.
         icon: <Box size={15} />,
+        children: [
+          {
+            name: 'Issues',
+            href: '/',
+            icon: '',
+          },
+          {
+            name: 'Members',
+            href: '/',
+            icon: '',
+          },
+        ],
       },
     ],
   },

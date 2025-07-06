@@ -73,7 +73,9 @@ export default function Login() {
         )}
         <CardHeader>
           <CardTitle className="text-2xl text-center">Welcome back</CardTitle>
-          <CardDescription className='text-center'>Login with your Google account or enter your email bellow</CardDescription>
+          <CardDescription className="text-center">
+            Login with your Google account or enter your email bellow
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

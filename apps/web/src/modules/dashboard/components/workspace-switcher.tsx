@@ -32,7 +32,7 @@ const WORKSPACES = [
 
 export function WorkspaceSwitcher() {
   const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0])
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <DropdownMenu>
@@ -72,10 +72,12 @@ export function WorkspaceSwitcher() {
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => {
-          LocalStorage.delete('token');
-          navigate('/auth/login')
-        }}>
+        <DropdownMenuItem
+          onClick={() => {
+            LocalStorage.delete('token')
+            navigate('/auth/login')
+          }}
+        >
           <span>Logout</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
