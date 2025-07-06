@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router'
 import { Sidebar } from './sidebar'
 import { Button } from '@/shared/components/ui/button'
-import { PanelLeft, Plus, Search } from 'lucide-react'
+import { PanelLeft } from 'lucide-react'
 import { useAppStore } from '@/stores/use-app-store'
 
 export default function HomeLayout() {

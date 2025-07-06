@@ -24,6 +24,8 @@ import { useNavigate } from 'react-router'
 import { api } from '@/api'
 import { LoginResponse } from './login-response.interface'
 import { AxiosError } from 'axios'
+import { SeperatorWithText } from '@/shared/components/ui/seperator-with-text'
+import { Logo } from '@/shared/components/ui/logo'
 // import { LoginError } from './login-error.interface'
 
 const loginSchema = z.object({
@@ -60,8 +62,9 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <Card className="w-md">
+    <div className="flex flex-col gap-6 items-center">
+      <Logo size={35} />
+      <Card className="w-md shadow-none">
         {/* error */}
         {showCredsError && (
           <div className="text-center py-2 bg-red-500 mt-3 mx-3 rounded">
@@ -69,13 +72,17 @@ export default function Login() {
           </div>
         )}
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>Enter your email below to login to your account</CardDescription>
+          <CardTitle className="text-2xl text-center">Welcome back</CardTitle>
+          <CardDescription className='text-center'>Login with your Google account or enter your email bellow</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-6">
+                <Button variant="secondary" size="lg" className="shadow-none w-full">
+                  <span>Login with Google</span>
+                </Button>
+                <SeperatorWithText>Or continue with</SeperatorWithText>
                 <FormField
                   control={form.control}
                   name="email"
@@ -102,11 +109,8 @@ export default function Login() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" size="lg" className="w-full">
                   Login
-                </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
