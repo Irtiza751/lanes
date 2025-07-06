@@ -11,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UtilsModule } from './utils/utils.module';
 import { AuthModule } from './auth/auth.module';
 import { WorkspaceModule } from './workspace/workspace.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
     UtilsModule,
     AuthModule,
     WorkspaceModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
