@@ -55,15 +55,19 @@ const menus = [
 
 export function Sidebar() {
   const location = useLocation()
-  const showSidebar = useAppStore(state => state.showSidebar);
+  const showSidebar = useAppStore((state) => state.showSidebar)
 
   return (
-    <aside className={cn("inline-block w-0 overflow-hidden transition-[width]", { 'w-2xs': showSidebar })}>
+    <aside
+      className={cn('inline-block w-0 overflow-hidden transition-[width]', {
+        'w-2xs': showSidebar,
+      })}
+    >
       <div className="flex justify-between items-center mb-2 px-4 pt-3">
         {/* <Logo size={26} /> */}
         <WorkspaceSwitcher />
       </div>
-      <nav className='px-4'>
+      <nav className="px-4">
         <ul>
           {menus.map((menu) => (
             <li key={menu.name} className="mb-2">
