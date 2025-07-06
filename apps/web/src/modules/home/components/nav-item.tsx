@@ -39,14 +39,14 @@ export function NavItem({ item: menu, level = 0 }: NavItemProps) {
           <Link
             key={item.name}
             className={cn(
-              'flex items-center gap-2 py-1 px-2 hover:bg-foreground/5 rounded-md mb-2 text-foreground',
+              'flex items-center gap-2 py-1 px-2 hover:bg-foreground/5 rounded-md mb-2',
               { 'bg-foreground/5': location.pathname === item.href },
               level > 0 && "ml-2"
             )}
             to={item.href}
           >
             {item.icon}
-            {item.name}
+            <span className="text-foreground">{item.name}</span>
           </Link>
         )
       )}

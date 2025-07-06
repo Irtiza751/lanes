@@ -9,7 +9,7 @@ export default function HomeLayout() {
   return (
     <div className="dark:bg-background bg-secondary min-h-screen text-sm flex">
       <Sidebar />
-      <main className="dark:bg-secondary bg-background border m-2 rounded-lg shadow-sm flex-1 border">
+      <main className="dark:bg-secondary/20 bg-background border m-2 rounded-md shadow-sm flex-1 border">
         <header className="flex gap-2 px-4 py-2 border-b border-input">
           <div className="flex-1 flex items-center gap-2">
             <Button
