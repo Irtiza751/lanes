@@ -3,52 +3,9 @@ import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-swit
 import { Separator } from '@/shared/components/ui/seperator'
 import { cn } from '@/shared/lib/cn'
 import { useAppStore } from '@/stores/use-app-store'
-import { Box, ChevronDown, Crosshair, Inbox } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { Link, useLocation } from 'react-router'
-
-const menus = [
-  {
-    name: 'General',
-    href: '',
-    icon: '',
-    children: [
-      {
-        name: 'Messages',
-        href: '/home',
-        icon: <Inbox size={15} />, // list of task assigned to the logedin in user
-      },
-      {
-        name: 'My Tasks',
-        href: '/tasks',
-        icon: <Crosshair size={15} />, // list of task assigned to the logedin in user
-      },
-    ],
-  },
-  {
-    name: 'Workspace', // this should be the active workspace name
-    href: '',
-    icon: '',
-    children: [
-      {
-        name: 'Projects',
-        href: '/projects', // list of all projects assigned to you.
-        icon: <Box size={15} />,
-        children: [
-          {
-            name: 'Issues',
-            href: '/',
-            icon: '',
-          },
-          {
-            name: 'Members',
-            href: '/',
-            icon: '',
-          },
-        ],
-      },
-    ],
-  },
-]
+import { sideLinks } from '../constants/side-links'
 
 export function Sidebar() {
   const location = useLocation()
@@ -66,7 +23,7 @@ export function Sidebar() {
       </div>
       <nav className="px-4">
         <ul>
-          {menus.map((menu) => (
+          {sideLinks.map((menu) => (
             <li key={menu.name} className="mb-2">
               <div className="flex items-center mb-2 hover:bg-foreground/5 cursor-pointer py-1 px-2 rounded-md">
                 <span className="flex-1 uppercase text-xs text-muted-foreground">{menu.name}</span>

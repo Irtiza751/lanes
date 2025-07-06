@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown'
 import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
-import { ChevronDown, Settings, User, Users } from 'lucide-react'
+import { ChevronDown, LogOut, Settings, User, Users } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
@@ -78,6 +78,7 @@ export function WorkspaceSwitcher() {
             navigate('/auth/login')
           }}
         >
+          <LogOut />
           <span>Logout</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
