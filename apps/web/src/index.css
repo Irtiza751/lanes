@@ -12,6 +12,7 @@
 * current theme: "Claude"
 */
 :root {
+  font-size: 15px;
   --background: oklch(0.9900 0 0);
   --foreground: oklch(0 0 0);
   --card: oklch(1 0 0);

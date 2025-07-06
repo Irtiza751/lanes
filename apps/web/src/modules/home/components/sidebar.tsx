@@ -2,6 +2,7 @@ import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-swit
 // import { Logo } from '@/shared/components/ui/logo'
 import { Separator } from '@/shared/components/ui/seperator'
 import { cn } from '@/shared/lib/cn'
+import { useAppStore } from '@/stores/use-app-store'
 import { Box, CheckCircle, ChevronDown, Files, FolderArchive, Home, Users } from 'lucide-react'
 import { Link, useLocation } from 'react-router'
 
@@ -54,10 +55,11 @@ const menus = [
 
 export function Sidebar() {
   const location = useLocation()
+  const showSidebar = useAppStore(state => state.showSidebar);
 
   return (
-    <aside className="inline-block w-2xs">
-      <div className="flex justify-between items-center mb-2 px-4 pt-2">
+    <aside className={cn("inline-block w-0 overflow-hidden transition-[width]", { 'w-2xs': showSidebar })}>
+      <div className="flex justify-between items-center mb-2 px-4 pt-3">
         {/* <Logo size={26} /> */}
         <WorkspaceSwitcher />
       </div>
