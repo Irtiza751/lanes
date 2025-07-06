@@ -56,7 +56,7 @@ export function Sidebar() {
   const location = useLocation()
 
   return (
-    <aside className="inline-block w-2xs bg-background p-4">
+    <aside className="inline-block w-2xs p-4">
       <div className="flex justify-between items-center mb-5">
         <Logo size={26} />
       </div>
