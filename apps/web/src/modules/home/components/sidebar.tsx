@@ -49,7 +49,6 @@ const menus = [
   },
 ]
 
-
 export function Sidebar() {
   return (
     <aside className="min-h-screen inline-block w-2xs bg-secondary p-4">

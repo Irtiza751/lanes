@@ -1,5 +1,6 @@
+import { Project } from "src/projects/entities/project.entity";
 import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn, UpdateDateColumn, OneToMany } from "typeorm";
 
 @Entity()
 export class Workspace {
@@ -34,6 +35,10 @@ export class Workspace {
   @ManyToOne(() => User, (user) => user.workspaces, { cascade: true })
   @JoinColumn({ name: 'owner_id' })
   owner: User;
+
+  @OneToMany(() => Project, (project) => project.workspace)
+  @JoinColumn()
+  projects: Project[]
 
   @CreateDateColumn({
     name: 'created_at',
