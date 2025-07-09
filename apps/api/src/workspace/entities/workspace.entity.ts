@@ -1,6 +1,15 @@
+import { User } from 'src/users/entities/user.entity';
 import { Project } from "src/projects/entities/project.entity";
-import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn, UpdateDateColumn, OneToMany } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Workspace {
@@ -28,7 +37,7 @@ export class Workspace {
     nullable: true,
     length: 255,
     default: null,
-    name: 'logo_url'
+    name: 'logo_url',
   })
   logoUrl?: string;
 

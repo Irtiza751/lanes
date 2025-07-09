@@ -3,11 +3,11 @@ import { Helmet } from 'react-helmet-async'
 
 function Home() {
   return (
-    <div className="min-h-screen container px-4 mx-auto pt-5">
+    <div className="px-4 mx-auto pt-5">
       <Helmet>
         <title>Taskmaster | Home</title>
       </Helmet>
-      
+
       <Button>Hi there</Button>
     </div>
   )

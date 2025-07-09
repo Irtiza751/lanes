@@ -49,7 +49,7 @@ export default function Login() {
       const res = await api.post<LoginResponse>('/auth/signin', creds)
       LocalStorage.setItem('token', res.data.token)
       LocalStorage.setItem('sessionId', res.data.id)
-      navigate('/dashboard', { replace: true })
+      navigate('/home', { replace: true })
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.status === 404) {
@@ -61,7 +61,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col gap-6">
-      <Card className='w-md'>
+      <Card className="w-md">
         {/* error */}
         {showCredsError && (
           <div className="text-center py-2 bg-red-500 mt-3 mx-3 rounded">

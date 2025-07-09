@@ -11,14 +11,14 @@ import { PostgresErrorCode } from 'src/filters/postgres-exception/postgres-error
 export class WorkspaceService {
   constructor(
     @InjectRepository(Workspace)
-    private readonly workspaceRepository: Repository<Workspace>
-  ) { }
+    private readonly workspaceRepository: Repository<Workspace>,
+  ) {}
 
   async create(createWorkspaceDto: CreateWorkspaceDto) {
     try {
       const workspace = this.workspaceRepository.create({
         ...createWorkspaceDto,
-        owner: { id: createWorkspaceDto.ownerId }
+        owner: { id: createWorkspaceDto.ownerId },
       });
       return await this.workspaceRepository.save(workspace);
     } catch (error) {
@@ -37,18 +37,21 @@ export class WorkspaceService {
   }
 
   async update(id: number, updateWorkspaceDto: UpdateWorkspaceDto) {
-    const result = await this.workspaceRepository.update(id, updateWorkspaceDto);
-    if(result.affected === 0) {
+    const result = await this.workspaceRepository.update(
+      id,
+      updateWorkspaceDto,
+    );
+    if (result.affected === 0) {
       throw new NotFoundException(`Workspace with ID ${id} not found`);
     }
-    return {success: true, message: 'Workspace updated successfully'};
+    return { success: true, message: 'Workspace updated successfully' };
   }
 
   async remove(id: number) {
     const result = await this.workspaceRepository.delete(id);
-    if(result.affected === 0) {
+    if (result.affected === 0) {
       throw new NotFoundException(`Workspace with ID ${id} not found`);
     }
-    return {success: true, message: 'Workspace deleted successfully'};
+    return { success: true, message: 'Workspace deleted successfully' };
   }
 }
