@@ -15,6 +15,6 @@ export const homeRoutes: RouteObject = {
       path: 'home',
       element: <Home />,
       loader: AuthGuard.resolve,
-    }
+    },
   ],
 }

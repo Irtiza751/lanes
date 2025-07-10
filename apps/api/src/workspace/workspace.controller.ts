@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Request,
+} from '@nestjs/common';
 import { WorkspaceService } from './workspace.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
@@ -9,7 +18,10 @@ export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) {}
 
   @Post()
-  create(@Body() createWorkspaceDto: CreateWorkspaceDto, @Request() req: RequestUser) {
+  create(
+    @Body() createWorkspaceDto: CreateWorkspaceDto,
+    @Request() req: RequestUser,
+  ) {
     createWorkspaceDto.ownerId = req.user.sub;
     return this.workspaceService.create(createWorkspaceDto);
   }
@@ -25,7 +37,10 @@ export class WorkspaceController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWorkspaceDto: UpdateWorkspaceDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateWorkspaceDto: UpdateWorkspaceDto,
+  ) {
     return this.workspaceService.update(+id, updateWorkspaceDto);
   }
 
