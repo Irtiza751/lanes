@@ -7,12 +7,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown'
-import { ChevronDown, Settings, User, Users } from 'lucide-react'
+import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
+import { ChevronDown, LogOut, Settings, UsersRound } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 const WORKSPACES = [
   {
-    name: 'My Workspace',
+    name: 'Atlasian',
     image: '',
     color: 'bg-orange-500',
   },
@@ -30,6 +32,7 @@ const WORKSPACES = [
 
 export function WorkspaceSwitcher() {
   const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0])
+  const navigate = useNavigate()
 
   return (
     <DropdownMenu>
@@ -51,7 +54,7 @@ export function WorkspaceSwitcher() {
           <span>Settings</span>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Users />
+          <UsersRound />
           <span>Invide Members</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -69,7 +72,13 @@ export function WorkspaceSwitcher() {
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            LocalStorage.delete('token')
+            navigate('/auth/login')
+          }}
+        >
+          <LogOut />
           <span>Logout</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

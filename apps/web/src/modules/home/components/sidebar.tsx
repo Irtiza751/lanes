@@ -1,97 +1,35 @@
 import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-switcher'
-// import { Logo } from '@/shared/components/ui/logo'
-import { Separator } from '@/shared/components/ui/seperator'
 import { cn } from '@/shared/lib/cn'
 import { useAppStore } from '@/stores/use-app-store'
-import { Box, CheckCircle, ChevronDown, Files, FolderArchive, Home, Users } from 'lucide-react'
-import { Link, useLocation } from 'react-router'
-
-const menus = [
-  {
-    name: 'General',
-    href: '',
-    icon: '',
-    children: [
-      {
-        name: 'Home',
-        href: '/home',
-        icon: <Home size={15} />, // main home page, with project stats etc..
-      },
-      {
-        name: 'My Tasks',
-        href: '/tasks',
-        icon: <CheckCircle size={15} />, // list of task assigned to the logedin in user
-      },
-      {
-        name: 'Docments',
-        href: '/documents',
-        icon: <Files size={15} />, // project specific documentation
-      },
-    ],
-  },
-  {
-    name: 'My Workspace', // this should be the active workspace name
-    href: '',
-    icon: '',
-    children: [
-      {
-        name: 'Teams',
-        href: '/teams',
-        icon: <Users size={15} />, // table of team member management on a project(s)
-      },
-      {
-        name: 'Archive',
-        href: '/archive',
-        icon: <FolderArchive size={15} />, // list archived tasks
-      },
-      {
-        name: 'Projects',
-        href: '/projects', // list of all projects assigned to you.
-        icon: <Box size={15} />,
-      },
-    ],
-  },
-]
+import { sideLinks } from '../constants/side-links'
+import { NavItem } from './nav-item'
+import { Button } from '@/shared/components/ui/button'
+import { Search, SquarePen } from 'lucide-react'
 
 export function Sidebar() {
-  const location = useLocation()
   const showSidebar = useAppStore((state) => state.showSidebar)
 
   return (
     <aside
       className={cn('inline-block w-0 overflow-hidden transition-[width]', {
-        'w-2xs': showSidebar,
+        'w-xs': showSidebar,
       })}
     >
       <div className="flex justify-between items-center mb-2 px-4 pt-3">
-        {/* <Logo size={26} /> */}
         <WorkspaceSwitcher />
+        <div className='space-x-2'>
+          <Button size='sicon' variant='outline'>
+            <Search />
+          </Button>
+          <Button size='sicon' variant='secondary'>
+            <SquarePen />
+          </Button>
+        </div>
       </div>
       <nav className="px-4">
         <ul>
-          {menus.map((menu) => (
-            <li key={menu.name} className="mb-2">
-              <div className="flex items-center mb-2 hover:bg-foreground/5 cursor-pointer py-1 px-2 rounded-md">
-                <span className="flex-1 uppercase text-xs text-muted-foreground">{menu.name}</span>
-                <ChevronDown size={12} className="text-muted-foreground" />
-              </div>
-
-              {menu.children &&
-                menu.children.map((item) => (
-                  <Link
-                    key={item.name}
-                    className={cn(
-                      'flex items-center gap-2 py-1 px-2 hover:bg-foreground/5 rounded-md mb-2',
-                      { 'bg-foreground/5': location.pathname === item.href },
-                    )}
-                    to={item.href}
-                  >
-                    {item.icon}
-                    {item.name}
-                  </Link>
-                ))}
-              <Separator orientation="horizontal" />
-            </li>
+          {sideLinks.map((menu) => (
+            <NavItem item={menu} />
           ))}
         </ul>
       </nav>
