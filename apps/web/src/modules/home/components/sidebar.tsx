@@ -1,4 +1,4 @@
-import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-switcher'
+import { WorkspaceSwitcher } from '@/shared/components/workspace-switcher'
 import { cn } from '@/shared/lib/cn'
 import { useAppStore } from '@/stores/use-app-store'
 import { sideLinks } from '../constants/side-links'
