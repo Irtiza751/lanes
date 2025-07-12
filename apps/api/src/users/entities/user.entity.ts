@@ -1,4 +1,5 @@
 import { Project } from 'src/projects/entities/project.entity';
+import { Task } from 'src/tasks/entities/task.entity';
 import { Workspace } from 'src/workspace/entities/workspace.entity';
 import {
   Column,
@@ -7,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  OneToOne
 } from 'typeorm';
 
 @Entity()
@@ -36,11 +38,14 @@ export class User {
   })
   password: string;
 
-  @OneToMany(() => Workspace, (workspace) => workspace.owner)
+  @OneToMany(() => Workspace, (workspace) => workspace.owner, { cascade: true })
   workspaces: Workspace[];
 
-  @OneToMany(() => Project, (project) => project.creator)
+  @OneToMany(() => Project, (project) => project.creator, { cascade: true })
   projects: Project[];
+
+  @OneToMany(() => Task, (task) => task.creator, { cascade: true })
+  tasks: Task[];
 
   @CreateDateColumn({
     name: 'created_at',
