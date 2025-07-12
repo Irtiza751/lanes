@@ -10,8 +10,8 @@ import { SuccessResponse } from 'src/utils/classes/success-response';
 export class ProjectsService {
   constructor(
     @InjectRepository(Project)
-    private readonly projectRepository: Repository<Project>
-  ) { }
+    private readonly projectRepository: Repository<Project>,
+  ) {}
 
   create(createProjectDto: CreateProjectDto) {
     const project = this.projectRepository.create({
@@ -33,15 +33,15 @@ export class ProjectsService {
 
   async update(id: number, updateProjectDto: UpdateProjectDto) {
     const project = await this.projectRepository.update(id, updateProjectDto);
-    if(!project.affected) {
+    if (!project.affected) {
       throw new NotFoundException(`Project with id ${id} not found`);
     }
     throw new SuccessResponse(`Project with id ${id} updated successfully`);
   }
 
   async remove(id: number, userId: number) {
-    const result = await this.projectRepository.delete({ creator: userId, id }); 
-    if(!result.affected) {
+    const result = await this.projectRepository.delete({ creator: userId, id });
+    if (!result.affected) {
       throw new NotFoundException(`Project with id ${id} not found`);
     }
     throw new SuccessResponse(`Project with id ${id} deleted successfully`);

@@ -1,5 +1,5 @@
 import { User } from 'src/users/entities/user.entity';
-import { Project } from "src/projects/entities/project.entity";
+import { Project } from 'src/projects/entities/project.entity';
 import {
   Column,
   CreateDateColumn,
@@ -47,7 +47,7 @@ export class Workspace {
 
   @OneToMany(() => Project, (project) => project.workspace)
   @JoinColumn()
-  projects: Project[]
+  projects: Project[];
 
   @CreateDateColumn({
     name: 'created_at',

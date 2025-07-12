@@ -17,11 +17,11 @@ export function Sidebar() {
     >
       <div className="flex justify-between items-center mb-2 px-4 pt-3">
         <WorkspaceSwitcher />
-        <div className='space-x-2'>
-          <Button size='sicon' variant='outline'>
+        <div className="space-x-2">
+          <Button size="sicon" variant="outline">
             <Search />
           </Button>
-          <Button size='sicon' variant='secondary'>
+          <Button size="sicon" variant="secondary">
             <SquarePen />
           </Button>
         </div>
