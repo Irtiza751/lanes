@@ -1,6 +1,14 @@
-import { User } from "src/users/entities/user.entity";
-import { Workspace } from "src/workspace/entities/workspace.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from 'src/users/entities/user.entity';
+import { Workspace } from 'src/workspace/entities/workspace.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Project {
@@ -29,11 +37,13 @@ export class Project {
   })
   image?: string;
 
-  @ManyToOne(() => User, user => user.projects, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.projects, { onDelete: 'CASCADE' })
   @JoinColumn()
   creator: number;
 
-  @ManyToOne(() => Workspace, workspace => workspace.projects, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Workspace, (workspace) => workspace.projects, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   workspace: Workspace;
 

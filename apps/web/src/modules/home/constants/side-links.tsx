@@ -1,4 +1,13 @@
-import { Box, Briefcase, Inbox, ListTodo, RefreshCcwDot, SquareTerminal, Target, UsersRound } from 'lucide-react'
+import {
+  Box,
+  Briefcase,
+  Inbox,
+  ListTodo,
+  RefreshCcwDot,
+  SquareTerminal,
+  Target,
+  UsersRound,
+} from 'lucide-react'
 import { SideNav } from '../models/side-nav'
 
 export const sideLinks: SideNav[] = [
@@ -22,7 +31,7 @@ export const sideLinks: SideNav[] = [
         href: '/',
         icon: <Box size={13} />,
       },
-    ]
+    ],
   },
   {
     name: 'Your Projects',
@@ -32,13 +41,13 @@ export const sideLinks: SideNav[] = [
       {
         name: 'Waredrop',
         href: '/',
-        icon: <SquareTerminal size={13} className='text-blue-500'/>,
+        icon: <SquareTerminal size={13} className="text-blue-500" />,
         options: [
           {
             name: 'Settings',
             href: '/',
             icon: null,
-          }
+          },
         ],
         children: [
           {
@@ -54,25 +63,25 @@ export const sideLinks: SideNav[] = [
           {
             name: 'Members',
             href: '/',
-            icon: <UsersRound size={13}/>,
+            icon: <UsersRound size={13} />,
           },
           {
             name: 'sprints',
             href: '/',
-            icon: <RefreshCcwDot size={13}/>,
+            icon: <RefreshCcwDot size={13} />,
           },
-        ]
+        ],
       },
       {
         name: 'Taskmaster',
         href: '/',
-        icon: <SquareTerminal size={13} className='text-orange-500'/>,
+        icon: <SquareTerminal size={13} className="text-orange-500" />,
         options: [
           {
             name: 'Settings',
             href: '/',
             icon: null,
-          }
+          },
         ],
         children: [
           {
@@ -88,15 +97,15 @@ export const sideLinks: SideNav[] = [
           {
             name: 'Members',
             href: '/',
-            icon: <UsersRound size={13}/>,
+            icon: <UsersRound size={13} />,
           },
           {
             name: 'sprints',
             href: '/',
-            icon: <RefreshCcwDot size={13}/>,
+            icon: <RefreshCcwDot size={13} />,
           },
-        ]
+        ],
       },
-    ]
+    ],
   },
 ]
