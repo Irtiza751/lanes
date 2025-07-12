@@ -29,7 +29,7 @@ export function Sidebar() {
       <nav className="px-4">
         <ul>
           {sideLinks.map((menu) => (
-            <NavItem item={menu} />
+            <NavItem key={menu.href + menu.name} item={menu} />
           ))}
         </ul>
       </nav>

@@ -16,7 +16,7 @@ export function NavItem({ item: menu, level = 0 }: NavItemProps) {
   const hasChildren = menu.children && menu.children.length > 0
 
   return (
-    <li key={menu.name} className="mb-2 capitalize text-muted-foreground">
+    <li className="mb-2 capitalize text-muted-foreground">
       {!menu.icon ? (
         <div
           className="flex items-center mb-2 hover:bg-foreground/5 cursor-pointer py-1 px-2 rounded-md"
@@ -48,26 +48,28 @@ export function NavItem({ item: menu, level = 0 }: NavItemProps) {
         </div>
       )}
 
-      {hasChildren &&
-        !collapsed &&
-        menu.children?.map((item) =>
-          item.children ? (
-            <NavItem key={item.name} item={item} level={level + 1} />
-          ) : (
-            <Link
-              key={item.name}
-              className={cn(
-                'flex items-center gap-2 py-1 px-2 hover:bg-foreground/5 rounded-md mb-2',
-                { 'bg-foreground/5': location.pathname === item.href },
-                level > 0 && 'ml-2',
-              )}
-              to={item.href}
-            >
-              {item.icon}
-              <span className="text-foreground">{item.name}</span>
-            </Link>
-          ),
-        )}
+      {hasChildren && !collapsed && (
+        <ul>
+          {menu.children?.map((item) =>
+            item.children ? (
+              <NavItem key={item.name} item={item} level={level + 1} />
+            ) : (
+              <Link
+                key={item.name}
+                className={cn(
+                  'flex items-center gap-2 py-1 px-2 hover:bg-foreground/5 rounded-md mb-2',
+                  { 'bg-foreground/5': location.pathname === item.href },
+                  level > 0 && 'ml-2',
+                )}
+                to={item.href}
+              >
+                {item.icon}
+                <span className="text-foreground">{item.name}</span>
+              </Link>
+            ),
+          )}
+        </ul>
+      )}
     </li>
   )
 }

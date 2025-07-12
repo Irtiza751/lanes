@@ -2,6 +2,7 @@ import { redirect, RouteObject } from 'react-router'
 import Home from '.'
 import { AuthGuard } from '@/shared/lib/classes/AuthGuard'
 import HomeLayout from './components/layout'
+import { tasksRoute } from './modules/tasks/tasks-routing.module'
 
 export const homeRoutes: RouteObject = {
   path: '',
@@ -16,5 +17,6 @@ export const homeRoutes: RouteObject = {
       element: <Home />,
       loader: AuthGuard.resolve,
     },
+    tasksRoute,
   ],
 }

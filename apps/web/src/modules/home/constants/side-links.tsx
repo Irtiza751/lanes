@@ -1,6 +1,5 @@
 import {
   Box,
-  Briefcase,
   Inbox,
   ListTodo,
   RefreshCcwDot,
@@ -52,7 +51,7 @@ export const sideLinks: SideNav[] = [
         children: [
           {
             name: 'Tasks',
-            href: '/',
+            href: '/tasks/1',
             icon: <ListTodo size={13} />,
           },
           {
@@ -86,7 +85,7 @@ export const sideLinks: SideNav[] = [
         children: [
           {
             name: 'Tasks',
-            href: '/',
+            href: '/tasks/2',
             icon: <ListTodo size={13} />,
           },
           {
