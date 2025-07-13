@@ -1,4 +1,4 @@
-import {  RouteObject } from 'react-router'
+import { RouteObject } from 'react-router'
 import { AuthGuard } from '@/shared/lib/classes/AuthGuard'
 import Tasks from '.'
 

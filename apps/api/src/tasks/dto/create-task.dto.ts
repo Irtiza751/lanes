@@ -1,4 +1,10 @@
-import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateTaskDto {
   @IsNotEmpty()
@@ -8,7 +14,7 @@ export class CreateTaskDto {
   @IsString()
   @IsOptional()
   description?: string;
-  
+
   @IsNumber()
   @IsOptional()
   createdBy?: number; // user who created the task
