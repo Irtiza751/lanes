@@ -17,6 +17,11 @@ export const homeRoutes: RouteObject = {
       element: <Home />,
       loader: AuthGuard.resolve,
     },
-    tasksRoute,
+    {
+      path: ':workspace',
+      children: [
+        tasksRoute,
+      ]
+    }
   ],
 }

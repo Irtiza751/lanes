@@ -51,7 +51,7 @@ export const sideLinks: SideNav[] = [
         children: [
           {
             name: 'Tasks',
-            href: '/tasks/1',
+            href: 'waredrop/tasks',
             icon: <ListTodo size={13} />,
           },
           {
@@ -85,7 +85,7 @@ export const sideLinks: SideNav[] = [
         children: [
           {
             name: 'Tasks',
-            href: '/tasks/2',
+            href: 'taskmaster/tasks',
             icon: <ListTodo size={13} />,
           },
           {

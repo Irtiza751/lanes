@@ -50,7 +50,7 @@ export function TaskCard({ title, id, children, isDragging = false }: TaskCardPr
         </Avatar>
       </div>
       <h4 className="text-base font-semibold my-2">
-        <Link to={`tasks/${id}`} className="hover:underline">
+        <Link to={`${id}`} className="hover:underline">
           {title}
         </Link>
       </h4>
