@@ -45,7 +45,7 @@ export class Workspace {
   @JoinColumn()
   owner: User;
 
-  @OneToMany(() => Project, (project) => project.workspace)
+  @OneToMany(() => Project, (project) => project.workspace, { cascade: true })
   @JoinColumn()
   projects: Project[];
 

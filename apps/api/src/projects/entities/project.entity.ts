@@ -37,13 +37,11 @@ export class Project {
   })
   image?: string;
 
-  @ManyToOne(() => User, (user) => user.projects, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.projects)
   @JoinColumn()
-  creator: number;
+  creator: User;
 
-  @ManyToOne(() => Workspace, (workspace) => workspace.projects, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => Workspace, (workspace) => workspace.projects)
   @JoinColumn()
   workspace: Workspace;
 

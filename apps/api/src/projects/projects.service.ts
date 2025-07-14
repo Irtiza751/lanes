@@ -5,26 +5,23 @@ import { Repository } from 'typeorm';
 import { Project } from './entities/project.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SuccessResponse } from 'src/utils/classes/success-response';
+import { CreateProjectProvider } from './providers/create-project.provider';
 
 @Injectable()
 export class ProjectsService {
   constructor(
     @InjectRepository(Project)
     private readonly projectRepository: Repository<Project>,
+
+    private readonly createProjectProvider: CreateProjectProvider,
   ) {}
 
   create(createProjectDto: CreateProjectDto) {
-    const project = this.projectRepository.create({
-      ...createProjectDto,
-      creator: createProjectDto.creatorId,
-      workspace: { id: createProjectDto.workspaceId },
-    });
-    // return 'This action adds a new project';
-    return this.projectRepository.save(project);
+    return this.createProjectProvider.create(createProjectDto);
   }
 
   findAll(userId: number) {
-    return this.projectRepository.find({ where: { creator: userId } });
+    return this.projectRepository.find({ where: { creator: { id: userId } } });
   }
 
   findOne(id: number) {
@@ -40,7 +37,10 @@ export class ProjectsService {
   }
 
   async remove(id: number, userId: number) {
-    const result = await this.projectRepository.delete({ creator: userId, id });
+    const result = await this.projectRepository.delete({
+      creator: { id: userId },
+      id,
+    });
     if (!result.affected) {
       throw new NotFoundException(`Project with id ${id} not found`);
     }
