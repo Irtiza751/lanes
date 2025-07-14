@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Request,
+  Query,
+  Logger,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -27,7 +29,8 @@ export class ProjectsController {
   }
 
   @Get()
-  findAll(@Request() req: RequestUser) {
+  findAll(@Request() req: RequestUser, @Query('workspaceId') workspaceId: string) {
+    Logger.log(workspaceId, 'Workspace id');
     return this.projectsService.findAll(req.user.sub);
   }
 

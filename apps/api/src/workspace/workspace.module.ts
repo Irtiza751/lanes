@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Workspace } from './entities/workspace.entity';
 import { CreateWorkspaceService } from './providers/create-workspace.service';
 import { UsersModule } from 'src/users/users.module';
+import { WorkspaceProvider } from './providers/workspace.provider';
 
 @Module({
   controllers: [WorkspaceController],
-  providers: [WorkspaceService, CreateWorkspaceService],
+  providers: [WorkspaceService, CreateWorkspaceService, WorkspaceProvider],
   imports: [TypeOrmModule.forFeature([Workspace]), UsersModule],
+  exports: [WorkspaceProvider]
 })
 export class WorkspaceModule {}
