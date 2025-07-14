@@ -15,13 +15,7 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ title, id, children, isDragging = false }: TaskCardProps) {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id })
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -79,7 +73,11 @@ export function TaskPriorety({ priorety }: TaskPrioretyProps) {
 
 export function TaskEpic({ epic }: { epic: string }) {
   return (
-    <Button variant="outline" size="sm" className="h-6 items-center bg-transparent text-muted-foreground">
+    <Button
+      variant="outline"
+      size="sm"
+      className="h-6 items-center bg-transparent text-muted-foreground"
+    >
       <Box size={5} />
       {epic}
     </Button>

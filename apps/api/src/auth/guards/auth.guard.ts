@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
       context.getHandler(),
     );
 
-    Logger.log(`isPublic: ${isPublic}`, 'AuthGuard');
+    // Logger.log(`isPublic: ${isPublic}`, 'AuthGuard');
     if (isPublic) {
       return true;
     }
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
 
     try {
       const user = await this.jwtProvider.varifyAccessToken(token);
-      Logger.warn(user);
+      // Logger.warn(user);
       request['user'] = user;
       return true;
     } catch (error) {

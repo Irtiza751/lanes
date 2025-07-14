@@ -25,29 +25,35 @@ export class CreateProjectProvider {
   public async create(createProjectDto: CreateProjectDto) {
     let user: User | null = null;
     let workspace: Workspace | null = null;
-    const {creatorId, workspaceId} = createProjectDto;
+    const { creatorId, workspaceId } = createProjectDto;
 
     try {
       user = await this.userProvider.findById(createProjectDto.creatorId);
-      workspace = await this.workspaceProvider.findById(createProjectDto.workspaceId);
+      workspace = await this.workspaceProvider.findById(
+        createProjectDto.workspaceId,
+      );
     } catch (error) {
       throw new RequestTimeoutException();
     }
 
-    if (!user) throw new NotFoundException(`User with id: ${creatorId} not found`);
-    if (!workspace) throw new NotFoundException(`Workspace with id: ${workspaceId} not found`);
+    if (!user)
+      throw new NotFoundException(`User with id: ${creatorId} not found`);
+    if (!workspace)
+      throw new NotFoundException(
+        `Workspace with id: ${workspaceId} not found`,
+      );
 
     const project = this.projectRepository.create({
       ...createProjectDto,
       creator: user,
-      workspace: workspace
+      workspace: workspace,
     });
     try {
       await this.projectRepository.save(project);
     } catch (error) {
       throw new RequestTimeoutException();
     }
-    const {workspace: data, creator, ...rest} = project;
+    const { workspace: data, creator, ...rest } = project;
     return rest;
   }
 }

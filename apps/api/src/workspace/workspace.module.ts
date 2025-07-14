@@ -11,6 +11,6 @@ import { WorkspaceProvider } from './providers/workspace.provider';
   controllers: [WorkspaceController],
   providers: [WorkspaceService, CreateWorkspaceService, WorkspaceProvider],
   imports: [TypeOrmModule.forFeature([Workspace]), UsersModule],
-  exports: [WorkspaceProvider]
+  exports: [WorkspaceProvider],
 })
 export class WorkspaceModule {}

@@ -1,5 +1,3 @@
 export function TaskDetails() {
-  return (
-    <div>Task Details</div>
-  )
+  return <div>Task Details</div>
 }
