@@ -49,13 +49,9 @@ export class Workspace {
   @JoinColumn()
   projects: Project[];
 
-  @CreateDateColumn({
-    name: 'created_at',
-  })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({
-    name: 'updated_at',
-  })
+  @UpdateDateColumn()
   updatedAt: Date;
 }

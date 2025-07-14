@@ -47,13 +47,9 @@ export class User {
   @OneToMany(() => Task, (task) => task.creator, { cascade: true })
   tasks: Task[];
 
-  @CreateDateColumn({
-    name: 'created_at',
-  })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn({
-    name: 'updated_at',
-  })
+  @UpdateDateColumn()
   updatedAt: Date;
 }
