@@ -41,8 +41,8 @@ export class Workspace {
   })
   logoUrl?: string;
 
-  @ManyToOne(() => User, (user) => user.workspaces, { cascade: true })
-  @JoinColumn({ name: 'owner_id' })
+  @ManyToOne(() => User, (user) => user.workspaces)
+  @JoinColumn()
   owner: User;
 
   @OneToMany(() => Project, (project) => project.workspace)
