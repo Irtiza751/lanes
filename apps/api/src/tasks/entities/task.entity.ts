@@ -1,5 +1,15 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from 'src/users/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Task {
@@ -14,19 +24,18 @@ export class Task {
   title: string;
 
   @Column({
-    type: "varchar",
+    type: 'varchar',
     length: 500,
     nullable: true,
   })
   description?: string;
 
-
-  @ManyToOne(() => User, user => user.id)
+  @ManyToOne(() => User, (user) => user.id)
   creator: User;
 
-  @OneToOne(() => User, user => user.id)
+  @OneToOne(() => User, (user) => user.id)
   assigned: User | null;
-  
+
   @Column({
     type: 'timestamp',
     nullable: true,

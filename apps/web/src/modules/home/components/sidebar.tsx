@@ -1,4 +1,4 @@
-import { WorkspaceSwitcher } from '@/modules/dashboard/components/workspace-switcher'
+import { WorkspaceSwitcher } from '@/shared/components/workspace-switcher'
 import { cn } from '@/shared/lib/cn'
 import { useAppStore } from '@/stores/use-app-store'
 import { sideLinks } from '../constants/side-links'
@@ -29,7 +29,7 @@ export function Sidebar() {
       <nav className="px-4">
         <ul>
           {sideLinks.map((menu) => (
-            <NavItem item={menu} />
+            <NavItem key={menu.href + menu.name} item={menu} />
           ))}
         </ul>
       </nav>

@@ -9,6 +9,6 @@ import { CreateTaskProvider } from './providers/create-task.provider';
 @Module({
   controllers: [TasksController],
   providers: [TasksService, CreateTaskProvider],
-  imports: [TypeOrmModule.forFeature([Task]), UsersModule]
+  imports: [TypeOrmModule.forFeature([Task]), UsersModule],
 })
 export class TasksModule {}

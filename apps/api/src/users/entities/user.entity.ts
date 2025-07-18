@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  OneToOne
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
