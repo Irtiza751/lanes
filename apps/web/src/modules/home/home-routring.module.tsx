@@ -19,9 +19,7 @@ export const homeRoutes: RouteObject = {
     },
     {
       path: ':workspace',
-      children: [
-        tasksRoute,
-      ]
-    }
+      children: [tasksRoute],
+    },
   ],
 }

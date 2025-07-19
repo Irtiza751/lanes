@@ -4,28 +4,19 @@ import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { Repository } from 'typeorm';
 import { Workspace } from './entities/workspace.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DuplicateException } from 'src/filters/postgres-exception/duplicate-exception';
-import { PostgresErrorCode } from 'src/filters/postgres-exception/postgres-error-codes';
+import { CreateWorkspaceService } from './providers/create-workspace.service';
 
 @Injectable()
 export class WorkspaceService {
   constructor(
     @InjectRepository(Workspace)
     private readonly workspaceRepository: Repository<Workspace>,
+
+    private readonly createWorkspaceProvider: CreateWorkspaceService,
   ) {}
 
-  async create(createWorkspaceDto: CreateWorkspaceDto) {
-    try {
-      const workspace = this.workspaceRepository.create({
-        ...createWorkspaceDto,
-        owner: { id: createWorkspaceDto.ownerId },
-      });
-      return await this.workspaceRepository.save(workspace);
-    } catch (error) {
-      if (error.code === PostgresErrorCode.PG_UNIQUE_VIOLATION) {
-        throw new DuplicateException('Workspace with this name already exists');
-      }
-    }
+  create(createWorkspaceDto: CreateWorkspaceDto) {
+    return this.createWorkspaceProvider.create(createWorkspaceDto);
   }
 
   findAll(ownerId: number) {

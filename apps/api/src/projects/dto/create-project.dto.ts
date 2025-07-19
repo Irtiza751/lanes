@@ -10,7 +10,7 @@ import {
 export class CreateProjectDto {
   @IsOptional()
   @IsNumber()
-  creatorId?: number;
+  creatorId: number;
 
   @IsNotEmpty()
   @IsNumber()

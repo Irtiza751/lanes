@@ -93,9 +93,7 @@ export default function Tasks() {
     if (targetLane) {
       // Move task to new lane
       setTasks((prev) =>
-        prev.map((task) =>
-          task.id === activeId ? { ...task, status: targetLane.key } : task
-        )
+        prev.map((task) => (task.id === activeId ? { ...task, status: targetLane.key } : task)),
       )
       return
     }
@@ -111,9 +109,7 @@ export default function Tasks() {
       } else {
         // Move to new lane and place at the end
         setTasks((prev) =>
-          prev.map((task) =>
-            task.id === activeId ? { ...task, status: overTask.status } : task
-          )
+          prev.map((task) => (task.id === activeId ? { ...task, status: overTask.status } : task)),
         )
       }
     }
@@ -145,7 +141,7 @@ export default function Tasks() {
                     isDragging={activeId === task.id}
                   >
                     <TaskPriorety priorety={task.priorety as any} />
-                    <TaskEpic epic='User authentication' />
+                    <TaskEpic epic="User authentication" />
                   </TaskCard>
                 ))}
               </TaskLane>
@@ -161,7 +157,7 @@ export default function Tasks() {
               isDragging={true}
             >
               <TaskPriorety priorety={activeTask.priorety as any} />
-              <TaskEpic epic='Test 123' />
+              <TaskEpic epic="Test 123" />
             </TaskCard>
           ) : null}
         </DragOverlay>

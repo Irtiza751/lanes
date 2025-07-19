@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Request,
+  Query,
+  Logger,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -27,8 +29,11 @@ export class ProjectsController {
   }
 
   @Get()
-  findAll(@Request() req: RequestUser) {
-    return this.projectsService.findAll(req.user.sub);
+  findAll(
+    @Request() req: RequestUser,
+    @Query('workspaceId') workspaceId: string,
+  ) {
+    return this.projectsService.findAll(req.user.sub, +workspaceId);
   }
 
   @Get(':id')
@@ -37,7 +42,12 @@ export class ProjectsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateProjectDto: UpdateProjectDto,
+    @Request() req: RequestUser,
+  ) {
+    updateProjectDto.creatorId = req.user.sub;
     return this.projectsService.update(+id, updateProjectDto);
   }
 
