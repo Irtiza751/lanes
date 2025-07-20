@@ -22,10 +22,12 @@ export function Sidebar() {
 
   useEffect(() => {
     if (isSuccess && workspaces?.data?.length > 0) {
-      const workspaceId = LocalStorage.getItem('workspaceId')
-      setWorkspace(
-        workspaces.data.find((workspace) => workspace.id === workspaceId) || workspaces.data[0],
-      )
+      const workspaceId = LocalStorage.getItem<string>('workspaceId')
+      if(workspaceId) {
+        setWorkspace(
+          workspaces.data.find((workspace) => workspace.id === parseInt(workspaceId)) || workspaces.data[0]
+        )
+      }
     }
   }, [isSuccess])
 

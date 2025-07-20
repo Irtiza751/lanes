@@ -13,7 +13,7 @@ import {
 } from '@/shared/components/ui/dropdown'
 import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 import { ChevronDown, LogOut, Settings, UsersRound } from 'lucide-react'
-import { useNavigate, useNavigation } from 'react-router'
+import { useNavigate } from 'react-router'
 import { cn } from '../lib/cn'
 import { useWorkspace, Workspace } from '@/stores/use-workspace'
 
@@ -25,7 +25,7 @@ interface WorkspaceSwitcherProps {
 export function WorkspaceSwitcher({ className, workspaces }: WorkspaceSwitcherProps) {
   const navigate = useNavigate()
   const workspace = useWorkspace((state) => state.workspace)
-
+  console.log(workspace)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,7 +37,7 @@ export function WorkspaceSwitcher({ className, workspaces }: WorkspaceSwitcherPr
         >
           <Avatar className="rounded-md size-5">
             <AvatarImage src={workspace?.logoUrl} alt="Irtiza" />
-            <AvatarFallback className={`rounded-md ${workspace?.color} text-white`}>
+            <AvatarFallback style={{background: workspace?.color}} className={`rounded-md text-white`}>
               {workspace?.name?.charAt(0)}
             </AvatarFallback>
           </Avatar>
@@ -91,7 +91,7 @@ function WorkspacesSubMenus({ workspaces }: { workspaces: Workspace[] }) {
           <DropdownMenuItem key={workspace.name} onClick={() => onWorkspaceChange(workspace)}>
             <Avatar className="rounded-md size-5">
               <AvatarImage src={workspace.logoUrl} alt="Irtiza" />
-              <AvatarFallback className={`rounded-md ${workspace.color} text-white`}>
+              <AvatarFallback style={{background: workspace?.color}} className={`rounded-md text-white`}>
                 {workspace.name.charAt(0)}
               </AvatarFallback>
             </Avatar>

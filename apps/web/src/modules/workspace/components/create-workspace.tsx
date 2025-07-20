@@ -52,7 +52,6 @@ export function CreateWorkspace() {
     },
     onError: (error) => {
       console.error('Error creating workspace:', error)
-      // Handle error appropriately, e.g., show a notification
     }
   })
 

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 export interface Workspace {
-  id: string
+  id: number
   slug: string
   ownerId: string
   name: string
