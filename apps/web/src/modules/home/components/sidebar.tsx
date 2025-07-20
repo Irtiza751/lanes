@@ -5,6 +5,7 @@ import { sideLinks } from '../constants/side-links'
 import { NavItem } from './nav-item'
 import { Button } from '@/shared/components/ui/button'
 import { Search, SquarePen } from 'lucide-react'
+import { CreateTask } from '@/shared/components/create-task'
 
 export function Sidebar() {
   const showSidebar = useAppStore((state) => state.showSidebar)
@@ -21,9 +22,11 @@ export function Sidebar() {
           <Button size="sicon" variant="outline">
             <Search />
           </Button>
-          <Button size="sicon" variant="secondary">
-            <SquarePen />
-          </Button>
+          <CreateTask>
+            <Button size="sicon" variant="secondary">
+              <SquarePen />
+            </Button>
+          </CreateTask>
         </div>
       </div>
       <nav className="px-4">

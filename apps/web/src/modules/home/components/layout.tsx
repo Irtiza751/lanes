@@ -22,12 +22,6 @@ export default function HomeLayout() {
             </Button>
             <h2 className="text-md font-semibold">Home</h2>
           </div>
-          {/* <div className='flex gap-2'>
-            <Button size='sm' variant='default'>
-              <Plus />
-              <span>Create new issue</span>
-            </Button>
-          </div> */}
         </header>
         <Outlet />
       </main>

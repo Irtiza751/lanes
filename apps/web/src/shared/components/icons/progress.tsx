@@ -12,7 +12,6 @@ export function Progress({ size = 14, percentage = 0, color }: ProgressProps) {
   const circumference = 2 * Math.PI * radius;
   const progress = Math.max(0, Math.min(percentage, 100)) / 100; // Clamp between 0 and 1
   const dashOffset = circumference * (1 - progress);
-  console.log({radius, circumference, progress, dashOffset})
 
   return (
     <svg width={width} height={height} viewBox="0 0 14 14" fill="none">

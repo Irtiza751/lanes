@@ -11,6 +11,7 @@ import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 import { ChevronDown, LogOut, Settings, UsersRound } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { cn } from '../lib/cn'
 
 const WORKSPACES = [
   {
@@ -30,14 +31,14 @@ const WORKSPACES = [
   },
 ]
 
-export function WorkspaceSwitcher() {
+export function WorkspaceSwitcher({className}: {className?: string}) {
   const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0])
   const navigate = useNavigate()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer hover:bg-foreground/4 rounded-md p-1 flex gap-2 items-center mb-2">
+        <div className={cn("cursor-pointer hover:bg-foreground/4 rounded-md p-1 flex gap-2 items-center mb-2", className)}>
           <Avatar className="rounded-md size-5">
             <AvatarImage src={selectedWorkspace.image} alt="Irtiza" />
             <AvatarFallback className={`rounded-md ${selectedWorkspace.color} text-white`}>
