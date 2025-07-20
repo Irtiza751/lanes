@@ -33,6 +33,6 @@ export class CreateWorkspaceDto {
 
   @IsOptional()
   @IsString()
-  @MaxLength(7)
+  @MaxLength(10)
   color?: string;
 }

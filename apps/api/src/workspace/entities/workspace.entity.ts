@@ -51,7 +51,7 @@ export class Workspace {
   @Column({
     type: 'varchar',
     nullable: true,
-    length: 7,
+    length: 12,
     unique: false,
     default: '#522fefff', // Default color
   })

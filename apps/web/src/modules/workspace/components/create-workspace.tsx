@@ -1,3 +1,4 @@
+import { api } from '@/api'
 import { Button } from '@/shared/components/ui/button'
 import { Card, CardContent } from '@/shared/components/ui/card'
 import {
@@ -11,6 +12,7 @@ import {
 import { Input } from '@/shared/components/ui/input'
 import { slugify } from '@/shared/lib/slugify'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { ChevronLeft } from 'lucide-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -38,7 +40,21 @@ export function CreateWorkspace() {
 
   const onSubmit = (formData: WorkspaceForm) => {
     console.log(formData)
+    creatWorkSpaceMutation.mutate(formData)
   }
+
+  const creatWorkSpaceMutation = useMutation({
+    mutationKey: ['create-workspace'],
+    mutationFn: (data: WorkspaceForm) => api.post('/workspace', data),
+    onSuccess: (response) => {
+      console.log('Workspace created successfully:', response.data)
+      navigate(`/home`)
+    },
+    onError: (error) => {
+      console.error('Error creating workspace:', error)
+      // Handle error appropriately, e.g., show a notification
+    }
+  })
 
   useEffect(() => {
     if (form.watch('name').length > 0) {
