@@ -1,19 +1,24 @@
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 import { Placeholder } from '@tiptap/extensions'
-import { Button } from "./ui/button";
+import { Button } from './ui/button'
 
 interface CreateTaskProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export function CreateTask({ children }: CreateTaskProps) {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="lg:max-w-3xl sm:max-w-3xl w-full">
         <DialogHeader className="flex-row items-center gap-2">
           <DialogTitle>New task</DialogTitle>
@@ -22,9 +27,9 @@ export function CreateTask({ children }: CreateTaskProps) {
           <input className="text-xl outline-none font-semibold" placeholder="Task title" />
           <TextEditor />
         </div>
-      <DialogFooter className="justify-start">
-        <Button>Create task</Button>
-      </DialogFooter>
+        <DialogFooter className="justify-start">
+          <Button>Create task</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
@@ -35,20 +40,18 @@ export function TextEditor() {
     extensions: [
       StarterKit,
       Placeholder.configure({
-        placeholder: 'Add description...'
-      })
+        placeholder: 'Add description...',
+      }),
     ],
     editorProps: {
       attributes: {
         class: 'prose prose-sm focus:outline-none min-h-50 py-2',
       },
     },
-  });
+  })
 
   if (editor) {
-    return (
-      <EditorContent editor={editor} />
-    )
+    return <EditorContent editor={editor} />
   }
-  return null;
+  return null
 }
