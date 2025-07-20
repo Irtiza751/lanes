@@ -37,7 +37,6 @@ export class Workspace {
     nullable: true,
     length: 255,
     default: null,
-    name: 'logo_url',
   })
   logoUrl?: string;
 

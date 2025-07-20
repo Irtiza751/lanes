@@ -36,7 +36,7 @@ export function WorkspaceSwitcher({ className, workspaces }: WorkspaceSwitcherPr
           )}
         >
           <Avatar className="rounded-md size-5">
-            <AvatarImage src={workspace?.image} alt="Irtiza" />
+            <AvatarImage src={workspace?.logoUrl} alt="Irtiza" />
             <AvatarFallback className={`rounded-md ${workspace?.color} text-white`}>
               {workspace?.name?.charAt(0)}
             </AvatarFallback>
@@ -89,7 +89,7 @@ function WorkspacesSubMenus({ workspaces }: { workspaces: Workspace[] }) {
         {workspaces.map((workspace) => (
           <DropdownMenuItem key={workspace.name} onClick={() => onWorkspaceChange(workspace)}>
             <Avatar className="rounded-md size-5">
-              <AvatarImage src={workspace.image} alt="Irtiza" />
+              <AvatarImage src={workspace.logoUrl} alt="Irtiza" />
               <AvatarFallback className={`rounded-md ${workspace.color} text-white`}>
                 {workspace.name.charAt(0)}
               </AvatarFallback>
@@ -99,7 +99,7 @@ function WorkspacesSubMenus({ workspaces }: { workspaces: Workspace[] }) {
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Account</DropdownMenuLabel>
-        <DropdownMenuItem>Create new workspace</DropdownMenuItem>
+        <DropdownMenuItem>Create or join new workspace</DropdownMenuItem>
       </DropdownMenuSubContent>
     </DropdownMenuPortal>
   )

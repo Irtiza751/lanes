@@ -5,7 +5,7 @@ export interface Workspace {
   slug: string
   ownerId: string
   name: string
-  image: string
+  logoUrl: string
   color: string
   description?: string
 }
