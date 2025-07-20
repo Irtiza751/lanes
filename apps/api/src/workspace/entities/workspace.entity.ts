@@ -40,6 +40,23 @@ export class Workspace {
   })
   logoUrl?: string;
 
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    length: 20,
+    unique: true,
+  })
+  slug: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    length: 7,
+    unique: false,
+    default: '#522fefff', // Default color
+  })
+  color?: string;
+
   @ManyToOne(() => User, (user) => user.workspaces)
   @JoinColumn()
   owner: User;
