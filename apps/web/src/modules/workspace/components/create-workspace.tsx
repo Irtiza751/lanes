@@ -17,14 +17,13 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { z } from 'zod'
 
-const workspaceSchema = z
-  .object({
-    name: z.string().max(20).min(1),
-    description: z.string().max(255).optional(),
-    slug: z.string().max(20).optional().default(''),
-    logoUrl: z.string().optional().default(''),
-    color: z.string().optional().default('#522fefff'),
-  })
+const workspaceSchema = z.object({
+  name: z.string().max(20).min(1),
+  description: z.string().max(255).optional(),
+  slug: z.string().max(20).optional().default(''),
+  logoUrl: z.string().optional().default(''),
+  color: z.string().optional().default('#522fefff'),
+})
 type WorkspaceForm = z.infer<typeof workspaceSchema>
 
 export function CreateWorkspace() {
@@ -42,7 +41,7 @@ export function CreateWorkspace() {
   }
 
   useEffect(() => {
-    if(form.watch('name').length > 0) {
+    if (form.watch('name').length > 0) {
       form.setValue('slug', slugify(form.watch('name')))
     }
   }, [form.watch('name')])
