@@ -14,17 +14,17 @@ import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 
 export function Sidebar() {
   const showSidebar = useAppStore((state) => state.showSidebar)
-  const setWorkspace  = useWorkspace((state) => state.setWorkspace);
+  const setWorkspace = useWorkspace((state) => state.setWorkspace)
   const { data: workspaces, isSuccess } = useQuery({
     queryKey: ['workspaces'],
     queryFn: () => api.get<Workspace[]>('/workspace'),
   })
 
   useEffect(() => {
-    if(isSuccess && workspaces?.data?.length > 0) {
-      const workspaceId = LocalStorage.getItem('workspaceId');
+    if (isSuccess && workspaces?.data?.length > 0) {
+      const workspaceId = LocalStorage.getItem('workspaceId')
       setWorkspace(
-        workspaces.data.find((workspace) => workspace.id === workspaceId) || workspaces.data[0]
+        workspaces.data.find((workspace) => workspace.id === workspaceId) || workspaces.data[0],
       )
     }
   }, [isSuccess])

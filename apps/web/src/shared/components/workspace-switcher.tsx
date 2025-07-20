@@ -13,13 +13,13 @@ import {
 } from '@/shared/components/ui/dropdown'
 import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 import { ChevronDown, LogOut, Settings, UsersRound } from 'lucide-react'
-import { useNavigate } from 'react-router'
+import { useNavigate, useNavigation } from 'react-router'
 import { cn } from '../lib/cn'
 import { useWorkspace, Workspace } from '@/stores/use-workspace'
 
 interface WorkspaceSwitcherProps {
-  className?: string;
-  workspaces: Workspace[];
+  className?: string
+  workspaces: Workspace[]
 }
 
 export function WorkspaceSwitcher({ className, workspaces }: WorkspaceSwitcherProps) {
@@ -75,11 +75,12 @@ export function WorkspaceSwitcher({ className, workspaces }: WorkspaceSwitcherPr
 }
 
 function WorkspacesSubMenus({ workspaces }: { workspaces: Workspace[] }) {
-  const {setWorkspace} = useWorkspace((state) => state)
+  const { setWorkspace } = useWorkspace((state) => state)
+  const navigate = useNavigate()
 
   const onWorkspaceChange = (workspace: Workspace) => {
     setWorkspace(workspace)
-    LocalStorage.setItem('workspaceId', workspace.id);
+    LocalStorage.setItem('workspaceId', workspace.id)
   }
 
   return (
@@ -99,7 +100,9 @@ function WorkspacesSubMenus({ workspaces }: { workspaces: Workspace[] }) {
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuLabel>Account</DropdownMenuLabel>
-        <DropdownMenuItem>Create or join new workspace</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => navigate('/workspace/create')}>
+          Create or join new workspace
+        </DropdownMenuItem>
       </DropdownMenuSubContent>
     </DropdownMenuPortal>
   )
