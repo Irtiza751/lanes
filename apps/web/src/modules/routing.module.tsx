@@ -3,6 +3,7 @@ import HomeLayout from '@/layouts/home.layout'
 import AuthLayout from '@/layouts/auth.layout'
 import { loginRoutes } from './login/login-routring.module'
 import { homeRoutes } from './home/home-routring.module'
+import { workspaceRoutes } from './workspace/workspace-routing.module'
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     path: 'auth',
     Component: AuthLayout,
     children: [loginRoutes],
+  },
+  {
+    path: 'workspace',
+    children: [workspaceRoutes],
   },
 ])
 

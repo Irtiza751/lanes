@@ -4,7 +4,6 @@ import {
   IsOptional,
   IsString,
   MaxLength,
-  MinLength,
 } from 'class-validator';
 
 export class CreateWorkspaceDto {
@@ -26,4 +25,14 @@ export class CreateWorkspaceDto {
   @IsNumber()
   @IsOptional()
   ownerId: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(20)
+  slug: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(10)
+  color?: string;
 }

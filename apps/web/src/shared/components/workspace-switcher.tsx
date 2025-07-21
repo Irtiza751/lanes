@@ -4,51 +4,48 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown'
 import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 import { ChevronDown, LogOut, Settings, UsersRound } from 'lucide-react'
-import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { cn } from '../lib/cn'
+import { useWorkspace, Workspace } from '@/stores/use-workspace'
 
-const WORKSPACES = [
-  {
-    name: 'Atlasian',
-    image: '',
-    color: 'bg-orange-500',
-  },
-  {
-    name: 'Shispare',
-    image: '',
-    color: 'bg-green-500',
-  },
-  {
-    name: 'Sphere WMS',
-    image: '',
-    color: 'bg-purple-500',
-  },
-]
+interface WorkspaceSwitcherProps {
+  className?: string
+  workspaces: Workspace[]
+}
 
-export function WorkspaceSwitcher() {
-  const [selectedWorkspace, setSelectedWorkspace] = useState(WORKSPACES[0])
+export function WorkspaceSwitcher({ className, workspaces }: WorkspaceSwitcherProps) {
   const navigate = useNavigate()
-
+  const workspace = useWorkspace((state) => state.workspace)
+  console.log(workspace)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="cursor-pointer hover:bg-foreground/4 rounded-md p-1 flex gap-2 items-center mb-2">
+        <div
+          className={cn(
+            'cursor-pointer hover:bg-foreground/4 rounded-md p-1 flex gap-2 items-center mb-2',
+            className,
+          )}
+        >
           <Avatar className="rounded-md size-5">
-            <AvatarImage src={selectedWorkspace.image} alt="Irtiza" />
-            <AvatarFallback className={`rounded-md ${selectedWorkspace.color} text-white`}>
-              {selectedWorkspace.name.charAt(0)}
+            <AvatarImage src={workspace?.logoUrl} alt="Irtiza" />
+            <AvatarFallback style={{background: workspace?.color}} className={`rounded-md text-white`}>
+              {workspace?.name?.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <h5 className="flex-1 trucate font-semibold text-sm">{selectedWorkspace.name}</h5>
+          <h5 className="flex-1 trucate font-semibold text-sm">{workspace?.name}</h5>
           <ChevronDown size={14} />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-[255px] rounded-lg">
+      <DropdownMenuContent align="start" className="min-w-60 rounded-lg">
         <DropdownMenuItem>
           <Settings />
           <span>Settings</span>
@@ -58,19 +55,10 @@ export function WorkspaceSwitcher() {
           <span>Invide Members</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-
-        <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
-        {WORKSPACES.map((workspace) => (
-          <DropdownMenuItem key={workspace.name} onClick={() => setSelectedWorkspace(workspace)}>
-            <Avatar className="rounded-md size-5">
-              <AvatarImage src={workspace.image} alt="Irtiza" />
-              <AvatarFallback className={`rounded-md ${workspace.color} text-white`}>
-                {workspace.name.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
-            <p>{workspace.name}</p>
-          </DropdownMenuItem>
-        ))}
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Switch workspaces</DropdownMenuSubTrigger>
+          <WorkspacesSubMenus workspaces={workspaces} />
+        </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
@@ -83,5 +71,39 @@ export function WorkspaceSwitcher() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+function WorkspacesSubMenus({ workspaces }: { workspaces: Workspace[] }) {
+  const { setWorkspace } = useWorkspace((state) => state)
+  const navigate = useNavigate()
+
+  const onWorkspaceChange = (workspace: Workspace) => {
+    setWorkspace(workspace)
+    LocalStorage.setItem('workspaceId', workspace.id)
+  }
+
+  return (
+    <DropdownMenuPortal>
+      <DropdownMenuSubContent className="min-w-55">
+        <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+        {workspaces.map((workspace) => (
+          <DropdownMenuItem key={workspace.name} onClick={() => onWorkspaceChange(workspace)}>
+            <Avatar className="rounded-md size-5">
+              <AvatarImage src={workspace.logoUrl} alt="Irtiza" />
+              <AvatarFallback style={{background: workspace?.color}} className={`rounded-md text-white`}>
+                {workspace.name.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+            <p>{workspace.name}</p>
+          </DropdownMenuItem>
+        ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel>Account</DropdownMenuLabel>
+        <DropdownMenuItem onClick={() => navigate('/workspace/create')}>
+          Create or join new workspace
+        </DropdownMenuItem>
+      </DropdownMenuSubContent>
+    </DropdownMenuPortal>
   )
 }

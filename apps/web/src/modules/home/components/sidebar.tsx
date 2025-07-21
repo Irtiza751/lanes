@@ -5,9 +5,31 @@ import { sideLinks } from '../constants/side-links'
 import { NavItem } from './nav-item'
 import { Button } from '@/shared/components/ui/button'
 import { Search, SquarePen } from 'lucide-react'
+import { CreateTask } from '@/shared/components/create-task'
+import { useQuery } from '@tanstack/react-query'
+import { useWorkspace, Workspace } from '@/stores/use-workspace'
+import { api } from '@/api'
+import { useEffect } from 'react'
+import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 
 export function Sidebar() {
   const showSidebar = useAppStore((state) => state.showSidebar)
+  const setWorkspace = useWorkspace((state) => state.setWorkspace)
+  const { data: workspaces, isSuccess } = useQuery({
+    queryKey: ['workspaces'],
+    queryFn: () => api.get<Workspace[]>('/workspace'),
+  })
+
+  useEffect(() => {
+    if (isSuccess && workspaces?.data?.length > 0) {
+      const workspaceId = LocalStorage.getItem<string>('workspaceId')
+      if(workspaceId) {
+        setWorkspace(
+          workspaces.data.find((workspace) => workspace.id === parseInt(workspaceId)) || workspaces.data[0]
+        )
+      }
+    }
+  }, [isSuccess])
 
   return (
     <aside
@@ -16,14 +38,16 @@ export function Sidebar() {
       })}
     >
       <div className="flex justify-between items-center mb-2 px-4 pt-3">
-        <WorkspaceSwitcher />
+        <WorkspaceSwitcher workspaces={workspaces?.data || []} />
         <div className="space-x-2">
           <Button size="sicon" variant="outline">
             <Search />
           </Button>
-          <Button size="sicon" variant="secondary">
-            <SquarePen />
-          </Button>
+          <CreateTask>
+            <Button size="sicon" variant="secondary">
+              <SquarePen />
+            </Button>
+          </CreateTask>
         </div>
       </div>
       <nav className="px-4">

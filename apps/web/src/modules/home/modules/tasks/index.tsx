@@ -11,10 +11,11 @@ import { TaskCard, TaskEpic, TaskPriorety } from './components/task-card'
 import { TaskLane } from './components/task-lane'
 
 const workflow = [
-  { key: 'todo', name: 'Todo', color: 'white' },
-  { key: 'in-progress', name: 'In-Progress', color: 'yellow' },
-  { key: 'code-review', name: 'Code Review', color: 'purple' },
-  { key: 'testing', name: 'Testing', color: 'orange' },
+  { key: 'todo', name: 'Todo', color: 'white', completion: 0 },
+  { key: 'in-progress', name: 'In-Progress', color: 'yellow', completion: 20 },
+  { key: 'code-review', name: 'Code Review', color: 'violet', completion: 60 },
+  { key: 'testing', name: 'Testing', color: 'orange', completion: 70 },
+  { key: 'done', name: 'Done', color: 'green', completion: 100 },
 ]
 
 const initialTasks = [

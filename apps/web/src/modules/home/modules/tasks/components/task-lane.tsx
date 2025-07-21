@@ -1,6 +1,6 @@
 import { Badge } from '@/shared/components/ui/badge'
-import { Circle } from 'lucide-react'
 import { useDroppable } from '@dnd-kit/core'
+import { Progress } from '@/shared/components/icons/progress'
 
 interface TaskLaneProps {
   children: React.ReactNode
@@ -9,6 +9,7 @@ interface TaskLaneProps {
     name: string
     color: string
     key: string
+    completion: number
   }
 }
 
@@ -25,7 +26,7 @@ export function TaskLane({ children, lane, count }: TaskLaneProps) {
     >
       <header className="flex gap-2 items-center justify-between px-4 pb-2 pt-3 text-md font-bold">
         <div className="flex gap-2 items-center">
-          <Circle size={12} fill={lane.color} color={lane.color} />
+          <Progress percentage={lane.completion} color={lane.color} size={12} />
           <h4>{lane.name}</h4>
         </div>
         <Badge size="count" variant="secondary">

@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['http://localhost:5173', 'https://taskmaster.com', 'https://taskmaster.vercel.app'];
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
