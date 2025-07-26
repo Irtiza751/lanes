@@ -33,7 +33,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className={cn('inline-block w-0 overflow-hidden transition-[width]', {
+      className={cn('inline-block w-0 overflow-hidden transition-[width] duration-1000', {
         'w-xs': showSidebar,
       })}
     >

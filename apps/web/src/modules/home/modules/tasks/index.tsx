@@ -9,6 +9,8 @@ import {
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { TaskCard, TaskEpic, TaskPriorety } from './components/task-card'
 import { TaskLane } from './components/task-lane'
+import { useAppStore } from '@/stores/use-app-store'
+import { cn } from '@/shared/lib/cn'
 
 const workflow = [
   { key: 'todo', name: 'Todo', color: 'white', completion: 0 },
@@ -66,6 +68,7 @@ const initialTasks = [
 export default function Tasks() {
   const [tasks, setTasks] = useState(initialTasks)
   const [activeId, setActiveId] = useState<string | null>(null)
+  const showSidebar = useAppStore(state => state.showSidebar);
 
   const getTaskByStatus = (status: string) => {
     return tasks.filter((task) => task.status === status)
@@ -125,7 +128,7 @@ export default function Tasks() {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex gap-2 h-full w-[calc(100vw-350px)] overflow-x-auto">
+        <div className={cn("flex gap-2 h-full overflow-x-auto")}>
           {workflow.map((lane) => (
             <SortableContext
               key={lane.key}
