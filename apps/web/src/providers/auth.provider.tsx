@@ -1,5 +1,5 @@
-import { api } from "@/api";
-import { LocalStorage } from "@/shared/lib/classes/LocalStorage";
+import { api } from '@/api'
+import { LocalStorage } from '@/shared/lib/classes/LocalStorage'
 import { createContext, useContext } from 'react'
 
 type User = {
@@ -11,9 +11,9 @@ type User = {
 const AuthContext = createContext<User | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const token = LocalStorage.getItem("token");
-  if(token) {
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const token = LocalStorage.getItem('token')
+  if (token) {
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
   }
   // This is where you would typically fetch the user data from an API or authentication service
   const user: User = {

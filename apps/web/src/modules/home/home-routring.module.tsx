@@ -24,7 +24,7 @@ export const homeRoutes: RouteObject = {
           path: ':project',
           children: [tasksRoute],
         },
-      ]
+      ],
     },
   ],
 }

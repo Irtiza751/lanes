@@ -52,7 +52,7 @@ export function CreateWorkspace() {
     },
     onError: (error) => {
       console.error('Error creating workspace:', error)
-    }
+    },
   })
 
   useEffect(() => {

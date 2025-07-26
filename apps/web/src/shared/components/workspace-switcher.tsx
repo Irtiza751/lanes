@@ -37,7 +37,10 @@ export function WorkspaceSwitcher({ className, workspaces }: WorkspaceSwitcherPr
         >
           <Avatar className="rounded-md size-5">
             <AvatarImage src={workspace?.logoUrl} alt="Irtiza" />
-            <AvatarFallback style={{background: workspace?.color}} className={`rounded-md text-white`}>
+            <AvatarFallback
+              style={{ background: workspace?.color }}
+              className={`rounded-md text-white`}
+            >
               {workspace?.name?.charAt(0)}
             </AvatarFallback>
           </Avatar>
@@ -91,7 +94,10 @@ function WorkspacesSubMenus({ workspaces }: { workspaces: Workspace[] }) {
           <DropdownMenuItem key={workspace.name} onClick={() => onWorkspaceChange(workspace)}>
             <Avatar className="rounded-md size-5">
               <AvatarImage src={workspace.logoUrl} alt="Irtiza" />
-              <AvatarFallback style={{background: workspace?.color}} className={`rounded-md text-white`}>
+              <AvatarFallback
+                style={{ background: workspace?.color }}
+                className={`rounded-md text-white`}
+              >
                 {workspace.name.charAt(0)}
               </AvatarFallback>
             </Avatar>

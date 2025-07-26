@@ -23,9 +23,10 @@ export function Sidebar() {
   useEffect(() => {
     if (isSuccess && workspaces?.data?.length > 0) {
       const workspaceId = LocalStorage.getItem<string>('workspaceId')
-      if(workspaceId) {
+      if (workspaceId) {
         setWorkspace(
-          workspaces.data.find((workspace) => workspace.id === parseInt(workspaceId)) || workspaces.data[0]
+          workspaces.data.find((workspace) => workspace.id === parseInt(workspaceId)) ||
+            workspaces.data[0],
         )
       }
     }
