@@ -15,9 +15,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
     >
       <QueryClientProvider client={queryClient}>
-        <WorkspaceProvider>
-          {children}
-        </WorkspaceProvider>
+        <WorkspaceProvider>{children}</WorkspaceProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

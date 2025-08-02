@@ -4,9 +4,9 @@ export default async function Workspace({
   params: Promise<{ workspaceId: string }>;
 }) {
   const { workspaceId } = await params;
-  return(
+  return (
     <div className="p-4">
-    <h1>Workspace: {workspaceId}</h1>
+      <h1>Workspace: {workspaceId}</h1>
     </div>
-  ) 
+  );
 }

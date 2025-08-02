@@ -1,15 +1,15 @@
-import { useParams, useRouter } from 'next/navigation';
-import React, { useEffect } from 'react'
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 interface Workspace {
-  workspace: string;
+  workspaceId: string;
   changeWorkspace: (name: string) => void;
 }
 
 const WorkspaceContext = React.createContext<Workspace | null>(null);
 
 export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
-  const [workspace, setWorkspace] = React.useState("");
+  const [workspaceId, setWorkspace] = React.useState("");
   const params = useParams<{ workspaceId: string }>();
   const router = useRouter();
 
@@ -27,18 +27,18 @@ export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
       setWorkspace(params.workspaceId);
       localStorage.setItem("workspaceId", params.workspaceId);
     }
-  }, [params.workspaceId])
+  }, [params.workspaceId]);
 
   const changeWorkspace = (name: string) => {
-    localStorage.setItem('workspaceId', name);
+    localStorage.setItem("workspaceId", name);
     setWorkspace(name);
-  }
+  };
 
   return (
-    <WorkspaceContext.Provider value={{ workspace, changeWorkspace }}>
+    <WorkspaceContext.Provider value={{ workspaceId, changeWorkspace }}>
       {children}
     </WorkspaceContext.Provider>
-  )
+  );
 }
 
 export function useWorkspace() {
