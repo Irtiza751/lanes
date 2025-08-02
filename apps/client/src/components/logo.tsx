@@ -1,20 +1,20 @@
-import { cn } from "@/lib/utils"
-import Link from "next/link"
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface LogoProps {
-  className?: string
-  size?: number
+  className?: string;
+  size?: number;
 }
 
-export function Logo({ className = 'text-primary', size = 10 }: LogoProps) {
-  const width = 182
-  const height = 40
-  const aspectRatio = width / height
-  const svgHeight = size
-  const svgWidth = size * aspectRatio
+export function Logo({ className = "text-primary", size = 10 }: LogoProps) {
+  const width = 182;
+  const height = 40;
+  const aspectRatio = width / height;
+  const svgHeight = size;
+  const svgWidth = size * aspectRatio;
 
   return (
-    <Link className={cn('block', className)} href="/">
+    <Link className={cn("block", className)} href="/">
       <svg
         width={svgWidth}
         height={svgHeight}
@@ -36,5 +36,5 @@ export function Logo({ className = 'text-primary', size = 10 }: LogoProps) {
         />
       </svg>
     </Link>
-  )
+  );
 }
