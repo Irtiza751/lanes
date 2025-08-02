@@ -1,7 +1,18 @@
-'use client'
+"use client";
 import { Workspace } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { LogOut, Settings, UsersRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useWorkspace } from "@/providers/workspace-provider";
@@ -40,15 +51,17 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger className="text-xs">Switch workspace</DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger className="text-xs">
+            Switch workspace
+          </DropdownMenuSubTrigger>
           <WorkspacesDropdown />
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="text-xs"
           onClick={() => {
-            localStorage.removeItem('token')
-            router.replace('/signin');
+            localStorage.removeItem("token");
+            router.replace("/signin");
           }}
         >
           <LogOut />
@@ -60,7 +73,7 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
 }
 
 function WorkspacesDropdown() {
-  const {changeWorkspace} = useWorkspace();
+  const { changeWorkspace } = useWorkspace();
   const router = useRouter();
 
   const workspaces: Workspace[] = [
@@ -82,17 +95,25 @@ function WorkspacesDropdown() {
       slug: "shispare",
       description: "some description for shispare",
     },
-  ]
+  ];
 
   return (
     <DropdownMenuPortal>
       <DropdownMenuSubContent className="min-w-55">
-        <DropdownMenuLabel className="text-xs text-muted-foreground">Workspaces</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-xs text-muted-foreground">
+          Workspaces
+        </DropdownMenuLabel>
         {workspaces.map((workspace) => (
-          <DropdownMenuItem key={workspace.name} onClick={() => changeWorkspace(workspace.slug)}>
+          <DropdownMenuItem
+            key={workspace.name}
+            onClick={() => changeWorkspace(workspace.slug)}
+          >
             <Avatar className="rounded-md size-5">
               <AvatarImage src={workspace.logoUrl} alt="Irtiza" />
-              <AvatarFallback style={{background: workspace?.color}} className={`rounded-md text-xs font-medium text-white`}>
+              <AvatarFallback
+                style={{ background: workspace?.color }}
+                className={`rounded-md text-xs font-medium text-white`}
+              >
                 {workspace.name.charAt(0)}
               </AvatarFallback>
             </Avatar>
@@ -100,14 +121,22 @@ function WorkspacesDropdown() {
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
-        <DropdownMenuLabel className="text-xs text-muted-foreground">Account</DropdownMenuLabel>
-        <DropdownMenuItem className="text-xs" onClick={() => router.push('/create-workspace')}>
+        <DropdownMenuLabel className="text-xs text-muted-foreground">
+          Account
+        </DropdownMenuLabel>
+        <DropdownMenuItem
+          className="text-xs"
+          onClick={() => router.push("/create-workspace")}
+        >
           Create or join new workspace
         </DropdownMenuItem>
-        <DropdownMenuItem className="text-xs" onClick={() => router.push('/add-account')}>
+        <DropdownMenuItem
+          className="text-xs"
+          onClick={() => router.push("/add-account")}
+        >
           Add an other account
         </DropdownMenuItem>
       </DropdownMenuSubContent>
     </DropdownMenuPortal>
-  )
+  );
 }
