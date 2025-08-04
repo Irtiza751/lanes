@@ -16,16 +16,17 @@ import { Button } from "@/components/ui/button";
 import { SeperatorWithText } from "@/components/ui/separator";
 
 const signinSchema = z.object({
+  username: z.string().min(1, "Username is required"),
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
 type SigninForm = z.infer<typeof signinSchema>;
 
-export function SigninForm() {
+export function SignupForm() {
   const form = useForm<SigninForm>({
     resolver: zodResolver(signinSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { username: "", email: "", password: "" },
   });
 
   const onSubmit = (data: SigninForm) => {
@@ -36,10 +37,23 @@ export function SigninForm() {
   return (
     <Form {...form}>
       <Button variant="secondary" size="lg" className="shadow-none w-full">
-        <span>Signin with Google</span>
+        <span>Signup with Google</span>
       </Button>
       <SeperatorWithText className="my-5">Or continue with</SeperatorWithText>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem className="space-y-2">
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="John Doe" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -68,7 +82,7 @@ export function SigninForm() {
         />
 
         <Button size="lg" className="w-full">
-          Signin
+          Signup
         </Button>
       </form>
     </Form>
