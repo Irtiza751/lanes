@@ -31,7 +31,7 @@ export default function DashboardLayout({
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="sm" tooltip="Go to inbox">
-                  <Link href="/shispare/inbox">
+                  <Link href="./inbox">
                     <span>
                       <Inbox size={14} />
                     </span>
@@ -41,7 +41,7 @@ export default function DashboardLayout({
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="sm">
-                  <Link href="/shispare/my-tasks">
+                  <Link href="./my-tasks">
                     <span>
                       <KanbanSquare size={14} />
                     </span>
