@@ -35,12 +35,12 @@ export function ProjectMenu({
     <Collapsible defaultOpen={defaultOpen}>
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton size="sm" className="justify-between">
+          <SidebarMenuButton size="sm" className="group justify-between">
             <div className="flex items-center gap-2">
               <SquareTerminal className={iconClass} size={12} />
               <span>{name}</span>
             </div>
-            <ChevronDown />
+            <ChevronDown className="group-data-[state=closed]:-rotate-90 transition-transform" />
           </SidebarMenuButton>
         </CollapsibleTrigger>
         <CollapsibleContent>
