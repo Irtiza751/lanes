@@ -30,7 +30,7 @@ export default function DashboardLayout({
             <SidebarGroupLabel>General</SidebarGroupLabel>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild size="sm">
+                <SidebarMenuButton asChild size="sm" tooltip="Go to inbox">
                   <Link href="/shispare/inbox">
                     <span>
                       <Inbox size={14} />
