@@ -16,7 +16,6 @@ import {
   ChevronDown,
   Box,
   KanbanSquare,
-  GalleryHorizontalEnd,
   CircleDotDashed,
 } from "lucide-react";
 

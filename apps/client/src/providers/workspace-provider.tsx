@@ -19,7 +19,7 @@ export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
       setWorkspace(storedWorkspace);
       router.push(`/${storedWorkspace}`);
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (params.workspaceId) {

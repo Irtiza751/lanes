@@ -25,7 +25,7 @@ export default function SigninPage() {
         <CardContent>
           <SigninForm />
           <p className="mt-4 text-sm text-center">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link className="underline" href="/signup">
               Signup
             </Link>
