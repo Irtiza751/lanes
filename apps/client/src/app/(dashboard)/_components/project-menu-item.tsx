@@ -1,15 +1,16 @@
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarMenu,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
 } from "@/components/ui/sidebar";
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "@radix-ui/react-collapsible";
+
 import {
   SquareTerminal,
   ChevronDown,
@@ -34,7 +35,7 @@ export function ProjectMenu({
     <Collapsible defaultOpen={defaultOpen}>
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton className="text-sm justify-between">
+          <SidebarMenuButton size="sm" className="justify-between">
             <div className="flex items-center gap-2">
               <SquareTerminal className={iconClass} size={12} />
               <span>{name}</span>
@@ -66,7 +67,7 @@ export default function ProjectMenuItem({
 }) {
   return (
     <SidebarMenuSubItem>
-      <SidebarMenuSubButton className="text-sm">
+      <SidebarMenuSubButton size="sm">
         {icon && <span>{icon}</span>}
         <span>{name}</span>
       </SidebarMenuSubButton>

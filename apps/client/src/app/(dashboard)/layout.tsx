@@ -15,6 +15,7 @@ import { ProjectMenu } from "./_components/project-menu-item";
 import { Inbox, KanbanSquare } from "lucide-react";
 import { WorkspaceSidebarFooter } from "./_components/workspace-sidebar-footer";
 import { WorkspaceSidebarHeader } from "./_components/workspace-sidebar-header";
+import Link from "next/link";
 
 export default function DashboardLayout({
   children,
@@ -30,7 +31,7 @@ export default function DashboardLayout({
             <SidebarGroupLabel>General</SidebarGroupLabel>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
+                <SidebarMenuButton size="sm">
                   <span>
                     <Inbox size={14} />
                   </span>
@@ -38,11 +39,13 @@ export default function DashboardLayout({
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <span>
-                    <KanbanSquare size={14} />
-                  </span>
-                  <span>My Tasks</span>
+                <SidebarMenuButton asChild size="sm">
+                  <Link href="/shispare/my-tasks">
+                    <span>
+                      <KanbanSquare size={14} />
+                    </span>
+                    <span>My Tasks</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
