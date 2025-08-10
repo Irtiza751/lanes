@@ -30,11 +30,13 @@ export default function DashboardLayout({
             <SidebarGroupLabel>General</SidebarGroupLabel>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton size="sm">
-                  <span>
-                    <Inbox size={14} />
-                  </span>
-                  <span>Inbox</span>
+                <SidebarMenuButton asChild size="sm">
+                  <Link href="/shispare/inbox">
+                    <span>
+                      <Inbox size={14} />
+                    </span>
+                    <span>Inbox</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
