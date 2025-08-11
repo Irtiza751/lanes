@@ -3,7 +3,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarInset,
   SidebarMenu,
   SidebarMenuButton,
@@ -15,6 +14,7 @@ import { ProjectMenu } from "./_components/project-menu-item";
 import { Inbox, KanbanSquare } from "lucide-react";
 import { WorkspaceSidebarFooter } from "./_components/workspace-sidebar-footer";
 import { WorkspaceSidebarHeader } from "./_components/workspace-sidebar-header";
+import Link from "next/link";
 
 export default function DashboardLayout({
   children,
@@ -30,19 +30,23 @@ export default function DashboardLayout({
             <SidebarGroupLabel>General</SidebarGroupLabel>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <span>
-                    <Inbox size={14} />
-                  </span>
-                  <span>Inbox</span>
+                <SidebarMenuButton asChild size="sm" tooltip="Go to inbox">
+                  <Link href="./inbox">
+                    <span>
+                      <Inbox size={14} />
+                    </span>
+                    <span>Inbox</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <span>
-                    <KanbanSquare size={14} />
-                  </span>
-                  <span>My Tasks</span>
+                <SidebarMenuButton asChild size="sm">
+                  <Link href="./my-tasks">
+                    <span>
+                      <KanbanSquare size={14} />
+                    </span>
+                    <span>My Tasks</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
