@@ -4,8 +4,8 @@ import { ValidationPipe } from '@nestjs/common';
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://taskmaster.com',
-  'https://taskmaster.vercel.app',
+  'https://lanes.com',
+  'https://lanes.vercel.app',
 ];
 
 async function bootstrap() {

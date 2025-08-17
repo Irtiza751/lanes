@@ -1,5 +1,5 @@
 {
-  "name": "taskmaster",
+  "name": "lanes",
   "private": true,
   "scripts": {
     "build": "turbo run build",
