@@ -9,7 +9,7 @@ A RESTful API and the web app for managing tasks with support for user authentic
 ### Step 1
 
 ```sh
-git clone https://github.com/Irtiza751/taskmaster.git
+git clone https://github.com/Irtiza751/lanes.git
 ```
 
 ### Step 2
@@ -20,7 +20,7 @@ yarn install
 
 ### step 3
 
-Install PostgreSQL and create a database taskmaster
+Install PostgreSQL and create a database lanes
 
 ### step 4
 
@@ -33,7 +33,7 @@ DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_USER=user
 DATABASE_PASSWORD=password
-DATABASE_NAME=taskmaster
+DATABASE_NAME=lanes
 DATABASE_SYNC=true # only for development
 DATABASE_AUTOLOAD=true
 # jwt variables
