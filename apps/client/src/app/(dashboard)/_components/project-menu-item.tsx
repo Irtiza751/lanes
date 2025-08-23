@@ -43,12 +43,12 @@ export function ProjectMenu({
           </SidebarMenuButton>
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <SidebarMenu className="pl-4">
-            <ProjectMenuItem name="Epics" icon={<Box size={12} />} />
-            <ProjectMenuItem name="Tasks" icon={<KanbanSquare size={12} />} />
+          <SidebarMenu className="pl-3">
+            <ProjectMenuItem name="Epics" icon={<Box size={13} />} />
+            <ProjectMenuItem name="Tasks" icon={<KanbanSquare size={13} />} />
             <ProjectMenuItem
               name="Backlog"
-              icon={<CircleDotDashed size={12} />}
+              icon={<CircleDotDashed size={13} />}
             />
           </SidebarMenu>
         </CollapsibleContent>
@@ -67,7 +67,7 @@ export default function ProjectMenuItem({
   return (
     <SidebarMenuSubItem>
       <SidebarMenuSubButton size="sm">
-        {icon && <span>{icon}</span>}
+        {icon && <span className="text-muted-foreground">{icon}</span>}
         <span>{name}</span>
       </SidebarMenuSubButton>
     </SidebarMenuSubItem>
