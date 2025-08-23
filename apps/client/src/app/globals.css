@@ -41,7 +41,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --text-little: 0.8rem;
+  --text-little: 0.78rem;
   --text-base: 0.8rem;
 }
 

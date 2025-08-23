@@ -41,7 +41,7 @@ export function SeparatorWithText({
         className
       )}
     >
-      <span className="bg-card text-muted-foreground relative z-10 px-2">
+      <span className="bg-background text-muted-foreground relative z-10 px-2">
         {children}
       </span>
     </div>

@@ -12,7 +12,7 @@ import { SignupForm } from "../_components/signup-form";
 export default function SignupPage() {
   return (
     <div>
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-2">
         <Logo size={40} />
       </div>
       <Card className="shadow-none border-0 bg-transparent">
