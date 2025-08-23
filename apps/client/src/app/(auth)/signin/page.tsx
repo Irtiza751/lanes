@@ -13,9 +13,9 @@ export default function SigninPage() {
   return (
     <div>
       <div className="flex justify-center mb-8">
-        <Logo size={40} className="text-primary-foreground" />
+        <Logo size={40} className="text-foreground" />
       </div>
-      <Card>
+      <Card className="shadow-none border-0 bg-transparent">
         <CardHeader>
           <CardTitle className="text-2xl text-center">Welcome back</CardTitle>
           <CardDescription className="text-center">

@@ -6,7 +6,7 @@ interface LogoProps {
   size?: number;
 }
 
-export function Logo({ className = "text-primary", size = 10 }: LogoProps) {
+export function Logo({ className = "text-foreground", size = 10 }: LogoProps) {
   const width = 145;
   const height = 42;
   const aspectRatio = width / height;

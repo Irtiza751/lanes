@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SeperatorWithText } from "@/components/ui/separator";
+import { SeparatorWithText } from "@/components/ui/separator";
 
 const signinSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -36,16 +36,16 @@ export function SignupForm() {
 
   return (
     <Form {...form}>
-      <Button variant="secondary" size="lg" className="shadow-none w-full">
+      <Button variant="secondary" size="xl" className="shadow-none w-full">
         <span>Signup with Google</span>
       </Button>
-      <SeperatorWithText className="my-5">Or continue with</SeperatorWithText>
+      <SeparatorWithText className="my-5">Or continue with</SeparatorWithText>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="space-y-2">
+            <FormItem className="space-y-0">
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="John Doe" />
@@ -58,7 +58,7 @@ export function SignupForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="space-y-2">
+            <FormItem className="space-y-0">
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="name@example.com" />
@@ -71,7 +71,7 @@ export function SignupForm() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="space-y-2">
+            <FormItem className="space-y-0">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="*********" />
@@ -81,7 +81,7 @@ export function SignupForm() {
           )}
         />
 
-        <Button size="lg" className="w-full">
+        <Button size="xl" className="w-full">
           Signup
         </Button>
       </form>
