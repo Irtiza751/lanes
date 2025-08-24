@@ -18,10 +18,10 @@ export function WorkspaceSidebarHeader() {
         }}
       />
       <div className="space-x-2">
-        <Button size="sicon" variant="ghost">
+        <Button size="sm-icon" variant="ghost">
           <Search />
         </Button>
-        <Button size="sicon" variant="secondary">
+        <Button size="sm-icon" variant="secondary">
           <SquarePen />
         </Button>
       </div>

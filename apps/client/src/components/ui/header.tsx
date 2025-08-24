@@ -37,7 +37,7 @@ export function HeaderTitle({
 export function ToggleSidebarTrigger() {
   const sidebar = useSidebar();
   return (
-    <Button variant="ghost" size="sicon" onClick={sidebar.toggleSidebar}>
+    <Button variant="ghost" size="sm-icon" onClick={sidebar.toggleSidebar}>
       <Sidebar />
     </Button>
   );

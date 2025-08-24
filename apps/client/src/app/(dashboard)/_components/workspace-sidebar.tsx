@@ -1,3 +1,5 @@
+"use client";
+
 import {
   SidebarContent,
   SidebarGroup,
@@ -12,8 +14,12 @@ import { WorkspaceSidebarFooter } from "./workspace-sidebar-footer";
 import { WorkspaceSidebarHeader } from "./workspace-sidebar-header";
 import Link from "next/link";
 import React from "react";
+import { useParams } from "next/navigation";
 
 export function WorkspaceSidebar() {
+  const params = useParams();
+  const workspaceId = params?.workspaceId as string;
+
   return (
     <React.Fragment>
       <WorkspaceSidebarHeader />
@@ -23,7 +29,7 @@ export function WorkspaceSidebar() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild size="sm" tooltip="Go to inbox">
-                <Link href="./inbox">
+                <Link href={`/${workspaceId}/inbox`}>
                   <span className="text-muted-foreground">
                     <Inbox size={14} />
                   </span>
@@ -33,7 +39,7 @@ export function WorkspaceSidebar() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild size="sm">
-                <Link href="./my-tasks">
+                <Link href={`/${workspaceId}/my-tasks`}>
                   <span className="text-muted-foreground">
                     <KanbanSquare size={14} />
                   </span>

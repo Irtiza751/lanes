@@ -17,7 +17,9 @@ import {
   Box,
   KanbanSquare,
   CircleDotDashed,
+  Ellipsis,
 } from "lucide-react";
+import Link from "next/link";
 
 interface ProjectMenuProps {
   name: string;
@@ -38,8 +40,11 @@ export function ProjectMenu({
             <div className="flex items-center gap-2">
               <SquareTerminal className={iconClass} size={12} />
               <span>{name}</span>
+              <ChevronDown className="group-data-[state=closed]:-rotate-90 transition-transform text-muted-foreground size-3" />
             </div>
-            <ChevronDown className="group-data-[state=closed]:-rotate-90 transition-transform" />
+            <div className="size-3">
+              <Ellipsis className="text-muted-foreground size-3" size={8} />
+            </div>
           </SidebarMenuButton>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -66,9 +71,11 @@ export default function ProjectMenuItem({
 }) {
   return (
     <SidebarMenuSubItem>
-      <SidebarMenuSubButton size="sm">
-        {icon && <span className="text-muted-foreground">{icon}</span>}
-        <span>{name}</span>
+      <SidebarMenuSubButton asChild size="sm">
+        <Link href={`${name.toLowerCase()}`}>
+          {icon && <span className="text-muted-foreground">{icon}</span>}
+          <span>{name}</span>
+        </Link>
       </SidebarMenuSubButton>
     </SidebarMenuSubItem>
   );
