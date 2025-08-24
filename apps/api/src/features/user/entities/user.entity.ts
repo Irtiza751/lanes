@@ -1,10 +1,8 @@
 import {
   BeforeCreate,
   BeforeUpdate,
-  Collection,
   Entity,
   Enum,
-  ManyToMany,
   Property,
   Unique,
 } from '@mikro-orm/core';
@@ -18,12 +16,12 @@ import { Roles } from '@/core/enums/roles.enum';
 export class User extends BaseEntity<'roles'> {
   @Property()
   @Unique()
-  @ApiProperty({ example: 'johndoe' })
-  username: string;
+  @ApiProperty({ example: 'john_doe' })
+  name: string;
 
   @Property()
   @Unique()
-  @ApiProperty({ example: 'John Doe' })
+  @ApiProperty({ example: 'abc@xyz.com' })
   email: string;
 
   @Property({ hidden: true, nullable: true })
