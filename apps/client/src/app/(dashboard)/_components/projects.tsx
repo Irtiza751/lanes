@@ -2,12 +2,13 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { AuthService } from "@/lib/auth-service";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export function ProjectsPage() {
-  const { data, error } = useSuspenseQuery({
+  const { data, error } = useQuery({
     queryKey: ["whoami"],
     queryFn: async () => AuthService.whoami(),
+    retry: false,
   });
 
   if (error) return <div>Error loading user data</div>;
@@ -15,7 +16,7 @@ export function ProjectsPage() {
   return (
     <Card>
       <CardContent>
-        <pre>{JSON.stringify(data.data, null, 2)}</pre>
+        <pre>{JSON.stringify(data?.data.user, null, 2)}</pre>
       </CardContent>
     </Card>
   );
