@@ -7,9 +7,7 @@ export default function LandingPage() {
     <main>
       <header className="border-b">
         <div className="container mx-auto py-4 lg:px-8 flex items-center justify-between">
-          <Link href="/">
-            <Logo size={30} />
-          </Link>
+          <Logo size={30} />
 
           <div className="flex gap-3">
             <Link href="/signin">

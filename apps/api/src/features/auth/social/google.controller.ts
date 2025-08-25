@@ -44,6 +44,10 @@ export class GoogleController {
   @UseGuards(GoogleAuthGuard)
   async googleAuthCallback(@User() user: SocialUser, @Res() res: Response) {
     Logger.log(user, 'google user');
-    return this.googleProvider.validateOrCreateUser(user, res);
+    const result = await this.googleProvider.validateOrCreateUser(user, res);
+    const frontendUrl = this.appConfigService.frontendUrl;
+    // `http://localhost:5173/auth/callback?accessToken=${tokens.accessToken}&refreshToken=${tokens.refreshToken}`
+    const redirectUrl = `${frontendUrl}/google?accessToken=${result.accessToken}&refreshToken=${result.refreshToken}`;
+    return res.redirect(redirectUrl);
   }
 }

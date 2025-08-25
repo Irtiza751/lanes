@@ -41,6 +41,12 @@ export class GoogleProvider {
           accessTokenCookieOptions,
         );
 
+        res.cookie(
+          'refresh_token',
+          tokens.accessToken,
+          accessTokenCookieOptions,
+        );
+
         return { user, ...tokens };
       } else {
         const { socialUser } =
@@ -51,6 +57,16 @@ export class GoogleProvider {
           name: socialUser.name,
           role: socialUser.role,
         });
+        res.cookie(
+          'access_token',
+          tokens.accessToken,
+          accessTokenCookieOptions,
+        );
+        res.cookie(
+          'refresh_token',
+          tokens.accessToken,
+          accessTokenCookieOptions,
+        );
         return { user: socialUser, ...tokens };
       }
     } catch (error) {

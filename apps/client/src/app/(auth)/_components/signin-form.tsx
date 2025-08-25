@@ -37,9 +37,19 @@ export function SigninForm() {
     signinMutation.mutate({ name: data.email, password: data.password });
   };
 
+  const googleSignin = () => {
+    const googleUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
+    console.log("Redirecting to:", googleUrl);
+    window.location.href = googleUrl;
+  };
+
   return (
     <Form {...form}>
-      <Button variant="secondary" className="shadow-none w-full">
+      <Button
+        variant="secondary"
+        onClick={googleSignin}
+        className="shadow-none w-full"
+      >
         <span>Signin with Google</span>
       </Button>
       <SeparatorWithText className="my-5">Or continue with</SeparatorWithText>
