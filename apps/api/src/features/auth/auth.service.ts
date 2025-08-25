@@ -110,8 +110,8 @@ export class AuthService {
 
       const { accessToken, refreshToken } = await this.generateTokens(user);
 
-      res.cookie('accessToken', accessToken, accessTokenCookieOptions);
-      res.cookie('refreshToken', refreshToken, refreshTokenCookieOptions);
+      res.cookie('access_token', accessToken, accessTokenCookieOptions);
+      res.cookie('refresh_token', refreshToken, refreshTokenCookieOptions);
 
       return {
         user,

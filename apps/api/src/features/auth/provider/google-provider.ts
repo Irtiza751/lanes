@@ -35,7 +35,11 @@ export class GoogleProvider {
           role: user.role,
         });
 
-        res.cookie('accessToken', tokens.accessToken, accessTokenCookieOptions);
+        res.cookie(
+          'access_token',
+          tokens.accessToken,
+          accessTokenCookieOptions,
+        );
 
         return { user, ...tokens };
       } else {

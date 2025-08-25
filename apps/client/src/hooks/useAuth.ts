@@ -17,7 +17,17 @@ export function useAuth() {
     },
   });
 
+  const signoutMutation = useMutation({
+    mutationKey: ["signout"],
+    mutationFn: () => AuthService.signout(),
+    onSuccess: () => {
+      queryClient.clear();
+      router.push("/signin");
+    },
+  });
+
   return {
     signinMutation,
+    signoutMutation,
   };
 }

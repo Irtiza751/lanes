@@ -13,7 +13,7 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import { Public } from '@core/decorators/public.decorator';
 import { SigninDto } from './dto/signin.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth } from '@nestjs/swagger';
 import { RefreshDto } from './dto/refresh.dto';
 import { GeneratedTokens } from '@core/interfaces/generated-tokens.interface';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
@@ -21,6 +21,10 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { Response } from 'express';
 import { User } from '@/core/decorators/user.decorator';
 import { JwtPayload } from '@/core/interfaces/jwt-payload.interface';
+import {
+  accessTokenCookieOptions,
+  refreshTokenCookieOptions,
+} from '@/utils/cookie-options';
 
 @Controller('auth')
 export class AuthController {
@@ -76,5 +80,15 @@ export class AuthController {
     return {
       user,
     };
+  }
+
+  @Post('/signout')
+  @ApiBearerAuth('access-token')
+  @ApiCookieAuth('access_token')
+  signOut(@Res({ passthrough: true }) res: Response) {
+    Logger.log('Signing out user, clearing cookies', 'AuthController');
+    res.clearCookie('access_token', accessTokenCookieOptions);
+    res.clearCookie('refresh_token', refreshTokenCookieOptions);
+    return { message: 'Signed out successfully' };
   }
 }

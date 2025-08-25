@@ -38,10 +38,10 @@ async function bootstrap() {
     .setTitle('Lanes API')
     .setDescription('API documentation for Lanes application')
     .setVersion('1.0')
-    .addCookieAuth('accessToken', {
+    .addCookieAuth('access_token', {
       type: 'apiKey',
       in: 'cookie',
-      name: 'accessToken',
+      name: 'access_token',
       description: 'Access token cookie',
     })
     .addBearerAuth(

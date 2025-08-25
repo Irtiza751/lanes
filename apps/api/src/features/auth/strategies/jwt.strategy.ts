@@ -32,7 +32,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         // first try to extract from cookie
-        (req: Request) => req.cookies?.accessToken,
+        (req: Request) => req.cookies?.access_token,
         // fallback to standard method
         ExtractJwt.fromAuthHeaderAsBearerToken(),
       ]),
