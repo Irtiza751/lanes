@@ -10,9 +10,9 @@ export interface JwtPayload {
    */
   email: string;
   /**
-   * @description logged in user username
+   * @description logged in user name
    */
-  username: string;
+  name: string;
   /**
    * @description assigned role of logged in user
    */

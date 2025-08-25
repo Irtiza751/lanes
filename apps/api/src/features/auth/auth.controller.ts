@@ -4,8 +4,9 @@ import {
   Post,
   Body,
   UseGuards,
-  Req,
   Param,
+  Res,
+  Logger,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
@@ -17,6 +18,9 @@ import { RefreshDto } from './dto/refresh.dto';
 import { GeneratedTokens } from '@core/interfaces/generated-tokens.interface';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { Response } from 'express';
+import { User } from '@/core/decorators/user.decorator';
+import { JwtPayload } from '@/core/interfaces/jwt-payload.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -31,8 +35,11 @@ export class AuthController {
   @Post('/signin')
   @UseGuards(LocalAuthGuard)
   @Public()
-  signIn(@Body() signinDto: SigninDto) {
-    return this.authService.signInUser(signinDto);
+  signIn(
+    @Body() signinDto: SigninDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.signInUser(signinDto, res);
   }
 
   @Post('/refresh')
@@ -65,9 +72,9 @@ export class AuthController {
 
   @Get('/whoami')
   @ApiBearerAuth('access-token')
-  whoami() {
+  whoami(@User() user: JwtPayload): { user: JwtPayload } {
     return {
-      user: 'Hi there!',
+      user,
     };
   }
 }

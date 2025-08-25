@@ -29,7 +29,7 @@ export class GoogleProvider {
         const tokens = await this.authService.generateTokens({
           sub: user.id,
           email: user.email,
-          username: user.username,
+          name: user.name,
           role: user.role,
         });
         return { user, ...tokens };
@@ -39,7 +39,7 @@ export class GoogleProvider {
         const tokens = await this.authService.generateTokens({
           sub: socialUser.id,
           email: socialUser.email,
-          username: socialUser.username,
+          name: socialUser.name,
           role: socialUser.role,
         });
         return { user: socialUser, ...tokens };

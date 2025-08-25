@@ -5,7 +5,7 @@ export class SigninDto {
   @ApiProperty({ example: 'johndoe', description: 'Username or Password' })
   @IsString()
   @IsNotEmpty()
-  username: string;
+  name: string;
 
   @ApiProperty({ example: '******' })
   @IsString()

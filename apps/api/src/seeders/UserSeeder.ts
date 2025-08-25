@@ -9,7 +9,7 @@ export class UserSeeder extends Seeder {
     const users = [
       {
         email: 'john.doe@example.com',
-        username: 'john doe',
+        name: 'john doe',
         password: 'password123',
         // roles: [context.adminRole, context.userRole],
         role: Roles.ADMIN,
@@ -18,7 +18,7 @@ export class UserSeeder extends Seeder {
       },
       {
         email: 'jane.doe@example.com',
-        username: 'jane doe',
+        name: 'jane doe',
         password: 'password123',
         // roles: [context.userRole],
         role: Roles.USER,
@@ -28,7 +28,6 @@ export class UserSeeder extends Seeder {
     ];
 
     for (let userData of users) {
-      userData.username = userData.username.replace(/\s+/g, '_').toLowerCase();
       em.create(User, userData);
     }
   }

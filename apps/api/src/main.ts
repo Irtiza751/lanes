@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import * as compression from 'compression';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,7 +14,12 @@ async function bootstrap() {
   // Security
   app.use(helmet());
   app.use(compression());
-  app.enableCors();
+  app.enableCors({
+    origin: configService.get<string>('FRONTEND_URL'),
+    credentials: true,
+  });
+
+  app.use(cookieParser());
 
   // Global pipes
   app.useGlobalPipes(
@@ -32,6 +38,12 @@ async function bootstrap() {
     .setTitle('Lanes API')
     .setDescription('API documentation for Lanes application')
     .setVersion('1.0')
+    .addCookieAuth('accessToken', {
+      type: 'apiKey',
+      in: 'cookie',
+      name: 'accessToken',
+      description: 'Access token cookie',
+    })
     .addBearerAuth(
       {
         type: 'http',
