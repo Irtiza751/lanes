@@ -1,4 +1,11 @@
-import { Controller, Get, Logger, Inject, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Logger,
+  Inject,
+  UseGuards,
+  Res,
+} from '@nestjs/common';
 import { GoogleAuthGuard } from '../guards/google-auth.guard';
 import { Public } from '@core/decorators/public.decorator';
 import { User } from '@core/decorators/user.decorator';
@@ -6,6 +13,7 @@ import { SocialUser } from '@core/interfaces/social-user';
 import { GoogleProvider } from '../provider/google-provider';
 import { ConfigType } from '@nestjs/config';
 import appConfig from '@config/app.config';
+import { Response } from 'express';
 
 @Public()
 @Controller('auth/google')
@@ -34,8 +42,8 @@ export class GoogleController {
    */
   @Get('callback')
   @UseGuards(GoogleAuthGuard)
-  async googleAuthCallback(@User() user: SocialUser) {
+  async googleAuthCallback(@User() user: SocialUser, @Res() res: Response) {
     Logger.log(user, 'google user');
-    return this.googleProvider.validateOrCreateUser(user);
+    return this.googleProvider.validateOrCreateUser(user, res);
   }
 }

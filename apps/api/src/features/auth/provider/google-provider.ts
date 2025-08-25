@@ -4,6 +4,8 @@ import { UserService } from '@/features/user/user.service';
 import { SocialUser } from '@core/interfaces/social-user';
 import { UserProvider } from '@features/user/providers/user-provider';
 import { AuthService } from '../auth.service';
+import { Response } from 'express';
+import { accessTokenCookieOptions } from '@/utils/cookie-options';
 
 @Injectable()
 export class GoogleProvider {
@@ -20,7 +22,7 @@ export class GoogleProvider {
     private readonly authService: AuthService,
   ) {}
 
-  async validateOrCreateUser(googleUser: SocialUser) {
+  async validateOrCreateUser(googleUser: SocialUser, res: Response) {
     const { email } = googleUser;
     const user = await this.userService.findByEmail(email);
     try {
@@ -32,6 +34,9 @@ export class GoogleProvider {
           name: user.name,
           role: user.role,
         });
+
+        res.cookie('accessToken', tokens.accessToken, accessTokenCookieOptions);
+
         return { user, ...tokens };
       } else {
         const { socialUser } =
