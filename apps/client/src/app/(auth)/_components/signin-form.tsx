@@ -14,6 +14,7 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SeparatorWithText } from "@/components/ui/separator";
+import { useAuth } from "@/hooks/useAuth";
 
 const signinSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -23,6 +24,8 @@ const signinSchema = z.object({
 type SigninForm = z.infer<typeof signinSchema>;
 
 export function SigninForm() {
+  const { signinMutation } = useAuth();
+
   const form = useForm<SigninForm>({
     resolver: zodResolver(signinSchema),
     defaultValues: { email: "", password: "" },
@@ -31,11 +34,12 @@ export function SigninForm() {
   const onSubmit = (data: SigninForm) => {
     console.log("Form submitted with data:", data);
     // Handle form submission logic here
+    signinMutation.mutate({ name: data.email, password: data.password });
   };
 
   return (
     <Form {...form}>
-      <Button variant="secondary" size="xl" className="shadow-none w-full">
+      <Button variant="secondary" className="shadow-none w-full">
         <span>Signin with Google</span>
       </Button>
       <SeparatorWithText className="my-5">Or continue with</SeparatorWithText>
@@ -60,16 +64,14 @@ export function SigninForm() {
             <FormItem className="space-y-0">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="*********" />
+                <Input {...field} placeholder="*********" type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button size="xl" className="w-full">
-          Signin
-        </Button>
+        <Button className="w-full">Signin</Button>
       </form>
     </Form>
   );
