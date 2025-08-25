@@ -5,6 +5,10 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { getCookie } from "@/lib/get-cookie";
 import { ProjectsPage } from "../../_components/projects";
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export default async function ProjectPage({
   params,
 }: {
@@ -19,6 +23,8 @@ export default async function ProjectPage({
       AuthService.whoami({ accessToken: await getCookie("access_token") }),
     retry: false,
   });
+
+  await sleep(5000); // Simulate a delay for loading state demonstration
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
