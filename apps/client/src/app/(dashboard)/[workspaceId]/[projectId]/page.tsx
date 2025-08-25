@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import React from "react";
-// import { getQueryClient } from "@/lib/get-query-client";
-// import { AuthService } from "@/lib/auth-service";
-// import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-// import { getCookie } from "@/lib/get-cookie";
+import { getQueryClient } from "@/lib/get-query-client";
+import { AuthService } from "@/lib/auth-service";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getCookie } from "@/lib/get-cookie";
+import { ProjectsPage } from "../../_components/projects";
 
 export default async function ProjectPage({
   params,
@@ -11,24 +11,24 @@ export default async function ProjectPage({
   params: Promise<{ workspaceId: string; projectId: string }>;
 }) {
   const { workspaceId, projectId } = await params;
-  console.log("Cookies:", (await cookies()).getAll());
-  // const queryClient = getQueryClient();
-  // const authService = new AuthService();
+  const queryClient = getQueryClient();
 
-  // const whoami = await queryClient.prefetchQuery({
-  //   queryKey: ["whoami"],
-  //   queryFn: async () =>
-  //     AuthService.whoami({ accessToken: await getCookie("accessToken") }),
-  // });
-
-  // console.log("Whoami:", whoami);
+  await queryClient.prefetchQuery({
+    queryKey: ["whoami"],
+    queryFn: async () =>
+      AuthService.whoami({ accessToken: await getCookie("access_token") }),
+    retry: false,
+  });
 
   return (
-    // <HydrationBoundary state={dehydrate(queryClient)}>
-    <div className="p-4">
-      <p>Workspace: {workspaceId}</p>
-      <p>Project: {projectId}</p>
-    </div>
-    // </HydrationBoundary>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="p-4 space-y-4">
+        <div>
+          <p>Workspace: {workspaceId}</p>
+          <p>Project: {projectId}</p>
+        </div>
+        <ProjectsPage />
+      </div>
+    </HydrationBoundary>
   );
 }

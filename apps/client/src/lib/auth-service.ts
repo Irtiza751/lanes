@@ -8,7 +8,6 @@ export class AuthService {
   }
 
   static whoami(options?: ServiceOptions) {
-    console.log("Access Token:", options?.accessToken);
     api.defaults.headers.common["Authorization"] = options?.accessToken;
     return api.get("/auth/whoami");
   }
