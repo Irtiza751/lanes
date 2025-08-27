@@ -18,7 +18,7 @@ function Separator({
       orientation={orientation}
       className={cn(
         "bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px",
-        className,
+        className
       )}
       {...props}
     />
@@ -27,7 +27,7 @@ function Separator({
 
 export { Separator };
 
-export function SeperatorWithText({
+export function SeparatorWithText({
   children,
   className,
 }: {
@@ -38,10 +38,10 @@ export function SeperatorWithText({
     <div
       className={cn(
         "after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t",
-        className,
+        className
       )}
     >
-      <span className="bg-card text-muted-foreground relative z-10 px-2">
+      <span className="bg-background text-muted-foreground relative z-10 px-2">
         {children}
       </span>
     </div>

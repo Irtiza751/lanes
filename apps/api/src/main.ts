@@ -1,32 +1,58 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://lanes.com',
-  'https://lanes.vercel.app',
-];
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
+import helmet from 'helmet';
+import * as compression from 'compression';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: allowedOrigins,
-  });
-  /**
-   * Setting the global prefix api/endpoint
-   */
-  app.setGlobalPrefix('api');
-  /**
-   * Using the DTO pipe for request validation
-   */
+  const configService = app.get(ConfigService);
+
+  // Security
+  app.use(helmet());
+  app.use(compression());
+  app.enableCors();
+
+  // Global pipes
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: true,
       transform: true,
+      forbidNonWhitelisted: true,
     }),
   );
-  await app.listen(process.env.PORT ?? 3000);
+
+  // Global prefix
+  app.setGlobalPrefix('api/v1');
+
+  // Swagger
+  const config = new DocumentBuilder()
+    .setTitle('Lanes API')
+    .setDescription('API documentation for Lanes application')
+    .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'jwt',
+        name: 'jwt',
+        description: 'Enter jwt token',
+        in: 'header',
+      },
+      'access-token',
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
+
+  const port = configService.get<number>('PORT') || 3000;
+  await app.listen(port);
+
+  console.log(`Application running on: http://localhost:${port}`);
+  console.log(`Swagger docs: http://localhost:${port}/api/docs`);
 }
+
 bootstrap();

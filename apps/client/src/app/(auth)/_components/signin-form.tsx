@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SeperatorWithText } from "@/components/ui/separator";
+import { SeparatorWithText } from "@/components/ui/separator";
 
 const signinSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -35,16 +35,16 @@ export function SigninForm() {
 
   return (
     <Form {...form}>
-      <Button variant="secondary" size="lg" className="shadow-none w-full">
+      <Button variant="secondary" size="xl" className="shadow-none w-full">
         <span>Signin with Google</span>
       </Button>
-      <SeperatorWithText className="my-5">Or continue with</SeperatorWithText>
+      <SeparatorWithText className="my-5">Or continue with</SeparatorWithText>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="space-y-2">
+            <FormItem className="space-y-0">
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="name@example.com" />
@@ -57,7 +57,7 @@ export function SigninForm() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="space-y-2">
+            <FormItem className="space-y-0">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="*********" />
@@ -67,7 +67,7 @@ export function SigninForm() {
           )}
         />
 
-        <Button size="lg" className="w-full">
+        <Button size="xl" className="w-full">
           Signin
         </Button>
       </form>

@@ -32,7 +32,7 @@ export default function DashboardLayout({
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="sm" tooltip="Go to inbox">
                   <Link href="./inbox">
-                    <span>
+                    <span className="text-muted-foreground">
                       <Inbox size={14} />
                     </span>
                     <span>Inbox</span>
@@ -42,7 +42,7 @@ export default function DashboardLayout({
               <SidebarMenuItem>
                 <SidebarMenuButton asChild size="sm">
                   <Link href="./my-tasks">
-                    <span>
+                    <span className="text-muted-foreground">
                       <KanbanSquare size={14} />
                     </span>
                     <span>My Tasks</span>
@@ -71,9 +71,7 @@ export default function DashboardLayout({
         <WorkspaceSidebarFooter />
         <SidebarRail />
       </Sidebar>
-      <SidebarInset className="border bg-sidebar">
-        <main>{children}</main>
-      </SidebarInset>
+      <SidebarInset className="border bg-sidebar">{children}</SidebarInset>
     </SidebarProvider>
   );
 }

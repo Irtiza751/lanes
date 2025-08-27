@@ -1,49 +1,63 @@
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './features/auth/auth.module';
+import { JwtAuthGuard } from './features/auth/guards/jwt-auth.guard';
 import appConfig from './config/app.config';
-import dbConfig from './config/db.config';
-import jwtConfig from './config/jwt.config';
-import envSchema from './config/env.validator';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UtilsModule } from './utils/utils.module';
-import { AuthModule } from './auth/auth.module';
-import { WorkspaceModule } from './workspace/workspace.module';
-import { TasksModule } from './tasks/tasks.module';
-import { ProjectsModule } from './projects/projects.module';
+import { DatabaseConfig } from './config/database.config';
+import validateEnv from './config/validate.env';
+import { UserModule } from './features/user/user.module';
+import { MailModule } from './features/mail/mail.module';
+import { CommonModule } from './common/common.module';
+import { StorageModule } from './core/storage/storage.module';
+import { StorageType } from './core/storage/enums/storage-type';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
-      load: [appConfig, dbConfig, jwtConfig],
-      validationSchema: envSchema,
+      envFilePath: ['.env.local', '.env'],
+      validationSchema: validateEnv,
+      load: [appConfig],
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        port: configService.get('db.port'),
-        username: configService.get('db.user'),
-        password: configService.get('db.password'),
-        host: configService.get('db.host'),
-        database: configService.get('db.name'),
-        autoLoadEntities: configService.get('db.autoLoadEntities'),
-        synchronize: configService.get('db.synchronize'),
-      }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 10,
+      },
+    ]),
+    MikroOrmModule.forRootAsync({
+      useClass: DatabaseConfig,
     }),
-    UtilsModule,
     AuthModule,
-    WorkspaceModule,
-    TasksModule,
-    ProjectsModule,
+    UserModule,
+    MailModule,
+    CommonModule,
+    StorageModule.forRoot({
+      type: StorageType.DISK,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads'),
+      serveRoot: '/uploads',
+      serveStaticOptions: {
+        index: false,
+        dotfiles: 'deny',
+      },
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
