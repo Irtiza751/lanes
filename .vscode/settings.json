@@ -1,5 +1,5 @@
 {
-  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.preferences.importModuleSpecifier": "shortest",
   "editor.formatOnSave": true,
   "editor.indentSize": 2,
   "editor.tabSize": 2,

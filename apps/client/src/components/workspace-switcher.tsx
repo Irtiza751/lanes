@@ -37,7 +37,7 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
               {workspace.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <small>{workspace.name}</small>
+          <span>{workspace.name}</span>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-60 rounded-lg">

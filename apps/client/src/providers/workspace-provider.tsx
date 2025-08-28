@@ -1,5 +1,4 @@
-import { useParams, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 
 interface Workspace {
   workspaceId: string;
@@ -10,29 +9,11 @@ const WorkspaceContext = React.createContext<Workspace | null>(null);
 
 export function WorkspaceProvider({ children }: { children: React.ReactNode }) {
   const [workspaceId, setWorkspace] = React.useState("");
-  const params = useParams<{ workspaceId: string }>();
-  const router = useRouter();
 
-  useEffect(() => {
-    const storedWorkspace = localStorage.getItem("workspaceId");
-    if (storedWorkspace) {
-      setWorkspace(storedWorkspace);
-      router.push(`/${storedWorkspace}`);
-    }
-  }, [router]);
-
-  useEffect(() => {
-    if (params.workspaceId) {
-      // console.log("Workspace ID from params:", params.workspaceId);
-      setWorkspace(params.workspaceId);
-      localStorage.setItem("workspaceId", params.workspaceId);
-    }
-  }, [params.workspaceId]);
-
-  const changeWorkspace = (name: string) => {
+  const changeWorkspace = useCallback((name: string) => {
     localStorage.setItem("workspaceId", name);
     setWorkspace(name);
-  };
+  }, []);
 
   return (
     <WorkspaceContext.Provider value={{ workspaceId, changeWorkspace }}>
