@@ -5,7 +5,7 @@ export interface SocialUser {
   provider: AuthProvider;
   providerId: string;
   email: string;
-  username: string;
+  name: string;
   avatar: string;
   verified: boolean;
   role: Roles;

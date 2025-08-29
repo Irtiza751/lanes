@@ -26,6 +26,11 @@ import { MailService } from '../mail/mail.service';
 import { JwtVerification } from '@core/interfaces/jwt-verification.interface';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { BaseResponse } from '@core/interfaces/base-response';
+import { Response } from 'express';
+import {
+  accessTokenCookieOptions,
+  refreshTokenCookieOptions,
+} from '@/utils/cookie-options';
 
 @Injectable()
 export class AuthService {
@@ -59,7 +64,7 @@ export class AuthService {
       try {
         await this.mailService.sendConfirmation({
           toEmail: user.email,
-          name: user.username,
+          name: user.name,
           endpoint: `/verify-email/${token}`,
         });
       } catch (error) {
@@ -69,15 +74,15 @@ export class AuthService {
     }
   }
 
-  async validateUser(username: string, password: string): Promise<JwtPayload> {
+  async validateUser(name: string, password: string): Promise<JwtPayload> {
     let user: User | null = null;
-    // checking if user provided and email or a username both must be unique
-    const isEmail = Validator.isEmail(username);
+    // checking if user provided and email or a name both must be unique
+    const isEmail = Validator.isEmail(name);
     try {
       if (isEmail) {
-        user = await this.userService.findByEmail(username);
+        user = await this.userService.findByEmail(name);
       } else {
-        user = await this.userService.findByUsername(username);
+        user = await this.userService.findByUsername(name);
       }
     } catch (error) {
       throw new BadRequestException();
@@ -93,20 +98,21 @@ export class AuthService {
     // returning the minimum user info
     return {
       sub: user.id,
-      username: user.username,
+      name: user.name,
       role: user.role,
       email: user.email,
     };
   }
 
-  async signInUser(signinDto: SigninDto) {
+  async signInUser(signinDto: SigninDto, res: Response) {
     try {
-      const user = await this.validateUser(
-        signinDto.username,
-        signinDto.password,
-      );
+      const user = await this.validateUser(signinDto.name, signinDto.password);
 
       const { accessToken, refreshToken } = await this.generateTokens(user);
+
+      res.cookie('access_token', accessToken, accessTokenCookieOptions);
+      res.cookie('refresh_token', refreshToken, refreshTokenCookieOptions);
+
       return {
         user,
         accessToken,
@@ -128,7 +134,7 @@ export class AuthService {
       return this.generateTokens({
         email: jwtResponse.email,
         sub: jwtResponse.sub,
-        username: jwtResponse.username,
+        name: jwtResponse.name,
         role: jwtResponse.role,
       });
     } catch (error) {
@@ -162,7 +168,7 @@ export class AuthService {
 
     this.mailService.sendResetEmail({
       toEmail: user.email,
-      name: user.username,
+      name: user.name,
       endpoint,
     });
 

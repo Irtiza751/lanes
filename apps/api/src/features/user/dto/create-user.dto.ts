@@ -14,7 +14,7 @@ import { Roles } from '@/core/enums/roles.enum';
 export class CreateUserDto {
   @ApiProperty({ example: 'john_doe', description: 'Username of the user' })
   @IsString()
-  username: string;
+  name: string;
 
   @ApiProperty({ example: 'john.doe@example.com' })
   @IsEmail()

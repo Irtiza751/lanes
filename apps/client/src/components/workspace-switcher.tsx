@@ -16,13 +16,14 @@ import {
 import { LogOut, Settings, UsersRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useWorkspace } from "@/providers/workspace-provider";
+import { useAuth } from "@/hooks/useAuth";
 
 interface WorkspaceSwitcherProps {
   workspace: Workspace;
 }
 
 export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
-  const router = useRouter();
+  const { signoutMutation } = useAuth();
 
   return (
     <DropdownMenu>
@@ -59,10 +60,7 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="text-xs"
-          onClick={() => {
-            localStorage.removeItem("token");
-            router.replace("/signin");
-          }}
+          onClick={() => signoutMutation.mutate()}
         >
           <LogOut />
           <span>Logout</span>
