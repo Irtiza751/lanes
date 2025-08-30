@@ -27,10 +27,6 @@ export class User extends BaseEntity<'roles'> {
   @Property({ hidden: true, nullable: true })
   password?: string;
 
-  @Enum(() => Roles)
-  @ApiProperty({ enum: Roles, example: Roles.USER })
-  role: Roles = Roles.USER;
-
   @Enum(() => AuthProvider)
   @ApiProperty({ enum: AuthProvider, example: AuthProvider.LOCAL })
   provider: AuthProvider;
