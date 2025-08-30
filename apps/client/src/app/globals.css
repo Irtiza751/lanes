@@ -43,6 +43,22 @@
   --radius-xl: calc(var(--radius) + 4px);
   --text-little: 0.78rem;
   --text-base: 0.8rem;
+  --animate-fade-in-scale: fade-in-scale 0.4s ease-out;
+
+  @keyframes fade-in-scale {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 :root {

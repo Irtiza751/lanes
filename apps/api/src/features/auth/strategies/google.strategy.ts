@@ -42,7 +42,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       provider: AuthProvider.GOOGLE,
       providerId: profile.id,
       email: profile.emails?.[0]?.value || '',
-      name: profile.username || '',
+      name: profile.displayName || '',
       avatar: profile.photos?.[0]?.value || '',
       verified: profile.emails?.[0]?.verified || false,
       role: Roles.USER,
