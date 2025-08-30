@@ -17,6 +17,7 @@ import { StorageModule } from './core/storage/storage.module';
 import { StorageType } from './core/storage/enums/storage-type';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { RolesModule } from './features/roles/roles.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { join } from 'path';
         dotfiles: 'deny',
       },
     }),
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [
