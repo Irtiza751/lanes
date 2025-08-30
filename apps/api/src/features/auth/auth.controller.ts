@@ -68,14 +68,14 @@ export class AuthController {
   }
 
   @Get('/verify-email/:token')
-  @ApiBearerAuth('access-token')
+  @ApiBearerAuth('access_token')
   verifyUser(@Param('token') token: string) {
     // return req.user;
     return this.authService.verifyUserEmail(token);
   }
 
   @Get('/whoami')
-  @ApiBearerAuth('access-token')
+  @ApiBearerAuth('access_token')
   whoami(@User() user: JwtPayload): { user: JwtPayload } {
     return {
       user,
@@ -83,7 +83,7 @@ export class AuthController {
   }
 
   @Post('/signout')
-  @ApiBearerAuth('access-token')
+  @ApiBearerAuth('access_token')
   @ApiCookieAuth('access_token')
   signOut(@Res({ passthrough: true }) res: Response) {
     Logger.log('Signing out user, clearing cookies', 'AuthController');

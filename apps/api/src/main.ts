@@ -53,7 +53,7 @@ async function bootstrap() {
         description: 'Enter jwt token',
         in: 'header',
       },
-      'access-token',
+      'access_token',
     )
     .build();
 
