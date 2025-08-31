@@ -100,7 +100,8 @@ export default function CreateWorkspaceForm() {
             </CardContent>
             <CardFooter>
               <p className="text-muted-foreground">
-                Learn more about workspaces
+                This is a mandatory step, before joining the system user must
+                need to create or join a workspace.
               </p>
             </CardFooter>
           </Card>

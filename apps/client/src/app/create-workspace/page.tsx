@@ -3,7 +3,7 @@ import CreateWorkspaceForm from "./components/create-workspace-form";
 
 export default function CreateWorkspacePage() {
   return (
-    <main className="min-h-svh w-full flex flex-col justify-center items-center bg-linear-45 from-background via-background to-secondary">
+    <main className="min-h-svh w-full flex flex-col justify-center items-center -bg-linear-30 from-background to-secondary/20">
       <div className="max-w-md text-center mb-6">
         <AnimatedText>
           <h4 className="text-[1.5rem] font-medium mb-4">
