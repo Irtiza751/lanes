@@ -11,6 +11,9 @@ import { WorkspaceService } from './workspace.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { ApiBearerAuth, ApiCookieAuth } from '@nestjs/swagger';
+import { RequiredPermission } from '@/core/decorators/required-permission.decorator';
+import { Resource } from '@/core/enums/resource.enum';
+import { Action } from '@/core/enums/action.enum';
 
 @ApiCookieAuth('access_token')
 @ApiBearerAuth('access_token')
@@ -23,6 +26,7 @@ export class WorkspaceController {
     return this.workspaceService.create(createWorkspaceDto);
   }
 
+  @RequiredPermission(Resource.WORKSPACE, Action.READ)
   @Get()
   findAll() {
     return this.workspaceService.findAll();
