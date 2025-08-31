@@ -41,9 +41,7 @@ export class PermissionGuard implements CanActivate {
       ...request.body,
       ...request.params,
       ...request.query,
-      workspaceId:
-        request.cookies['workspaceId'] ||
-        '3b2a9d73-1e12-4c20-b78c-c2bfb4deb5df',
+      workspaceId: request.cookies['workspaceId'],
     };
     // Logger.log(contextData, 'PermissionGuard.contextData');
 
