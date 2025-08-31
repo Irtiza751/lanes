@@ -1,12 +1,9 @@
 import { BaseEntity } from '@/core/classes/base-entity';
-import { Role } from '@/features/roles/entities/role.entity';
-import { User } from '@/features/user/entities/user.entity';
 import {
   BeforeCreate,
   BeforeUpdate,
   Collection,
   Entity,
-  ManyToMany,
   OneToMany,
   Property,
 } from '@mikro-orm/core';
@@ -25,6 +22,9 @@ export class Workspace extends BaseEntity<'settings' | 'description'> {
 
   @Property({ nullable: true })
   settings?: string;
+
+  @OneToMany(() => WorkspaceUser, (wu) => wu.workspace)
+  workspaceUsers = new Collection<WorkspaceUser>(this);
 
   @BeforeCreate()
   @BeforeUpdate()

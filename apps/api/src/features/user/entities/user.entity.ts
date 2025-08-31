@@ -1,11 +1,9 @@
 import {
   BeforeCreate,
   BeforeUpdate,
-  Cascade,
   Collection,
   Entity,
   Enum,
-  ManyToMany,
   OneToMany,
   Property,
   Unique,
@@ -14,7 +12,6 @@ import { AuthProvider } from '../enums/auth-provider';
 import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcryptjs';
 import { BaseEntity } from '@/core/classes/base-entity';
-import { Workspace } from '@/features/workspace/entities/workspace.entity';
 import { WorkspaceUser } from '@/features/workspace/entities/workspace-user.entity';
 
 @Entity()
@@ -53,7 +50,7 @@ export class User extends BaseEntity {
   isActive?: boolean;
 
   @OneToMany(() => WorkspaceUser, (wu) => wu.user)
-  memberships = new Collection<WorkspaceUser>(this);
+  workspaceUsers = new Collection<WorkspaceUser>(this);
 
   @BeforeCreate()
   @BeforeUpdate()
