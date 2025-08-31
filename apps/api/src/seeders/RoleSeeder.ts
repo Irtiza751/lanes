@@ -11,6 +11,7 @@ export class RoleSeeder extends Seeder {
     const roles = [
       {
         name: 'Super admin',
+        description: 'Full system access',
         permissions: JSON.stringify([
           {
             resource: Resource.WORKSPACE,

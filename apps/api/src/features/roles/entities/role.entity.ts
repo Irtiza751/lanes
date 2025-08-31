@@ -18,7 +18,7 @@ export class Role extends BaseEntity {
   permissions: string;
 
   @Property({ nullable: true })
-  description: string;
+  description?: string;
 
   @OneToMany(() => WorkspaceUser, (wu) => wu.role)
   workspaceUsers = new Collection<WorkspaceUser>(this);
