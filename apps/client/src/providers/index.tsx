@@ -17,6 +17,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     >
       <QueryClientProvider client={queryClient}>
         <WorkspaceProvider>{children}</WorkspaceProvider>
+        {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>
     </ThemeProvider>
   );

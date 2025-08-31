@@ -1,4 +1,5 @@
 import { AuthService } from "@/lib/auth-service";
+import { SignupForm } from "@/schemas";
 import { Credentials } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -26,8 +27,18 @@ export function useAuth() {
     },
   });
 
+  const signupMutation = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: (data: SignupForm) => AuthService.signup(data),
+    onSuccess: () => {
+      queryClient.clear();
+      router.push("/create-workspace");
+    },
+  });
+
   return {
     signinMutation,
     signoutMutation,
+    signupMutation,
   };
 }
