@@ -33,17 +33,25 @@ export class PermissionGuard implements CanActivate {
       ACTION_KEY,
       context.getHandler(),
     );
-    Logger.log(user, 'PermissionGuard.user');
-    Logger.log(requestedResource, 'PermissionGuard.requestedResource');
-    Logger.log(requestedAction, 'PermissionGuard.requestedAction');
+    // Logger.log(user, 'PermissionGuard.user');
+    // Logger.log(requestedResource, 'PermissionGuard.requestedResource');
+    // Logger.log(requestedAction, 'PermissionGuard.requestedAction');
+
+    const contextData = {
+      ...request.body,
+      ...request.params,
+      ...request.query,
+      workspaceId:
+        request.cookies['workspaceId'] ||
+        '3b2a9d73-1e12-4c20-b78c-c2bfb4deb5df',
+    };
+    // Logger.log(contextData, 'PermissionGuard.contextData');
 
     return this.permissionService.hasPermission(
       user,
       requestedResource,
       requestedAction,
-      {
-        workspaceId: '63ebb8d6-d1d8-4586-82fb-4cf455e20767',
-      },
+      contextData,
     );
   }
 }

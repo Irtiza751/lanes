@@ -64,12 +64,6 @@ export class RoleSeeder extends Seeder {
             action: Action.READ,
             scope: Scope.OWN,
           },
-        ],
-      },
-      {
-        name: 'Developer',
-        description: 'Basic user access',
-        permissions: [
           {
             resource: Resource.WORKSPACE,
             action: Action.READ,
