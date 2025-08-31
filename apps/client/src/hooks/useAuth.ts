@@ -3,6 +3,7 @@ import { SignupForm } from "@/schemas";
 import { Credentials } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -33,6 +34,12 @@ export function useAuth() {
     onSuccess: () => {
       queryClient.clear();
       router.push("/create-workspace");
+      toast.success("Account successfully created");
+    },
+    onError() {
+      toast.error("Something went wrong", {
+        description: "Server is on maintenance mode please comeback later.",
+      });
     },
   });
 
