@@ -32,11 +32,13 @@ export class WorkspaceController {
     return this.workspaceService.findAll();
   }
 
+  @RequiredPermission(Resource.WORKSPACE, Action.READ)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.workspaceService.findOne(+id);
   }
 
+  @RequiredPermission(Resource.WORKSPACE, Action.UPDATE)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -45,6 +47,7 @@ export class WorkspaceController {
     return this.workspaceService.update(+id, updateWorkspaceDto);
   }
 
+  @RequiredPermission(Resource.WORKSPACE, Action.DELETE)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.workspaceService.remove(+id);

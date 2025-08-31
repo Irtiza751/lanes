@@ -33,14 +33,17 @@ export class PermissionGuard implements CanActivate {
       ACTION_KEY,
       context.getHandler(),
     );
-    // Logger.log(user, 'PermissionGuard.user');
-    // Logger.log(requestedResource, 'PermissionGuard.requestedResource');
-    // Logger.log(requestedAction, 'PermissionGuard.requestedAction');
+    Logger.log(user, 'PermissionGuard.user');
+    Logger.log(requestedResource, 'PermissionGuard.requestedResource');
+    Logger.log(requestedAction, 'PermissionGuard.requestedAction');
 
     return this.permissionService.hasPermission(
       user,
       requestedResource,
       requestedAction,
+      {
+        workspaceId: '63ebb8d6-d1d8-4586-82fb-4cf455e20767',
+      },
     );
   }
 }

@@ -10,7 +10,7 @@ import {
 import { WorkspaceUser } from './workspace-user.entity';
 
 @Entity()
-export class Workspace extends BaseEntity<'settings' | 'description'> {
+export class Workspace extends BaseEntity<'slug'> {
   @Property()
   name: string;
 
@@ -29,6 +29,6 @@ export class Workspace extends BaseEntity<'settings' | 'description'> {
   @BeforeCreate()
   @BeforeUpdate()
   generateSlug() {
-    this.slug = this.slug.toUpperCase();
+    this.slug = this.slug?.toUpperCase();
   }
 }
