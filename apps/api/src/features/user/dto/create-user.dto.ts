@@ -6,7 +6,6 @@ import {
   IsEnum,
   IsOptional,
   IsString,
-  IsBoolean,
   MinLength,
 } from 'class-validator';
 import { Roles } from '@/core/enums/roles.enum';

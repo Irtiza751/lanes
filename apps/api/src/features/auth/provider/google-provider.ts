@@ -32,7 +32,6 @@ export class GoogleProvider {
           sub: user.id,
           email: user.email,
           name: user.name,
-          role: user.role,
         });
 
         res.cookie(
@@ -55,7 +54,6 @@ export class GoogleProvider {
           sub: socialUser.id,
           email: socialUser.email,
           name: socialUser.name,
-          role: socialUser.role,
         });
         res.cookie(
           'access_token',

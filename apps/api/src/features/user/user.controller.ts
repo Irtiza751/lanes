@@ -14,7 +14,12 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiCookieAuth,
+} from '@nestjs/swagger';
 import { RoleGuard } from '@/common/guards/role.guard';
 import { Roles } from '@core/decorators/roles.decorator';
 import { Roles as UserRoles } from '@/core/enums/roles.enum';
@@ -24,7 +29,8 @@ import { JwtPayload } from '@core/interfaces/jwt-payload.interface';
 import { UploadAvatarDto } from './dto/upload-avatar.dto';
 
 @Controller('user')
-@ApiBearerAuth('access-token')
+@ApiBearerAuth('access_token')
+@ApiCookieAuth('access_token')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

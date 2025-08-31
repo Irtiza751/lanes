@@ -1,8 +1,10 @@
 import {
   BeforeCreate,
   BeforeUpdate,
+  Collection,
   Entity,
   Enum,
+  OneToMany,
   Property,
   Unique,
 } from '@mikro-orm/core';
@@ -10,10 +12,10 @@ import { AuthProvider } from '../enums/auth-provider';
 import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcryptjs';
 import { BaseEntity } from '@/core/classes/base-entity';
-import { Roles } from '@/core/enums/roles.enum';
+import { WorkspaceUser } from '@/features/workspace/entities/workspace-user.entity';
 
-@Entity({ tableName: 'users' })
-export class User extends BaseEntity<'roles'> {
+@Entity()
+export class User extends BaseEntity {
   @Property()
   @Unique()
   @ApiProperty({ example: 'john_doe' })
@@ -26,10 +28,6 @@ export class User extends BaseEntity<'roles'> {
 
   @Property({ hidden: true, nullable: true })
   password?: string;
-
-  @Enum(() => Roles)
-  @ApiProperty({ enum: Roles, example: Roles.USER })
-  role: Roles = Roles.USER;
 
   @Enum(() => AuthProvider)
   @ApiProperty({ enum: AuthProvider, example: AuthProvider.LOCAL })
@@ -50,6 +48,9 @@ export class User extends BaseEntity<'roles'> {
   @Property({ type: 'boolean', default: true, nullable: true })
   @ApiProperty({ example: true })
   isActive?: boolean;
+
+  @OneToMany(() => WorkspaceUser, (wu) => wu.user)
+  workspaceUsers = new Collection<WorkspaceUser>(this);
 
   @BeforeCreate()
   @BeforeUpdate()

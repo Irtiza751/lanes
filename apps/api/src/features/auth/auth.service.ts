@@ -99,7 +99,6 @@ export class AuthService {
     return {
       sub: user.id,
       name: user.name,
-      role: user.role,
       email: user.email,
     };
   }
@@ -135,7 +134,6 @@ export class AuthService {
         email: jwtResponse.email,
         sub: jwtResponse.sub,
         name: jwtResponse.name,
-        role: jwtResponse.role,
       });
     } catch (error) {
       throw new UnauthorizedException();

@@ -2,7 +2,6 @@ import type { Dictionary, EntityManager } from '@mikro-orm/core';
 import { Seeder } from '@mikro-orm/seeder';
 import { AuthProvider } from '@/features/user/enums/auth-provider';
 import { User } from '@/features/user/entities/user.entity';
-import { Roles } from '@/core/enums/roles.enum';
 
 export class UserSeeder extends Seeder {
   async run(em: EntityManager, context: Dictionary): Promise<void> {
@@ -12,7 +11,6 @@ export class UserSeeder extends Seeder {
         name: 'john doe',
         password: 'password123',
         // roles: [context.adminRole, context.userRole],
-        role: Roles.ADMIN,
         provider: AuthProvider.LOCAL,
         isEmailVerified: true,
       },
@@ -21,14 +19,13 @@ export class UserSeeder extends Seeder {
         name: 'jane doe',
         password: 'password123',
         // roles: [context.userRole],
-        role: Roles.USER,
         provider: AuthProvider.LOCAL,
         isEmailVerified: false,
       },
     ];
 
-    for (let userData of users) {
-      em.create(User, userData);
-    }
+    users.forEach((userData, i) => {
+      context[`user-${i + 1}`] = em.create(User, userData);
+    });
   }
 }
