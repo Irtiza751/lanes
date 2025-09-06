@@ -14,7 +14,7 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SeparatorWithText } from "@/components/ui/separator";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 const signinSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),

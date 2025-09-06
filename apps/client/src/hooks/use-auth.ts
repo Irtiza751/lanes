@@ -15,6 +15,7 @@ export function useAuth() {
       AuthService.signin(credentials.name, credentials.password),
     onSuccess: (data) => {
       console.log("Login successful:", data);
+      queryClient.clear();
       router.push("/waredrop-workspace");
     },
   });

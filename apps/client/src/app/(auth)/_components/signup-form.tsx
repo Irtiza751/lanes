@@ -14,7 +14,7 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SeparatorWithText } from "@/components/ui/separator";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 import { SignupForm as SignupFormData, signupFormSchema } from "@/schemas";
 
 export function SignupForm() {

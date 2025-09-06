@@ -16,7 +16,7 @@ import {
 import { LogOut, Settings, UsersRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useWorkspace } from "@/providers/workspace-provider";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 
 interface WorkspaceSwitcherProps {
   workspace: Workspace;
