@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { SeparatorWithText } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
 import { SignupForm as SignupFormData, signupFormSchema } from "@/schemas";
+import { GoogleSigninButton } from "./google-signin-button";
 
 export function SignupForm() {
   const { signupMutation } = useAuth();
@@ -32,9 +33,7 @@ export function SignupForm() {
 
   return (
     <Form {...form}>
-      <Button variant="secondary" size="xl" className="shadow-none w-full">
-        <span>Signup with Google</span>
-      </Button>
+      <GoogleSigninButton text="Signup with Google" />
       <SeparatorWithText className="my-5">Or continue with</SeparatorWithText>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
