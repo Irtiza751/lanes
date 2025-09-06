@@ -1,4 +1,5 @@
 import React from "react";
+import Cookies from "js-cookie";
 
 export interface UseResizableSidebarProps {
   /**
@@ -225,7 +226,10 @@ export function useResizableSidebar({
   const persistWidth = React.useCallback(
     (width: string) => {
       if (widthCookieName) {
-        document.cookie = `${widthCookieName}=${width}; path=/; max-age=${widthCookieMaxAge}`;
+        Cookies.set(widthCookieName, width, {
+          expires: widthCookieMaxAge,
+          path: "/",
+        });
       }
     },
     [widthCookieName, widthCookieMaxAge]
