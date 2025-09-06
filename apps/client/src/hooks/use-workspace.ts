@@ -14,7 +14,7 @@ export function useWorkspace() {
     mutationFn: (data: CreateWorkspaceForm) => WorkspaceService.create(data),
     onSuccess({ data }) {
       console.log(data);
-      router.push(`/${data.data.name}`);
+      router.push(`/${data.data.slug}`);
       toast.success("Success", {
         description: "Workspace created successfully",
       });
