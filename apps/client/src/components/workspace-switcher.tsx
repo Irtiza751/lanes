@@ -28,7 +28,7 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex gap-2 items-center cursor-pointer hover:bg-foreground/4 rounded-md py-1 px-2">
+        <div className="flex gap-2 items-center cursor-pointer hover:bg-foreground/4 rounded-md py-1 px-2 max-w-60 truncate">
           <Avatar className="rounded-sm size-5">
             <AvatarImage src={workspace?.logoUrl} alt="Irtiza" />
             <AvatarFallback
@@ -38,7 +38,7 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
               {workspace.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <span>{workspace.name}</span>
+          <span className="truncate font-medium">{workspace.name}</span>
           <ChevronDown size={13} />
         </div>
       </DropdownMenuTrigger>
