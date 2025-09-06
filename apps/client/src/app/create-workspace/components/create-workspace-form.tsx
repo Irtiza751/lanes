@@ -14,17 +14,21 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import z from "zod";
-import { motion } from "motion/react";
+import { AnimateFadeFromTop, AnimateFadeScale } from "@/components/animate";
+import { type CreateWorkspaceForm, createWorkspaceSchema } from "@/schemas";
+import { useWorkspace } from "@/hooks/use-workspace";
 
-const createWorkspaceSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  slug: z.string().min(1, "Slug is required"),
-});
-
-type CreateWorkspaceForm = z.infer<typeof createWorkspaceSchema>;
+const generateSlug = (name: string): string => {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-"); // Replace multiple hyphens with a single hyphen
+};
 
 export default function CreateWorkspaceForm() {
+  const { createWorkspaceMutation } = useWorkspace();
   const form = useForm<CreateWorkspaceForm>({
     resolver: zodResolver(createWorkspaceSchema),
     defaultValues: {
@@ -35,6 +39,7 @@ export default function CreateWorkspaceForm() {
 
   const onSubmit = (data: CreateWorkspaceForm) => {
     console.log(data);
+    createWorkspaceMutation.mutate(data);
   };
 
   return (
@@ -43,21 +48,7 @@ export default function CreateWorkspaceForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8 w-full max-w-md"
       >
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: -50,
-            // scale: 0,
-            // transform: "translateY(-100px)",
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            // scale: 1,
-            // transform: "translateY(0)",
-          }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
+        <AnimateFadeFromTop>
           <Card className="border-none bg-sidebar shadow-none">
             <CardContent className="space-y-6">
               <FormField
@@ -67,7 +58,15 @@ export default function CreateWorkspaceForm() {
                   <FormItem>
                     <FormLabel>Workspace name</FormLabel>
                     <FormControl>
-                      <Input className="h-12" placeholder="Achme" {...field} />
+                      <Input
+                        className="h-12"
+                        placeholder="Achme"
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          form.setValue("slug", generateSlug(e.target.value));
+                        }}
+                      />
                     </FormControl>
                     <FormMessage className="text-xs" />
                   </FormItem>
@@ -105,23 +104,13 @@ export default function CreateWorkspaceForm() {
               </p>
             </CardFooter>
           </Card>
-        </motion.div>
+        </AnimateFadeFromTop>
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{ duration: 0.3 }}
-        >
+        <AnimateFadeScale>
           <Button size="lg" className="w-full max-w-xs mx-auto block">
             Create workspace
           </Button>
-        </motion.div>
+        </AnimateFadeScale>
       </form>
     </Form>
   );
