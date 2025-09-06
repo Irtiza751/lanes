@@ -31,15 +31,15 @@ export class WorkspaceService {
   async create(createWorkspaceDto: CreateWorkspaceDto) {
     try {
       const workspace = this.workspaceRepository.create(createWorkspaceDto);
-      if (createWorkspaceDto.slug) {
-        workspace.slug = createWorkspaceDto.slug.trim().replaceAll(' ', '_');
-      } else {
-        const slug = createWorkspaceDto.name
-          .trim()
-          .replaceAll(' ', '_')
-          .slice(0, 3);
-        workspace.slug = slug;
-      }
+      // if (createWorkspaceDto.slug) {
+      //   workspace.slug = createWorkspaceDto.slug.trim().replaceAll(' ', '_');
+      // } else {
+      //   const slug = createWorkspaceDto.name
+      //     .trim()
+      //     .replaceAll(' ', '_')
+      //     .slice(0, 3);
+      //   workspace.slug = slug;
+      // }
       await this.em.persistAndFlush(workspace);
       return {
         message: 'Workspace created successfully',

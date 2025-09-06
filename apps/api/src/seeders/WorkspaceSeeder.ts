@@ -6,7 +6,7 @@ export class WorkspaceSeeder extends Seeder {
   async run(em: EntityManager, context: Dictionary): Promise<void> {
     context.workspace = em.create(Workspace, {
       name: 'Waredrop',
-      slug: 'WAR',
+      slug: 'waredrop',
     });
   }
 }

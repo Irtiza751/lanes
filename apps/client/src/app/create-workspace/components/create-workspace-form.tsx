@@ -58,7 +58,7 @@ export default function CreateWorkspaceForm() {
           }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <Card className="border-none bg-sidebar">
+          <Card className="border-none bg-sidebar shadow-none">
             <CardContent className="space-y-6">
               <FormField
                 control={form.control}

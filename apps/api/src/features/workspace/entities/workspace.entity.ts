@@ -29,6 +29,6 @@ export class Workspace extends BaseEntity<'slug'> {
   @BeforeCreate()
   @BeforeUpdate()
   generateSlug() {
-    this.slug = this.slug?.toUpperCase();
+    this.slug = this.slug?.toLowerCase();
   }
 }
