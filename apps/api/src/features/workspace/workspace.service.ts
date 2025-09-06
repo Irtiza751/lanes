@@ -48,7 +48,7 @@ export class WorkspaceService {
     } catch (error) {
       Logger.log(error.message, 'WORKSPACE');
       if (error instanceof UniqueConstraintViolationException) {
-        throw new ConflictException(`A workspace with this slug already exist`);
+        throw new ConflictException(`A workspace with this URL already exist`);
       }
       throw new RequestTimeoutException();
     }

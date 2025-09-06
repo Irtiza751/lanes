@@ -54,13 +54,18 @@ export class AuthService {
     private readonly mailService: MailService,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto, res: Response) {
     const { user } = await this.userService.create(createUserDto);
     if (user) {
       const token = await this.generateVerificationToken(
         { sub: user.id },
         '1d',
       );
+      const { accessToken, refreshToken } = await this.generateTokens({
+        sub: user.id,
+        email: user.email,
+        name: user.name,
+      });
       try {
         await this.mailService.sendConfirmation({
           toEmail: user.email,
@@ -70,6 +75,9 @@ export class AuthService {
       } catch (error) {
         throw new InternalServerErrorException();
       }
+
+      res.cookie('access_token', accessToken);
+      res.cookie('refresh_token', refreshToken);
       return user;
     }
   }

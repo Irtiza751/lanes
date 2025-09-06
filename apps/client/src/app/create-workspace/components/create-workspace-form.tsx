@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { AnimateFadeFromTop, AnimateFadeScale } from "@/components/animate";
 import { type CreateWorkspaceForm, createWorkspaceSchema } from "@/schemas";
 import { useWorkspace } from "@/hooks/use-workspace";
+import { Loader } from "lucide-react";
 
 const generateSlug = (name: string): string => {
   return name
@@ -107,8 +108,13 @@ export default function CreateWorkspaceForm() {
         </AnimateFadeFromTop>
 
         <AnimateFadeScale>
-          <Button size="lg" className="w-full max-w-xs mx-auto block">
-            Create workspace
+          <Button size="lg" className="w-full max-w-xs mx-auto flex">
+            {createWorkspaceMutation.isPending ? (
+              <Loader className="animate-spin" />
+            ) : null}
+            {createWorkspaceMutation.isPending
+              ? "Creating workspace..."
+              : "Create workspace"}
           </Button>
         </AnimateFadeScale>
       </form>
