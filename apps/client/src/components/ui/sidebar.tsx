@@ -25,12 +25,17 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import { useResizableSidebar } from "@/hooks/use-resizable-sidebar";
+
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = "18rem";
 const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
+
+const MIN_SIDEBAR_WIDTH = "15rem";
+const MAX_SIDEBAR_WIDTH = "22rem";
 
 type SidebarContextProps = {
   state: "expanded" | "collapsed";
@@ -40,6 +45,10 @@ type SidebarContextProps = {
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
   toggleSidebar: () => void;
+  width: string;
+  setWidth: (width: string) => void;
+  isDraggingRail: boolean;
+  setIsDraggingRail: (isDraggingRail: boolean) => void;
 };
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null);
@@ -60,15 +69,18 @@ function SidebarProvider({
   className,
   style,
   children,
+  defaultWidth = SIDEBAR_WIDTH,
   ...props
 }: React.ComponentProps<"div"> & {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  defaultWidth?: string;
 }) {
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
-
+  const [width, setWidth] = React.useState(defaultWidth);
+  const [isDraggingRail, setIsDraggingRail] = React.useState(false);
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
   const [_open, _setOpen] = React.useState(defaultOpen);
@@ -122,8 +134,22 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       toggleSidebar,
+      width,
+      setWidth,
+      isDraggingRail,
+      setIsDraggingRail,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      width,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+      isDraggingRail,
+    ]
   );
 
   return (
@@ -133,7 +159,7 @@ function SidebarProvider({
           data-slot="sidebar-wrapper"
           style={
             {
-              "--sidebar-width": SIDEBAR_WIDTH,
+              "--sidebar-width": width,
               "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
               ...style,
             } as React.CSSProperties
@@ -163,7 +189,8 @@ function Sidebar({
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { isMobile, state, openMobile, setOpenMobile, isDraggingRail } =
+    useSidebar();
 
   if (collapsible === "none") {
     return (
@@ -194,6 +221,7 @@ function Sidebar({
             } as React.CSSProperties
           }
           side={side}
+          data-dragging={isDraggingRail}
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Sidebar</SheetTitle>
@@ -207,12 +235,13 @@ function Sidebar({
 
   return (
     <div
-      className="group peer text-sidebar-foreground hidden md:block"
+      className="group peer hidden md:block text-sidebar-foreground"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
       data-side={side}
-      data-slot="sidebar"
+      //* add data-dragging attribute
+      data-dragging={isDraggingRail}
     >
       {/* This is what handles the sidebar gap on desktop */}
       <div
@@ -279,8 +308,29 @@ function SidebarTrigger({
   );
 }
 
-function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
-  const { toggleSidebar } = useSidebar();
+function SidebarRail({
+  className,
+  enableDrag = true,
+  ...props
+}: React.ComponentProps<"button"> & {
+  enableDrag?: boolean;
+}) {
+  const { toggleSidebar, setWidth, state, width, setIsDraggingRail } =
+    useSidebar();
+
+  const { dragRef, handleMouseDown } = useResizableSidebar({
+    direction: "right",
+    enableDrag,
+    onResize: setWidth,
+    onToggle: toggleSidebar,
+    currentWidth: width,
+    isCollapsed: state === "collapsed",
+    minResizeWidth: MIN_SIDEBAR_WIDTH,
+    maxResizeWidth: MAX_SIDEBAR_WIDTH,
+    setIsDraggingRail,
+    widthCookieName: "sidebar_width",
+    widthCookieMaxAge: 60 * 60 * 24 * 7, // 1 week
+  });
 
   return (
     <button
@@ -288,7 +338,8 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
       data-slot="sidebar-rail"
       aria-label="Toggle Sidebar"
       tabIndex={-1}
-      onClick={toggleSidebar}
+      // onClick={toggleSidebar}
+      onMouseDown={handleMouseDown}
       title="Toggle Sidebar"
       className={cn(
         "absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex",
