@@ -10,12 +10,11 @@ export class CreateWorkspaceDto {
   })
   name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   @ApiProperty({
-    example: 'WAR',
-    description:
-      'slug of your workspace, will be auto generated if not provided',
+    example: 'waredrop',
+    description: 'slug or url of your workspace, it must be unique',
   })
   slug: string;
 

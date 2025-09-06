@@ -7,3 +7,17 @@ export interface Workspace {
   color: string;
   description?: string;
 }
+
+export interface WorkspaceResponse {
+  message: string;
+  data: Data;
+}
+
+export interface Data {
+  id: string;
+  workspaceUsers: any[];
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  slug: string;
+}

@@ -1,7 +1,9 @@
 import { AuthService } from "@/lib/auth-service";
+import { SignupForm } from "@/schemas";
 import { Credentials } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -13,6 +15,7 @@ export function useAuth() {
       AuthService.signin(credentials.name, credentials.password),
     onSuccess: (data) => {
       console.log("Login successful:", data);
+      queryClient.clear();
       router.push("/waredrop-workspace");
     },
   });
@@ -26,8 +29,24 @@ export function useAuth() {
     },
   });
 
+  const signupMutation = useMutation({
+    mutationKey: ["signup"],
+    mutationFn: (data: SignupForm) => AuthService.signup(data),
+    onSuccess: () => {
+      queryClient.clear();
+      router.push("/create-workspace");
+      toast.success("Account successfully created");
+    },
+    onError() {
+      toast.error("Something went wrong", {
+        description: "Server is on maintenance mode please comeback later.",
+      });
+    },
+  });
+
   return {
     signinMutation,
     signoutMutation,
+    signupMutation,
   };
 }

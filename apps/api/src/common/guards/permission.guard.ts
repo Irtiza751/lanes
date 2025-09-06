@@ -7,7 +7,6 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { logger } from 'handlebars';
 import { Observable } from 'rxjs';
 import { PermissionService } from '../services/permission.service';
 import { Resource } from '@/core/enums/resource.enum';

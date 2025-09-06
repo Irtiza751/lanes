@@ -10,6 +10,9 @@ export default function LandingPage() {
           <Logo size={30} />
 
           <div className="flex gap-3">
+            <Link href="/create-workspace">
+              <Button variant="ghost">Create Workspace</Button>
+            </Link>
             <Link href="/signin">
               <Button variant="secondary">Sign In</Button>
             </Link>

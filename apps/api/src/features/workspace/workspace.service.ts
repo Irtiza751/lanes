@@ -31,15 +31,15 @@ export class WorkspaceService {
   async create(createWorkspaceDto: CreateWorkspaceDto) {
     try {
       const workspace = this.workspaceRepository.create(createWorkspaceDto);
-      if (createWorkspaceDto.slug) {
-        workspace.slug = createWorkspaceDto.slug.trim().replaceAll(' ', '_');
-      } else {
-        const slug = createWorkspaceDto.name
-          .trim()
-          .replaceAll(' ', '_')
-          .slice(0, 3);
-        workspace.slug = slug;
-      }
+      // if (createWorkspaceDto.slug) {
+      //   workspace.slug = createWorkspaceDto.slug.trim().replaceAll(' ', '_');
+      // } else {
+      //   const slug = createWorkspaceDto.name
+      //     .trim()
+      //     .replaceAll(' ', '_')
+      //     .slice(0, 3);
+      //   workspace.slug = slug;
+      // }
       await this.em.persistAndFlush(workspace);
       return {
         message: 'Workspace created successfully',
@@ -48,7 +48,7 @@ export class WorkspaceService {
     } catch (error) {
       Logger.log(error.message, 'WORKSPACE');
       if (error instanceof UniqueConstraintViolationException) {
-        throw new ConflictException(`A workspace with this slug already exist`);
+        throw new ConflictException(`A workspace with this URL already exist`);
       }
       throw new RequestTimeoutException();
     }

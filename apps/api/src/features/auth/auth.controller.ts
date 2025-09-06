@@ -32,8 +32,11 @@ export class AuthController {
 
   @Post('/signup')
   @Public()
-  signUp(@Body() createUserDto: CreateUserDto) {
-    return this.authService.createUser(createUserDto);
+  signUp(
+    @Body() createUserDto: CreateUserDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.createUser(createUserDto, res);
   }
 
   @Post('/signin')

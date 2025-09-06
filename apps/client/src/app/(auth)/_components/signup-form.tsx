@@ -14,24 +14,20 @@ import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SeparatorWithText } from "@/components/ui/separator";
-
-const signinSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
-});
-
-type SigninForm = z.infer<typeof signinSchema>;
+import { useAuth } from "@/hooks/use-auth";
+import { SignupForm as SignupFormData, signupFormSchema } from "@/schemas";
 
 export function SignupForm() {
-  const form = useForm<SigninForm>({
-    resolver: zodResolver(signinSchema),
-    defaultValues: { username: "", email: "", password: "" },
+  const { signupMutation } = useAuth();
+  const form = useForm<SignupFormData>({
+    resolver: zodResolver(signupFormSchema),
+    defaultValues: { name: "", email: "", password: "" },
   });
 
-  const onSubmit = (data: SigninForm) => {
+  const onSubmit = (data: SignupFormData) => {
     console.log("Form submitted with data:", data);
     // Handle form submission logic here
+    signupMutation.mutate(data);
   };
 
   return (
@@ -43,7 +39,7 @@ export function SignupForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="username"
+          name="name"
           render={({ field }) => (
             <FormItem className="space-y-0">
               <FormLabel>Username</FormLabel>
@@ -74,15 +70,19 @@ export function SignupForm() {
             <FormItem className="space-y-0">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="*********" />
+                <Input {...field} placeholder="*********" type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button size="xl" className="w-full">
-          Signup
+        <Button
+          disabled={signupMutation.isPending}
+          size="xl"
+          className="w-full"
+        >
+          {signupMutation.isPending ? "Loading..." : "Signup"}
         </Button>
       </form>
     </Form>
