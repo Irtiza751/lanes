@@ -70,15 +70,19 @@ export function SignupForm() {
             <FormItem className="space-y-0">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="*********" />
+                <Input {...field} placeholder="*********" type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button size="xl" className="w-full">
-          Signup
+        <Button
+          disabled={signupMutation.isPending}
+          size="xl"
+          className="w-full"
+        >
+          {signupMutation.isPending ? "Loading..." : "Signup"}
         </Button>
       </form>
     </Form>
