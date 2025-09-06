@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SeparatorWithText } from "@/components/ui/separator";
 import { useAuth } from "@/hooks/use-auth";
+import { GoogleSigninButton } from "./google-signin-button";
 
 const signinSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -37,21 +38,9 @@ export function SigninForm() {
     signinMutation.mutate({ name: data.email, password: data.password });
   };
 
-  const googleSignin = () => {
-    const googleUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/google`;
-    console.log("Redirecting to:", googleUrl);
-    window.location.href = googleUrl;
-  };
-
   return (
     <Form {...form}>
-      <Button
-        variant="secondary"
-        onClick={googleSignin}
-        className="shadow-none w-full"
-      >
-        <span>Signin with Google</span>
-      </Button>
+      <GoogleSigninButton text="Signin with Google" />
       <SeparatorWithText className="my-5">Or continue with</SeparatorWithText>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
