@@ -37,7 +37,9 @@ export default async function DashboardLayout({
             <WorkspaceSidebar />
             <SidebarRail />
           </Sidebar>
-          <SidebarInset className="border bg-sidebar">{children}</SidebarInset>
+          <SidebarInset className="border bg-sidebar overflow-auto">
+            {children}
+          </SidebarInset>
         </SidebarProvider>
       </WorkspaceProvider>
     </SessionProvider>
