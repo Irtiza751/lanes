@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 
 import Image from "next/image";
 import Header from "./_components/header";
+import { AnimateFadeFromTop, AnimateFadeScale } from "@/components/animate";
 
 export default function HeroSection() {
   return (
@@ -22,19 +23,24 @@ export default function HeroSection() {
         <section className="overflow-hidden bg-white dark:bg-transparent">
           <div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
             <div className="relative z-10 mx-auto max-w-3xl text-center">
-              <h1 className="text-balance text-4xl font-semibold md:text-5xl lg:text-6xl">
-                Project Management Without the Noise
-              </h1>
-              <p className="mx-auto my-8 max-w-2xl text-xl">
-                Lane brings clarity to teamwork by streamlining tasks, projects,
-                and collaboration in one simple, modern platform.
-              </p>
-
-              <Button asChild size="lg">
-                <Link href="/signup">
-                  <span className="btn-label">Start Building</span>
-                </Link>
-              </Button>
+              <AnimateFadeFromTop delay={0.2}>
+                <h1 className="text-balance text-4xl font-semibold md:text-5xl lg:text-6xl">
+                  Project Management Without the Noise
+                </h1>
+              </AnimateFadeFromTop>
+              <AnimateFadeFromTop delay={0.4}>
+                <p className="mx-auto my-8 max-w-2xl text-xl">
+                  Lane brings clarity to teamwork by streamlining tasks,
+                  projects, and collaboration in one simple, modern platform.
+                </p>
+              </AnimateFadeFromTop>
+              <AnimateFadeScale delay={0.6} scaleFrom={0.9}>
+                <Button asChild size="lg">
+                  <Link href="/signup">
+                    <span className="btn-label">Start Building</span>
+                  </Link>
+                </Button>
+              </AnimateFadeScale>
             </div>
           </div>
 
@@ -67,13 +73,15 @@ export default function HeroSection() {
                     aria-hidden
                     className="z-2 absolute inset-0 size-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,transparent_40%,var(--color-background)_100%)]"
                   />
-                  <Image
-                    className="rounded-lg z-1 relative hidden border dark:block"
-                    src="/dark-card.png"
-                    alt="Lanes"
-                    width={2880}
-                    height={2074}
-                  />
+                  <AnimateFadeFromTop delay={1}>
+                    <Image
+                      className="rounded-lg z-1 relative hidden border dark:block"
+                      src="/dark-card.png"
+                      alt="Lanes"
+                      width={2880}
+                      height={2074}
+                    />
+                  </AnimateFadeFromTop>
                 </div>
               </div>
             </div>

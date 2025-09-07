@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { motion } from "motion/react";
 
 const menuItems = [
   { name: "Features", href: "#" },
@@ -16,7 +17,17 @@ export default function Header() {
   const [menuState, setMenuState] = useState(false);
 
   return (
-    <header>
+    <motion.header
+      initial={{
+        y: -100,
+        opacity: 0.5,
+      }}
+      animate={{
+        y: 0,
+        opacity: 1,
+      }}
+      transition={{ duration: 0.5, delay: 0 }}
+    >
       <nav
         data-state={menuState && "active"}
         className="fixed z-20 w-full border-b border-dashed bg-white backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
@@ -68,6 +79,6 @@ export default function Header() {
           </div>
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 }
