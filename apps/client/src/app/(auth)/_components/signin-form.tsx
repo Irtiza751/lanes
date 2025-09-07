@@ -18,7 +18,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { GoogleSigninButton } from "./google-signin-button";
 
 const signinSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email address"),
+  username: z.string().min(1, "Email is required"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
@@ -29,13 +29,13 @@ export function SigninForm() {
 
   const form = useForm<SigninForm>({
     resolver: zodResolver(signinSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { username: "", password: "" },
   });
 
   const onSubmit = (data: SigninForm) => {
     console.log("Form submitted with data:", data);
     // Handle form submission logic here
-    signinMutation.mutate({ name: data.email, password: data.password });
+    signinMutation.mutate({ name: data.username, password: data.password });
   };
 
   return (
@@ -45,12 +45,12 @@ export function SigninForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field }) => (
             <FormItem className="space-y-0">
-              <FormLabel>Email</FormLabel>
+              {/* <FormLabel>Username Or Email</FormLabel> */}
               <FormControl>
-                <Input {...field} placeholder="name@example.com" />
+                <Input {...field} placeholder="Enter username or email" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,7 +61,7 @@ export function SigninForm() {
           name="password"
           render={({ field }) => (
             <FormItem className="space-y-0">
-              <FormLabel>Password</FormLabel>
+              {/* <FormLabel>Password</FormLabel> */}
               <FormControl>
                 <Input {...field} placeholder="*********" type="password" />
               </FormControl>

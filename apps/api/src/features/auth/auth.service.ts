@@ -76,8 +76,8 @@ export class AuthService {
         throw new InternalServerErrorException();
       }
 
-      res.cookie('access_token', accessToken);
-      res.cookie('refresh_token', refreshToken);
+      res.cookie('access_token', accessToken, accessTokenCookieOptions);
+      res.cookie('refresh_token', refreshToken, refreshTokenCookieOptions);
       return user;
     }
   }

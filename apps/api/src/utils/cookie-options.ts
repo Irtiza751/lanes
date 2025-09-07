@@ -2,15 +2,15 @@ import { CookieOptions } from 'express';
 
 export const accessTokenCookieOptions: CookieOptions = {
   httpOnly: true,
-  sameSite: 'strict',
+  sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
   path: '/',
   secure: false, // Set to true if using HTTPS
-  maxAge: 15 * 60 * 1000, // 15 minutes
+  maxAge: 2 * 60 * 60 * 1000, // 2 hours
 };
 
 export const refreshTokenCookieOptions: CookieOptions = {
   httpOnly: true,
-  sameSite: 'strict',
+  sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
   path: '/',
   secure: false, // Set to true if using HTTPS
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
