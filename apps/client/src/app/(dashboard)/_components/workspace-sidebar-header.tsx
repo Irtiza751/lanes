@@ -17,7 +17,7 @@ export function WorkspaceSidebarHeader() {
           description: "some description for waredrop",
         }}
       />
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
         <Button size="sm-icon" variant="ghost">
           <Search />
         </Button>

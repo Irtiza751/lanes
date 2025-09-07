@@ -1,5 +1,7 @@
 "use client";
 
+import { AnimateFadeIn } from "@/components/animate";
+import { SplashScreen } from "@/components/splash";
 import { User } from "@/interfaces/signin.response";
 import { AuthService } from "@/lib/auth-service";
 import { sleep } from "@/lib/sleep";
@@ -44,7 +46,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       // },
       {
         queryKey: ["sleep"],
-        queryFn: () => sleep(1000), // just for splash effect
+        queryFn: () => sleep(2000), // just for splash effect
       },
     ],
   });
@@ -74,14 +76,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   );
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen w-screen">
-        <p className="text-lg font-medium">Loading...</p>
-      </div>
-    );
+    return <SplashScreen />;
   }
 
   return (
-    <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
+    <SessionContext.Provider value={value}>
+      <AnimateFadeIn>{children}</AnimateFadeIn>
+    </SessionContext.Provider>
   );
 }

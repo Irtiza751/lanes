@@ -15,11 +15,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(`${origin}/signin`);
   }
 
-  // If logged in and trying to access signin/signup → bounce back to previous page
-  if (accessToken && (pathname === "/signin" || pathname === "/signup")) {
-    return NextResponse.redirect(`${origin}/`);
-  }
-
   return NextResponse.next();
 }
 
