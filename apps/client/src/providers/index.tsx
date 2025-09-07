@@ -1,9 +1,9 @@
 "use client";
 import { ThemeProvider } from "./theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { WorkspaceProvider } from "./workspace-provider";
+// import { WorkspaceProvider } from "./workspace-provider";
 import { getQueryClient } from "@/lib/get-query-client";
-import { SessionProvider } from "./session-provider";
+// import { SessionProvider } from "./session-provider";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export function Providers({ children }: { children: React.ReactNode }) {

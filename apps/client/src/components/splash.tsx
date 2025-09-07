@@ -17,7 +17,7 @@ export function SplashScreen() {
   return (
     <div className="flex min-h-screen">
       <aside
-        className="bg-background transition-[width] delay-500 duration-300"
+        className="bg-background transition-[width] delay-500 duration-300 hidden lg:block md:block"
         style={{ width: sidebarWidth || "10rem" }}
       />
       <main className="bg-sidebar flex-1 flex items-center justify-center flex-col gap-2 m-1.5 rounded">
