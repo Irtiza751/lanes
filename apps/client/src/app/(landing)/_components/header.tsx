@@ -60,7 +60,7 @@ export function Header() {
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6">
                 <Button asChild variant="outline" size="sm" className="rounded">
                   <Link href="/signin">
-                    <span>Signin</span>
+                    <span>Sign in</span>
                   </Link>
                 </Button>
                 <Button asChild size="sm" className="rounded">
