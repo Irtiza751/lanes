@@ -57,11 +57,6 @@ export class User extends BaseEntity {
   })
   workspaceUsers = new Collection<WorkspaceUser>(this);
 
-  @OneToMany(() => Workspace, (workspace) => workspace.owner, {
-    cascade: [Cascade.REMOVE],
-  })
-  workspaces = new Collection<Workspace>(this);
-
   @OneToMany(() => Project, (project) => project.lead, {
     cascade: [Cascade.REMOVE],
   })

@@ -36,8 +36,8 @@ export class WorkspaceProvider {
       .createQueryBuilder('wu')
       .joinAndSelect('wu.user', 'u')
       .joinAndSelect('wu.workspace', 'w')
+      .joinAndSelect('wu.role', 'r')
       .where({ user: { id: userId } })
-      .orWhere({ workspace: { owner: userId } })
       .getResultList();
 
     return result.map((item) => ({
@@ -49,5 +49,6 @@ export class WorkspaceProvider {
         slug: item.workspace.slug,
       },
     }));
+    // return result;
   }
 }

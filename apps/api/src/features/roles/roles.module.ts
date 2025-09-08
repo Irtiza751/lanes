@@ -6,5 +6,6 @@ import { Role } from './entities/role.entity';
 @Module({
   providers: [RoleService],
   imports: [MikroOrmModule.forFeature([Role])],
+  exports: [RoleService],
 })
 export class RolesModule {}

@@ -5,13 +5,11 @@ import {
   Cascade,
   Collection,
   Entity,
-  ManyToOne,
   OneToMany,
   Property,
 } from '@mikro-orm/core';
 import { WorkspaceUser } from './workspace-user.entity';
 import { Project } from '@/features/projects/entities/project.entity';
-import { User } from '@/features/user/entities/user.entity';
 
 @Entity()
 export class Workspace extends BaseEntity<'slug'> {
@@ -27,9 +25,6 @@ export class Workspace extends BaseEntity<'slug'> {
   @Property({ nullable: true })
   settings?: string;
 
-  @ManyToOne(() => User)
-  owner: User;
-
   @OneToMany(() => WorkspaceUser, (wu) => wu.workspace, {
     cascade: [Cascade.REMOVE],
   })
@@ -43,6 +38,8 @@ export class Workspace extends BaseEntity<'slug'> {
   @BeforeCreate()
   @BeforeUpdate()
   generateSlug() {
-    this.slug = this.slug?.toLowerCase();
+    if (this.slug) {
+      this.slug = this.slug.trim().toLowerCase().replaceAll(' ', '-');
+    }
   }
 }
