@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { WorkspaceService } from './workspace.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
@@ -34,6 +36,15 @@ export class WorkspaceController {
   @Get()
   findAll(@User() user: JwtPayload) {
     return this.workspaceService.findAll(user);
+  }
+
+  @HttpCode(HttpStatus.ACCEPTED)
+  @Post('/join/:workspaceId')
+  joinWorkspace(
+    @User() user: JwtPayload,
+    @Param('workspaceId') workspaceId: string,
+  ) {
+    return this.workspaceService.join(user, workspaceId);
   }
 
   @RequiredPermission(Resource.WORKSPACE, Action.READ)

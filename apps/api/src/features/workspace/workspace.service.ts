@@ -3,7 +3,9 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
   RequestTimeoutException,
+  UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
@@ -52,20 +54,16 @@ export class WorkspaceService {
     let user: User | null = null;
     let role: Role | null = null;
 
-    try {
-      user = await this.userProvider.findById(session.sub);
-      role = await this.roleService.findByName('admin');
-      if (!user) {
-        throw new UnprocessableEntityException();
-      }
-      if (!role) {
-        throw new InternalServerErrorException();
-      }
-      Logger.log(user, 'WorkspaceService.create.user');
-      Logger.log(role, 'WorkspaceService.create.role');
-    } catch (error) {
-      throw new RequestTimeoutException();
+    user = await this.userProvider.findById(session.sub);
+    role = await this.roleService.findByName('admin');
+    if (!user) {
+      throw new UnauthorizedException();
     }
+    if (!role) {
+      throw new UnauthorizedException();
+    }
+    Logger.log(user, 'WorkspaceService.create.user');
+    Logger.log(role, 'WorkspaceService.create.role');
 
     try {
       const workspace = this.workspaceRepository.create(createWorkspaceDto);
@@ -92,7 +90,6 @@ export class WorkspaceService {
       if (error instanceof UniqueConstraintViolationException) {
         throw new ConflictException(`A workspace with this URL already exist`);
       }
-      throw new RequestTimeoutException();
     }
   }
 
@@ -110,5 +107,44 @@ export class WorkspaceService {
 
   remove(id: number) {
     return `This action removes a #${id} workspace`;
+  }
+
+  async join(session: JwtPayload, workspaceId: string) {
+    let user: User | null = null;
+    let role: Role | null = null;
+    let workspace: Workspace | null = null;
+
+    user = await this.userProvider.findById(session.sub);
+    role = await this.roleService.findByName('developer');
+    workspace = await this.workspaceRepository.findOne({ id: workspaceId });
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    if (!role) {
+      throw new UnauthorizedException();
+    }
+    if (!workspace) {
+      throw new NotFoundException(`Workspace with ${workspaceId} not found`);
+    }
+
+    try {
+      const workspaceUser = this.workspaceUserRepo.create({
+        user,
+        role,
+        workspace,
+      });
+
+      await this.em.persistAndFlush(workspaceUser);
+      return {
+        message: 'You have successfully joined the workspace',
+        data: {
+          id: workspaceUser.id,
+          joinedAt: workspaceUser.joinedAt,
+          workspace: workspaceUser.workspace,
+        },
+      };
+    } catch (error) {
+      Logger.log(error.message, 'WorkspaceService.joinWorkspace');
+    }
   }
 }
