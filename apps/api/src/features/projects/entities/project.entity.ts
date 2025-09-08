@@ -1,7 +1,6 @@
 import { BaseEntity } from '@/core/classes/base-entity';
 import {
   BeforeCreate,
-  BeforeUpdate,
   Entity,
   Enum,
   ManyToOne,
@@ -41,8 +40,11 @@ export class Project extends BaseEntity<'workspace' | 'key'> {
   lead?: User;
 
   @BeforeCreate()
-  @BeforeUpdate()
   generateKey() {
-    this.key = this.name.trim().toUpperCase().slice(0, 3);
+    if (this.key) {
+      this.key = this.key.trim().toUpperCase();
+    } else {
+      this.key = this.name.trim().toUpperCase().slice(0, 3);
+    }
   }
 }
