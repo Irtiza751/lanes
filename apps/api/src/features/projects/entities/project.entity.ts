@@ -12,7 +12,7 @@ import { Workspace } from '@/features/workspace/entities/workspace.entity';
 import { User } from '@/features/user/entities/user.entity';
 
 @Entity()
-export class Project extends BaseEntity {
+export class Project extends BaseEntity<'workspace' | 'key'> {
   @Property()
   name: string;
 
