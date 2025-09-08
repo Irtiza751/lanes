@@ -96,7 +96,7 @@ export class AuthService {
       throw new BadRequestException();
     }
     if (!user || !user.password) {
-      throw new NotFoundException('User does not exist');
+      throw new BadRequestException('Incorrect username or password');
     }
     // validate the user password
     const isValidPassword = await bcrypt.compare(password, user.password);
