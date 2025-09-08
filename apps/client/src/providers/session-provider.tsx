@@ -5,6 +5,7 @@ import { SplashScreen } from "@/components/splash";
 import { User } from "@/interfaces/signin.response";
 import { AuthService } from "@/lib/auth-service";
 import { sleep } from "@/lib/sleep";
+import { WorkspaceService } from "@/lib/workspace-service";
 import { useQueries } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useContext, useEffect, useMemo } from "react";
@@ -39,12 +40,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         retry: 1,
         enabled: !publicPages.includes(pathname), // don’t call on public pages
       },
-      // {
-      //   queryKey: ["sideMenu"],
-      //   queryFn: () => AuthService.fetchSideMenu(), // parallel call
-      //   staleTime: Infinity,
-      //   enabled: !publicPages.includes(pathname),
-      // },
+      {
+        queryKey: ["workspaces"],
+        queryFn: () => WorkspaceService.fetch(),
+        staleTime: Infinity,
+        enabled: !publicPages.includes(pathname),
+      },
       {
         queryKey: ["sleep"],
         queryFn: () => sleep(2000), // just for splash effect
@@ -56,6 +57,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   // Determine loading state
   const isLoading = results.some((q) => q.isLoading);
+  // console.log(workspaces.data?.data);
 
   // Handle session error (401)
   useEffect(() => {

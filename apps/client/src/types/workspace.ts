@@ -8,7 +8,7 @@ export interface Workspace {
   description?: string;
 }
 
-export interface WorkspaceResponse {
+export interface CreateWorkspaceResponse {
   message: string;
   data: Data;
 }
