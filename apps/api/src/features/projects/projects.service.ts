@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   Logger,
   RequestTimeoutException,
@@ -6,10 +7,17 @@ import {
 } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
+import {
+  EntityManager,
+  EntityRepository,
+  UniqueConstraintViolationException,
+} from '@mikro-orm/postgresql';
 import { Project } from './entities/project.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { WorkspaceProvider } from '@features/workspace/providers/workspace.provider';
+import { UserProvider } from '../user/providers/user-provider';
+import { User } from '../user/entities/user.entity';
+import { Workspace } from '../workspace/entities/workspace.entity';
 
 @Injectable()
 export class ProjectsService {
@@ -27,18 +35,34 @@ export class ProjectsService {
      * @description inject workspace provider
      */
     private readonly workspaceProvider: WorkspaceProvider,
+    /**
+     * @description inject user repository
+     */
+    private readonly userProvider: UserProvider,
   ) {}
 
   async create(createProjectDto: CreateProjectDto) {
+    let user: User | null = null;
+    let workspace: Workspace | null = null;
+
     try {
-      const workspace = await this.workspaceProvider.findBySlug(
+      workspace = await this.workspaceProvider.findBySlug(
         createProjectDto.workspace,
       );
       if (!workspace) {
         throw new UnprocessableEntityException('Incorrect workspace slug');
       }
+      if (createProjectDto.lead) {
+        user = await this.userProvider.findById(createProjectDto.lead);
+      }
+    } catch (error) {
+      throw new RequestTimeoutException();
+    }
+
+    try {
       const project = this.projectRepository.create({
         ...createProjectDto,
+        lead: user,
         workspace,
       });
 
@@ -48,6 +72,9 @@ export class ProjectsService {
         project,
       };
     } catch (error) {
+      if (error instanceof UniqueConstraintViolationException) {
+        throw new ConflictException('workspace with this name already exist');
+      }
       throw new RequestTimeoutException();
     }
   }

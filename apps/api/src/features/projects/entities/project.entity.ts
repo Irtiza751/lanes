@@ -13,7 +13,7 @@ import { User } from '@/features/user/entities/user.entity';
 
 @Entity()
 export class Project extends BaseEntity<'workspace' | 'key'> {
-  @Property()
+  @Property({ unique: true })
   name: string;
 
   @Property({ unique: true })
