@@ -15,7 +15,7 @@ export interface WorkspaceResponse {
 
 export interface Data {
   id: string;
-  workspaceUsers: any[];
+  workspaceUsers: unknown[];
   createdAt: string;
   updatedAt: string;
   name: string;

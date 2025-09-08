@@ -24,8 +24,9 @@ export const useSession = () => {
   return context;
 };
 
+const publicPages = ["/", "/signin", "/signup"];
+
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const publicPages = ["/", "/signin", "/signup"];
   const pathname = usePathname();
   const router = useRouter();
 
@@ -64,7 +65,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       });
       router.replace("/signin");
     }
-  }, [whoami.isError, pathname, publicPages, router]);
+  }, [whoami.isError, pathname, router]);
 
   // Show splash screen while loading
 

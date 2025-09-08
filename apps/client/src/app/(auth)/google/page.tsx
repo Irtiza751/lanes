@@ -1,6 +1,5 @@
 import { SearchParams } from "@/types/search-params";
 import { redirect } from "next/navigation";
-import React from "react";
 
 // signin with google/callback page
 export default async function GooglePage({
