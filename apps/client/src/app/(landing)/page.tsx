@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
 import Image from "next/image";
-import Header from "./_components/header";
 import { AnimateFadeFromTop, AnimateFadeScale } from "@/components/animate";
+import { Header } from "./_components/header";
+import { Footer } from "./_components/footer";
+import { Features } from "./_components/features";
 
 export default function HeroSection() {
   return (
     <>
       <Header />
-
       <main>
         <div
           aria-hidden
@@ -88,6 +88,8 @@ export default function HeroSection() {
           </div>
         </section>
       </main>
+      <Features />
+      <Footer />
     </>
   );
 }
