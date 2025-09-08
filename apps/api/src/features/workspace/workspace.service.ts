@@ -3,6 +3,7 @@ import {
   Injectable,
   Logger,
   RequestTimeoutException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
@@ -13,6 +14,10 @@ import {
 } from '@mikro-orm/postgresql';
 import { Workspace } from './entities/workspace.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { WorkspaceProvider } from './providers/workspace.provider';
+import { JwtPayload } from '@/core/interfaces/jwt-payload.interface';
+import { User } from '../user/entities/user.entity';
+import { UserProvider } from '../user/providers/user-provider';
 
 @Injectable()
 export class WorkspaceService {
@@ -26,20 +31,28 @@ export class WorkspaceService {
      * @description entity manager
      */
     private readonly em: EntityManager,
+    // workspace provider
+    private readonly workspaceProvider: WorkspaceProvider,
+    // user provider
+    private readonly userProvider: UserProvider,
   ) {}
 
-  async create(createWorkspaceDto: CreateWorkspaceDto) {
+  async create(session: JwtPayload, createWorkspaceDto: CreateWorkspaceDto) {
+    let user: User | null;
     try {
-      const workspace = this.workspaceRepository.create(createWorkspaceDto);
-      // if (createWorkspaceDto.slug) {
-      //   workspace.slug = createWorkspaceDto.slug.trim().replaceAll(' ', '_');
-      // } else {
-      //   const slug = createWorkspaceDto.name
-      //     .trim()
-      //     .replaceAll(' ', '_')
-      //     .slice(0, 3);
-      //   workspace.slug = slug;
-      // }
+      user = await this.userProvider.findById(session.sub);
+      if (!user) {
+        throw new UnprocessableEntityException();
+      }
+    } catch (error) {
+      throw new RequestTimeoutException();
+    }
+
+    try {
+      const workspace = this.workspaceRepository.create({
+        ...createWorkspaceDto,
+        owner: user,
+      });
       await this.em.persistAndFlush(workspace);
       return {
         message: 'Workspace created successfully',
@@ -54,8 +67,8 @@ export class WorkspaceService {
     }
   }
 
-  findAll() {
-    return `This action returns all workspace`;
+  findAll(user: JwtPayload) {
+    return this.workspaceProvider.getUserWorkspaces(user.sub);
   }
 
   findOne(id: number) {

@@ -6,6 +6,7 @@ import { Workspace } from './entities/workspace.entity';
 import { WorkspaceUser } from './entities/workspace-user.entity';
 import { CommonModule } from '@/common/common.module';
 import { WorkspaceProvider } from './providers/workspace.provider';
+import { UserModule } from '../user/user.module';
 
 @Module({
   controllers: [WorkspaceController],
@@ -13,6 +14,7 @@ import { WorkspaceProvider } from './providers/workspace.provider';
   imports: [
     MikroOrmModule.forFeature([WorkspaceUser, Workspace]),
     CommonModule,
+    UserModule,
   ],
   exports: [WorkspaceProvider],
 })

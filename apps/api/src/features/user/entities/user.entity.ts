@@ -15,6 +15,7 @@ import * as bcrypt from 'bcryptjs';
 import { BaseEntity } from '@/core/classes/base-entity';
 import { WorkspaceUser } from '@/features/workspace/entities/workspace-user.entity';
 import { Project } from '@/features/projects/entities/project.entity';
+import { Workspace } from '@/features/workspace/entities/workspace.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -55,6 +56,11 @@ export class User extends BaseEntity {
     cascade: [Cascade.REMOVE],
   })
   workspaceUsers = new Collection<WorkspaceUser>(this);
+
+  @OneToMany(() => Workspace, (workspace) => workspace.owner, {
+    cascade: [Cascade.REMOVE],
+  })
+  workspaces = new Collection<Workspace>(this);
 
   @OneToMany(() => Project, (project) => project.lead, {
     cascade: [Cascade.REMOVE],

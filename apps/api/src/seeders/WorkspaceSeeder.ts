@@ -7,6 +7,7 @@ export class WorkspaceSeeder extends Seeder {
     context.workspace = em.create(Workspace, {
       name: 'Waredrop',
       slug: 'waredrop',
+      owner: context['user-1'],
     });
   }
 }
