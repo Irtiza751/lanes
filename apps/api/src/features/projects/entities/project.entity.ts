@@ -37,8 +37,8 @@ export class Project extends BaseEntity {
   @ManyToOne(() => Workspace)
   workspace: Workspace;
 
-  @ManyToOne(() => User)
-  lead: User;
+  @ManyToOne(() => User, { nullable: true })
+  lead?: User;
 
   @BeforeCreate()
   @BeforeUpdate()

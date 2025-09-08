@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export class CreateProjectDto {
   @IsString()
@@ -12,4 +18,20 @@ export class CreateProjectDto {
   @IsString()
   @IsOptional()
   key?: string;
+
+  @IsDate()
+  @IsNotEmpty()
+  startDate: Date; // starting date of the project
+
+  @IsDate()
+  @IsNotEmpty()
+  targetDate: Date; // estimated completion date
+
+  @IsString()
+  @IsNotEmpty()
+  workspace: string; // slug of the workspace
+
+  @IsUUID()
+  @IsOptional()
+  lead?: string;
 }
