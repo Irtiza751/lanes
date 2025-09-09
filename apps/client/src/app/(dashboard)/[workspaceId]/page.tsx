@@ -7,7 +7,7 @@ export default async function Workspace({
 }) {
   const { workspaceId } = await params;
   if (workspaceId) {
-    return redirect(`/${workspaceId}/waredrop`);
+    return redirect(`/${workspaceId}/WAR`);
   }
   return (
     <div className="p-4">

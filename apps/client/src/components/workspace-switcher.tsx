@@ -13,7 +13,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LogOut, Settings, UsersRound } from "lucide-react";
+import { ChevronDown, LogOut, Settings, UsersRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useWorkspace } from "@/providers/workspace-provider";
 import { useAuth } from "@/hooks/use-auth";
@@ -28,17 +28,18 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex gap-2 cursor-pointer hover:bg-foreground/4 rounded-md py-1 px-2">
-          <Avatar className="rounded-md size-5">
+        <div className="flex gap-2 items-center cursor-pointer hover:bg-foreground/4 rounded-md py-1 px-2">
+          <Avatar className="rounded-sm size-5">
             <AvatarImage src={workspace?.logoUrl} alt="Irtiza" />
             <AvatarFallback
               style={{ background: workspace?.color }}
-              className={`rounded-md text-white font-medium text-xs`}
+              className={`rounded-sm text-white font-medium text-xs`}
             >
               {workspace.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
           <span>{workspace.name}</span>
+          <ChevronDown size={13} />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-60 rounded-lg">
