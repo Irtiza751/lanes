@@ -34,7 +34,7 @@ const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
-const MIN_SIDEBAR_WIDTH = "15rem";
+const MIN_SIDEBAR_WIDTH = "12rem";
 const MAX_SIDEBAR_WIDTH = "22rem";
 
 type SidebarContextProps = {

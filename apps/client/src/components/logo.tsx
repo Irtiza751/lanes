@@ -1,3 +1,4 @@
+import { useAspectRatio } from "@/hooks/use-aspect-ratio";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -7,11 +8,7 @@ interface LogoProps {
 }
 
 export function Logo({ className = "text-foreground", size = 10 }: LogoProps) {
-  const width = 145;
-  const height = 42;
-  const aspectRatio = width / height;
-  const svgHeight = size;
-  const svgWidth = size * aspectRatio;
+  const { svgWidth, svgHeight } = useAspectRatio(size, 145, 42);
 
   return (
     <Link className={cn("block", className)} href="/">
