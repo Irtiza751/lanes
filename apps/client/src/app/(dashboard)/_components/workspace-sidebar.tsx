@@ -53,15 +53,16 @@ export function WorkspaceSidebar() {
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarMenu>
             <ProjectMenu
+              slug="waredrop"
               name="Waredrop"
               iconClass="text-indigo-400"
               defaultOpen
             />
-            <ProjectMenu
+            {/* <ProjectMenu
               name="Shispare"
               iconClass="text-orange-400"
-              defaultOpen
-            />
+              defaultOpen={false}
+            /> */}
           </SidebarMenu>
         </SidebarGroup>
         {/* group end */}

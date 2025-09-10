@@ -22,12 +22,14 @@ import {
 import Link from "next/link";
 
 interface ProjectMenuProps {
+  slug: string;
   name: string;
   iconClass?: string;
   defaultOpen?: boolean;
 }
 
 export function ProjectMenu({
+  slug,
   name,
   defaultOpen,
   iconClass,
@@ -49,9 +51,18 @@ export function ProjectMenu({
         </CollapsibleTrigger>
         <CollapsibleContent>
           <SidebarMenu className="pl-3">
-            <ProjectMenuItem name="Epics" icon={<Box size={13} />} />
-            <ProjectMenuItem name="Tasks" icon={<KanbanSquare size={13} />} />
             <ProjectMenuItem
+              projectSlug={slug}
+              name="Epics"
+              icon={<Box size={13} />}
+            />
+            <ProjectMenuItem
+              projectSlug={slug}
+              name="Tasks"
+              icon={<KanbanSquare size={13} />}
+            />
+            <ProjectMenuItem
+              projectSlug={slug}
               name="Backlog"
               icon={<CircleDotDashed size={13} />}
             />
@@ -63,16 +74,18 @@ export function ProjectMenu({
 }
 
 export default function ProjectMenuItem({
+  projectSlug,
   name,
   icon,
 }: {
+  projectSlug: string;
   name: string;
   icon?: React.ReactNode;
 }) {
   return (
     <SidebarMenuSubItem>
       <SidebarMenuSubButton asChild size="sm">
-        <Link href={`${name.toLowerCase()}`}>
+        <Link href={`/${projectSlug}/${name.toLowerCase()}`}>
           {icon && <span className="text-muted-foreground">{icon}</span>}
           <span>{name}</span>
         </Link>
