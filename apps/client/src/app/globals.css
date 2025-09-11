@@ -43,6 +43,7 @@
   --radius-xl: calc(var(--radius) + 4px);
   --text-little: 0.78rem;
   --text-base: 0.8rem;
+  --ease-out-circular: cubic-bezier(0.08, 0.82, 0.17, 1);
   --animate-fade-in-scale: fade-in-scale 0.4s ease-out;
 
   @keyframes fade-in-scale {

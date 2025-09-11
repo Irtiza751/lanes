@@ -6,6 +6,8 @@ import {
 } from "@/components/ui/sidebar";
 import { WorkspaceSidebar } from "./_components/workspace-sidebar";
 import { cookies } from "next/headers";
+import { SessionProvider } from "@/providers/session-provider";
+import { WorkspaceProvider } from "@/providers/workspace-provider";
 
 export default async function DashboardLayout({
   children,
@@ -24,16 +26,22 @@ export default async function DashboardLayout({
   }
 
   return (
-    <SidebarProvider
-      className="bg-background"
-      defaultOpen={defaultOpen}
-      defaultWidth={sidebarWidth}
-    >
-      <Sidebar variant="inset" className="bg-background">
-        <WorkspaceSidebar />
-        <SidebarRail />
-      </Sidebar>
-      <SidebarInset className="border bg-sidebar">{children}</SidebarInset>
-    </SidebarProvider>
+    <SessionProvider>
+      <WorkspaceProvider>
+        <SidebarProvider
+          className="bg-background"
+          defaultOpen={defaultOpen}
+          defaultWidth={sidebarWidth}
+        >
+          <Sidebar variant="inset" className="bg-background">
+            <WorkspaceSidebar />
+            <SidebarRail />
+          </Sidebar>
+          <SidebarInset className="border bg-sidebar overflow-auto">
+            {children}
+          </SidebarInset>
+        </SidebarProvider>
+      </WorkspaceProvider>
+    </SessionProvider>
   );
 }
