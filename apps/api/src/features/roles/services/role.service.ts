@@ -26,4 +26,12 @@ export class RoleService {
       throw new RequestTimeoutException();
     }
   }
+
+  async findByName(name: string) {
+    return await this.roleRepository
+      .createQueryBuilder('r')
+      .select('*')
+      .where({ name })
+      .getSingleResult();
+  }
 }

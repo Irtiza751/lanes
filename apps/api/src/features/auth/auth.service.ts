@@ -96,12 +96,12 @@ export class AuthService {
       throw new BadRequestException();
     }
     if (!user || !user.password) {
-      throw new NotFoundException('User does not exist');
+      throw new BadRequestException('Incorrect username or password');
     }
     // validate the user password
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new BadRequestException('Invalid credentials');
     }
     // returning the minimum user info
     return {

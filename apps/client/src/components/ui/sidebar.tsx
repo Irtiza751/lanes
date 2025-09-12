@@ -318,7 +318,7 @@ function SidebarRail({
   const { toggleSidebar, setWidth, state, width, setIsDraggingRail } =
     useSidebar();
 
-  const { dragRef, handleMouseDown } = useResizableSidebar({
+  const { handleMouseDown } = useResizableSidebar({
     direction: "right",
     enableDrag,
     onResize: setWidth,

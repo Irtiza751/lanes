@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { WorkspaceService } from './workspace.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
@@ -14,6 +16,8 @@ import { ApiBearerAuth, ApiCookieAuth } from '@nestjs/swagger';
 import { RequiredPermission } from '@/core/decorators/required-permission.decorator';
 import { Resource } from '@/core/enums/resource.enum';
 import { Action } from '@/core/enums/action.enum';
+import { User } from '@/core/decorators/user.decorator';
+import { JwtPayload } from '@/core/interfaces/jwt-payload.interface';
 
 @ApiCookieAuth('access_token')
 @ApiBearerAuth('access_token')
@@ -22,14 +26,25 @@ export class WorkspaceController {
   constructor(private readonly workspaceService: WorkspaceService) {}
 
   @Post()
-  create(@Body() createWorkspaceDto: CreateWorkspaceDto) {
-    return this.workspaceService.create(createWorkspaceDto);
+  create(
+    @User() user: JwtPayload,
+    @Body() createWorkspaceDto: CreateWorkspaceDto,
+  ) {
+    return this.workspaceService.create(user, createWorkspaceDto);
   }
 
-  @RequiredPermission(Resource.WORKSPACE, Action.READ)
   @Get()
-  findAll() {
-    return this.workspaceService.findAll();
+  findAll(@User() user: JwtPayload) {
+    return this.workspaceService.findAll(user);
+  }
+
+  @HttpCode(HttpStatus.ACCEPTED)
+  @Post('/join/:workspaceId')
+  joinWorkspace(
+    @User() user: JwtPayload,
+    @Param('workspaceId') workspaceId: string,
+  ) {
+    return this.workspaceService.join(user, workspaceId);
   }
 
   @RequiredPermission(Resource.WORKSPACE, Action.READ)

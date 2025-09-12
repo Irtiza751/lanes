@@ -19,6 +19,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { RolesModule } from './features/roles/roles.module';
 import { WorkspaceModule } from './features/workspace/workspace.module';
+import { ProjectsModule } from './features/projects/projects.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { WorkspaceModule } from './features/workspace/workspace.module';
     }),
     RolesModule,
     WorkspaceModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [

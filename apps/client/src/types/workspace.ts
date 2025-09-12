@@ -8,14 +8,14 @@ export interface Workspace {
   description?: string;
 }
 
-export interface WorkspaceResponse {
+export interface CreateWorkspaceResponse {
   message: string;
   data: Data;
 }
 
 export interface Data {
   id: string;
-  workspaceUsers: any[];
+  workspaceUsers: unknown[];
   createdAt: string;
   updatedAt: string;
   name: string;

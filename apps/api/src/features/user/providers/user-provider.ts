@@ -47,4 +47,12 @@ export class UserProvider {
       throw new InternalServerErrorException('Failed to create user');
     }
   }
+
+  async findById(id: string) {
+    return await this.userRepository
+      .createQueryBuilder('u')
+      .select('*')
+      .where({ id })
+      .getSingleResult();
+  }
 }

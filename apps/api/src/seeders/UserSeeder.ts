@@ -7,7 +7,7 @@ export class UserSeeder extends Seeder {
   async run(em: EntityManager, context: Dictionary): Promise<void> {
     const users = [
       {
-        email: 'john.doe@example.com',
+        email: 'johndoe@example.com',
         name: 'john doe',
         password: 'password123',
         // roles: [context.adminRole, context.userRole],
@@ -15,7 +15,7 @@ export class UserSeeder extends Seeder {
         isEmailVerified: true,
       },
       {
-        email: 'jane.doe@example.com',
+        email: 'janedoe@example.com',
         name: 'jane doe',
         password: 'password123',
         // roles: [context.userRole],

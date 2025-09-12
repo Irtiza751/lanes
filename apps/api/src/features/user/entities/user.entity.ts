@@ -1,6 +1,7 @@
 import {
   BeforeCreate,
   BeforeUpdate,
+  Cascade,
   Collection,
   Entity,
   Enum,
@@ -13,6 +14,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import * as bcrypt from 'bcryptjs';
 import { BaseEntity } from '@/core/classes/base-entity';
 import { WorkspaceUser } from '@/features/workspace/entities/workspace-user.entity';
+import { Project } from '@/features/projects/entities/project.entity';
+import { Workspace } from '@/features/workspace/entities/workspace.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -49,8 +52,15 @@ export class User extends BaseEntity {
   @ApiProperty({ example: true })
   isActive?: boolean;
 
-  @OneToMany(() => WorkspaceUser, (wu) => wu.user)
+  @OneToMany(() => WorkspaceUser, (wu) => wu.user, {
+    cascade: [Cascade.REMOVE],
+  })
   workspaceUsers = new Collection<WorkspaceUser>(this);
+
+  @OneToMany(() => Project, (project) => project.lead, {
+    cascade: [Cascade.REMOVE],
+  })
+  projects = new Collection<Project>(this);
 
   @BeforeCreate()
   @BeforeUpdate()

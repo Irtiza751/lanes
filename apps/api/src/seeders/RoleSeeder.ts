@@ -17,7 +17,7 @@ export class RoleSeeder extends Seeder {
   async run(em: EntityManager, context: Dictionary): Promise<void> {
     const roles: Roles = [
       {
-        name: 'Super admin',
+        name: 'admin',
         description: 'Full system access',
         permissions: [
           {
@@ -30,34 +30,11 @@ export class RoleSeeder extends Seeder {
             action: Action.MANAGE,
             scope: Scope.ALL,
           },
-          { resource: Resource.ISSUE, action: Action.MANAGE, scope: Scope.ALL },
-          { resource: Resource.CYCLE, action: Action.MANAGE, scope: Scope.ALL },
-          {
-            resource: Resource.ROADMAP,
-            action: Action.MANAGE,
-            scope: Scope.ALL,
-          },
-          { resource: Resource.USER, action: Action.MANAGE, scope: Scope.ALL },
-          {
-            resource: Resource.INTEGRATION,
-            action: Action.MANAGE,
-            scope: Scope.ALL,
-          },
-          {
-            resource: Resource.AUDIT_LOG,
-            action: Action.READ,
-            scope: Scope.ALL,
-          },
-          {
-            resource: Resource.ANALYTICS,
-            action: Action.READ,
-            scope: Scope.ALL,
-          },
         ],
       },
       {
-        name: 'Developer',
-        description: 'Basic user access',
+        name: 'developer',
+        description: 'Basic permissions',
         permissions: [
           {
             resource: Resource.WORKSPACE,
