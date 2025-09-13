@@ -4,7 +4,7 @@ import { Priority } from '../enums/priority.enum';
 import { Project } from '@/features/projects/entities/project.entity';
 import { User } from '@/features/user/entities/user.entity';
 
-interface Label {
+export interface Label {
   name: string;
   value: string;
 }
