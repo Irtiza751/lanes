@@ -3,7 +3,7 @@ import React from "react";
 // import { AuthService } from "@/lib/auth-service";
 // import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 // import { getCookie } from "@/lib/get-cookie";
-import { ProjectsPage } from "../../_components/projects";
+import { ProjectsPage } from "../_components/projects";
 
 // function sleep(ms: number) {
 //   return new Promise((resolve) => setTimeout(resolve, ms));

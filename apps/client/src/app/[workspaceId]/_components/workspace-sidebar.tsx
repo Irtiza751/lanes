@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
-
 import {
   SidebarContent,
   SidebarGroup,
@@ -15,16 +12,15 @@ import { Inbox, KanbanSquare } from "lucide-react";
 import { ProjectMenu } from "./project-menu-item";
 import { WorkspaceSidebarFooter } from "./workspace-sidebar-footer";
 import { WorkspaceSidebarHeader } from "./workspace-sidebar-header";
+import Link from "next/link";
+import React from "react";
 import { useParams } from "next/navigation";
-import { useProjectMenus } from "@/hooks/use-project-menus";
 
 export function WorkspaceSidebar() {
   const params = useParams();
   // slug of the workspace
   const workspaceId = params?.workspaceId as string;
-  // const projectId = params.projectId as string;
-  const { data } = useProjectMenus();
-  const projects = data?.data.projects;
+  const projectId = params.projectId as string;
 
   return (
     <React.Fragment>
@@ -58,15 +54,18 @@ export function WorkspaceSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarMenu>
-            {projects?.map((project) => (
-              <ProjectMenu
-                workspaceSlug={workspaceId}
-                projectSlug={project.key}
-                name={project.name}
-                iconClass="text-indigo-400"
-                defaultOpen
-              />
-            ))}
+            <ProjectMenu
+              workspaceSlug={workspaceId}
+              projectSlug={projectId}
+              name="Waredrop"
+              iconClass="text-indigo-400"
+              defaultOpen
+            />
+            {/* <ProjectMenu
+              name="Shispare"
+              iconClass="text-orange-400"
+              defaultOpen={false}
+            /> */}
           </SidebarMenu>
         </SidebarGroup>
         {/* group end */}
