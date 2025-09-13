@@ -1,0 +1,14 @@
+import { WorkspaceService } from "@/lib/workspace-service";
+import { useWorkspaceStore } from "@/stores/useWorkspaceStore";
+import { useQuery } from "@tanstack/react-query";
+
+export function useProjectMenus() {
+  const active = useWorkspaceStore((state) => state.active);
+
+  return useQuery({
+    queryKey: ["project-menus", active?.workspace.slug],
+    queryFn: () => WorkspaceService.fetchProjects(active?.workspace.slug || ""),
+    staleTime: Infinity,
+    enabled: !!active,
+  });
+}
