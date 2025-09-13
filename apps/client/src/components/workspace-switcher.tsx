@@ -34,9 +34,9 @@ export function WorkspaceSwitcher() {
           <Avatar className="rounded-sm size-5">
             <AvatarImage src={activeWorkspace?.workspace.name} alt="Irtiza" />
             <AvatarFallback
-              className={`rounded-sm text-white font-medium text-xs bg-orange-600`}
+              className={`rounded-sm text-white font-medium text-xs bg-orange-600 uppercase`}
             >
-              {activeWorkspace?.workspace.name.slice(0, 2)}
+              {activeWorkspace?.workspace.name.charAt(0)}
             </AvatarFallback>
           </Avatar>
           <span className="truncate font-medium capitalize">

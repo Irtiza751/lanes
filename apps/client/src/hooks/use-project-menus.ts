@@ -10,5 +10,6 @@ export function useProjectMenus() {
     queryFn: () => WorkspaceService.fetchProjects(active?.workspace.slug || ""),
     staleTime: Infinity,
     enabled: !!active,
+    retry: 2,
   });
 }

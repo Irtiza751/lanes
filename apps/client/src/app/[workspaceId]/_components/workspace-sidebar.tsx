@@ -15,12 +15,15 @@ import { WorkspaceSidebarHeader } from "./workspace-sidebar-header";
 import Link from "next/link";
 import React from "react";
 import { useParams } from "next/navigation";
+import { useProjectMenus } from "@/hooks/use-project-menus";
 
 export function WorkspaceSidebar() {
   const params = useParams();
   // slug of the workspace
   const workspaceId = params?.workspaceId as string;
   const projectId = params.projectId as string;
+  const { data } = useProjectMenus();
+  const projects = data?.data.projects;
 
   return (
     <React.Fragment>
@@ -54,18 +57,16 @@ export function WorkspaceSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarMenu>
-            <ProjectMenu
-              workspaceSlug={workspaceId}
-              projectSlug={projectId}
-              name="Waredrop"
-              iconClass="text-indigo-400"
-              defaultOpen
-            />
-            {/* <ProjectMenu
-              name="Shispare"
-              iconClass="text-orange-400"
-              defaultOpen={false}
-            /> */}
+            {projects?.map((project) => (
+              <ProjectMenu
+                key={project.id}
+                workspaceSlug={workspaceId}
+                projectSlug={project.key}
+                name={project.name}
+                iconClass="text-indigo-400"
+                defaultOpen
+              />
+            ))}
           </SidebarMenu>
         </SidebarGroup>
         {/* group end */}
