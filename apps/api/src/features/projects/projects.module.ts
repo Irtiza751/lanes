@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { ProjectsController } from './projects.controller';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
@@ -9,6 +9,11 @@ import { UserModule } from '../user/user.module';
 @Module({
   controllers: [ProjectsController],
   providers: [ProjectsService],
-  imports: [MikroOrmModule.forFeature([Project]), WorkspaceModule, UserModule],
+  imports: [
+    WorkspaceModule,
+    MikroOrmModule.forFeature([Project]),
+    forwardRef(() => UserModule),
+  ],
+  exports: [ProjectsService],
 })
 export class ProjectsModule {}

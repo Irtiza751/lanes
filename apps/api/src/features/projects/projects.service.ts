@@ -1,7 +1,6 @@
 import {
   ConflictException,
   Injectable,
-  Logger,
   RequestTimeoutException,
   UnprocessableEntityException,
 } from '@nestjs/common';
@@ -93,5 +92,13 @@ export class ProjectsService {
 
   remove(id: number) {
     return `This action removes a #${id} project`;
+  }
+
+  findWorkspaceProjects(slug: string) {
+    return this.projectRepository
+      .createQueryBuilder('p')
+      .select(['name', 'key', 'id'])
+      .where({ workspace: { slug } })
+      .getResultList();
   }
 }
