@@ -20,6 +20,9 @@ import {
   Ellipsis,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useCallback } from "react";
+import Cookies from "js-cookie";
 
 interface ProjectMenuProps {
   workspaceSlug: string;
@@ -89,9 +92,33 @@ export default function ProjectMenuItem({
   name: string;
   icon?: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isActive =
+    pathname === `/${workspaceSlug}/${projectSlug}/${name.toLowerCase()}`;
+
+  const onClickHandler = useCallback(
+    ({
+      workspaceSlug,
+      projectSlug,
+    }: {
+      workspaceSlug: string;
+      projectSlug: string;
+    }) => {
+      Cookies.set("lap", `${workspaceSlug}/${projectSlug}/tasks`, {
+        sameSite: "lax",
+      });
+    },
+    []
+  );
+
   return (
     <SidebarMenuSubItem>
-      <SidebarMenuSubButton asChild size="sm">
+      <SidebarMenuSubButton
+        isActive={isActive}
+        asChild
+        size="sm"
+        onClick={() => onClickHandler({ workspaceSlug, projectSlug })}
+      >
         <Link href={`/${workspaceSlug}/${projectSlug}/${name.toLowerCase()}`}>
           {icon && <span className="text-muted-foreground">{icon}</span>}
           <span>{name}</span>
