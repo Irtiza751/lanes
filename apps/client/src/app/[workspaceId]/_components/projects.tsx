@@ -1,8 +1,8 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { AuthService } from "@/lib/auth-service";
-import { useQuery } from "@tanstack/react-query";
+// import { AuthService } from "@/lib/auth-service";
+// import { useQuery } from "@tanstack/react-query";
 
 export function ProjectsPage() {
   // const { data, error } = useQuery({
