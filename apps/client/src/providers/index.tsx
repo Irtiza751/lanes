@@ -4,7 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 // import { WorkspaceProvider } from "./workspace-provider";
 import { getQueryClient } from "@/lib/get-query-client";
 // import { SessionProvider } from "./session-provider";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
@@ -17,12 +17,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
     >
       <QueryClientProvider client={queryClient}>
-        {/* <SessionProvider> */}
-        {/* <WorkspaceProvider> */}
         {children}
-        {/* </WorkspaceProvider> */}
-        {/* </SessionProvider> */}
-        {/* <ReactQueryDevtools /> */}
+        <div className="text-lg">
+          <ReactQueryDevtools initialIsOpen={false} />
+        </div>
       </QueryClientProvider>
     </ThemeProvider>
   );

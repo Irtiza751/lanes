@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
 import { landingMenus } from "@/constants/landing-menu";
+import { SigninBtn } from "@/components/signin-btn";
 
 export function Header() {
   const [menuState, setMenuState] = useState(false);
@@ -58,11 +59,7 @@ export function Header() {
               </div>
 
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6">
-                <Button asChild variant="outline" size="sm" className="rounded">
-                  <Link href="/signin">
-                    <span>Sign in</span>
-                  </Link>
-                </Button>
+                <SigninBtn />
                 <Button asChild size="sm" className="rounded">
                   <Link href="/signup">
                     <span>Get started</span>
