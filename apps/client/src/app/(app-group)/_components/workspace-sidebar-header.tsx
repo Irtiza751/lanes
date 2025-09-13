@@ -6,17 +6,7 @@ import { Search, SquarePen } from "lucide-react";
 export function WorkspaceSidebarHeader() {
   return (
     <SidebarHeader className="flex-row justify-between">
-      <WorkspaceSwitcher
-        workspace={{
-          color: "green",
-          id: 1,
-          logoUrl: "",
-          name: "Waredrop",
-          ownerId: "1",
-          slug: "waredrop",
-          description: "some description for waredrop",
-        }}
-      />
+      <WorkspaceSwitcher />
       <div className="flex items-center gap-2">
         <Button size="sm-icon" variant="ghost">
           <Search />
