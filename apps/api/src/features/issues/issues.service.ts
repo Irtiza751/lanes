@@ -1,11 +1,83 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  RequestTimeoutException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateIssueDto } from './dto/create-issue.dto';
 import { UpdateIssueDto } from './dto/update-issue.dto';
+import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
+import { Issue } from './entities/issue.entity';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { UserProvider } from '../user/providers/user-provider';
+import { ProjectsService } from '../projects/projects.service';
+import { JwtPayload } from '@/core/interfaces/jwt-payload.interface';
+import { User } from '../user/entities/user.entity';
+import { Project } from '../projects/entities/project.entity';
 
 @Injectable()
 export class IssuesService {
-  create(createIssueDto: CreateIssueDto) {
-    return 'This action adds a new issue';
+  constructor(
+    /**
+     * @description issue repository
+     */
+    @InjectRepository(Issue)
+    private readonly issueRepository: EntityRepository<Issue>,
+    /**
+     * @description Injecting the EntityManager for advanced database operations
+     */
+    private readonly em: EntityManager,
+
+    private readonly userProvider: UserProvider,
+
+    private readonly projectService: ProjectsService,
+  ) {}
+
+  async create(user: JwtPayload, createIssueDto: CreateIssueDto) {
+    let creator: User | null = null;
+    let project: Project | null = null;
+    let assignee: User | null = null;
+
+    creator = await this.userProvider.findById(user.sub);
+    project = await this.projectService.findOneByKey(createIssueDto.projectKey);
+
+    if (createIssueDto.assigneeId) {
+      assignee = await this.userProvider.findById(createIssueDto.assigneeId);
+    }
+
+    if (!creator) {
+      throw new UnauthorizedException();
+    }
+
+    if (createIssueDto.assigneeId && !assignee) {
+      throw new BadRequestException('Invalid assignee id');
+    }
+
+    if (!project) {
+      throw new BadRequestException('Invalid project key');
+    }
+
+    try {
+      let issueKey: string = `${project.key}-${project.issues.count() + 1}`;
+
+      const issue = this.issueRepository.create({
+        key: issueKey,
+        ...createIssueDto,
+        project,
+        creator,
+        assignee,
+      });
+
+      this.em.persistAndFlush(issue);
+      return {
+        message: 'Issue created successfully',
+        data: issue,
+      };
+    } catch (error) {
+      Logger.debug(error.message);
+      throw new RequestTimeoutException();
+    }
   }
 
   findAll() {

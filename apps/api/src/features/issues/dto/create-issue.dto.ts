@@ -50,20 +50,20 @@ export class CreateIssueDto {
   })
   projectKey: string; // should be project key
 
-  @IsUUID()
-  @IsNotEmpty()
-  @ApiProperty({
-    name: 'creatorId',
-    description: 'Id of the user who created this issue',
-  })
-  creatorId: string; // user id who created the issue
+  // @IsUUID()
+  // @IsNotEmpty()
+  // @ApiProperty({
+  //   name: 'creatorId',
+  //   description: 'Id of the user who created this issue',
+  // })
+  // creatorId: string; // user id who created the issue
 
   @IsJSON()
   @IsOptional()
   @ApiProperty({
     name: 'labels',
     description: 'Labels describe what sort issue is this e.g (good first)',
-    example: '["Good first"]',
+    example: JSON.stringify(['Good first issue']),
   })
   labels?: string[];
 
