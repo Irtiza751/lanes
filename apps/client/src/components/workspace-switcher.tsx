@@ -39,7 +39,7 @@ export function WorkspaceSwitcher() {
               {activeWorkspace?.workspace.name.slice(0, 2)}
             </AvatarFallback>
           </Avatar>
-          <span className="truncate font-medium">
+          <span className="truncate font-medium capitalize">
             {activeWorkspace?.workspace.name}
           </span>
           <ChevronDown size={13} />

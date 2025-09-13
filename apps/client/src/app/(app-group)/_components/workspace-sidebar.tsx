@@ -18,7 +18,9 @@ import { useParams } from "next/navigation";
 
 export function WorkspaceSidebar() {
   const params = useParams();
+  // slug of the workspace
   const workspaceId = params?.workspaceId as string;
+  const projectId = params.projectId as string;
 
   return (
     <React.Fragment>
@@ -53,7 +55,8 @@ export function WorkspaceSidebar() {
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarMenu>
             <ProjectMenu
-              slug="waredrop"
+              workspaceSlug={workspaceId}
+              projectSlug={projectId}
               name="Waredrop"
               iconClass="text-indigo-400"
               defaultOpen

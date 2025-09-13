@@ -22,14 +22,16 @@ import {
 import Link from "next/link";
 
 interface ProjectMenuProps {
-  slug: string;
+  workspaceSlug: string;
+  projectSlug: string;
   name: string;
   iconClass?: string;
   defaultOpen?: boolean;
 }
 
 export function ProjectMenu({
-  slug,
+  workspaceSlug,
+  projectSlug,
   name,
   defaultOpen,
   iconClass,
@@ -52,17 +54,20 @@ export function ProjectMenu({
         <CollapsibleContent>
           <SidebarMenu className="pl-3">
             <ProjectMenuItem
-              projectSlug={slug}
+              workspaceSlug={workspaceSlug}
+              projectSlug={projectSlug}
               name="Epics"
               icon={<Box size={13} />}
             />
             <ProjectMenuItem
-              projectSlug={slug}
+              workspaceSlug={workspaceSlug}
+              projectSlug={projectSlug}
               name="Tasks"
               icon={<KanbanSquare size={13} />}
             />
             <ProjectMenuItem
-              projectSlug={slug}
+              workspaceSlug={workspaceSlug}
+              projectSlug={projectSlug}
               name="Backlog"
               icon={<CircleDotDashed size={13} />}
             />
@@ -74,10 +79,12 @@ export function ProjectMenu({
 }
 
 export default function ProjectMenuItem({
+  workspaceSlug,
   projectSlug,
   name,
   icon,
 }: {
+  workspaceSlug: string;
   projectSlug: string;
   name: string;
   icon?: React.ReactNode;
@@ -85,7 +92,7 @@ export default function ProjectMenuItem({
   return (
     <SidebarMenuSubItem>
       <SidebarMenuSubButton asChild size="sm">
-        <Link href={`/${projectSlug}/${name.toLowerCase()}`}>
+        <Link href={`/${workspaceSlug}/${projectSlug}/${name.toLowerCase()}`}>
           {icon && <span className="text-muted-foreground">{icon}</span>}
           <span>{name}</span>
         </Link>
