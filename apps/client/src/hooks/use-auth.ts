@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -17,7 +18,13 @@ export function useAuth() {
     onSuccess: (data) => {
       console.log("Login successful:", data);
       queryClient.clear();
-      router.push("/waredrop-workspace");
+      queryClient.invalidateQueries();
+      const lastActiveProject = Cookies.get("lap");
+      if (lastActiveProject) {
+        router.push(`/${lastActiveProject}`);
+      } else {
+        router.push("/create-workspace");
+      }
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
@@ -39,6 +46,7 @@ export function useAuth() {
     mutationFn: () => AuthService.signout(),
     onSuccess: () => {
       queryClient.clear();
+      queryClient.invalidateQueries();
       router.push("/signin");
     },
   });
@@ -47,6 +55,7 @@ export function useAuth() {
     mutationKey: ["signup"],
     mutationFn: (data: SignupForm) => AuthService.signup(data),
     onSuccess: () => {
+      queryClient.invalidateQueries();
       queryClient.clear();
       router.push("/create-workspace");
       toast.success("Account successfully created");

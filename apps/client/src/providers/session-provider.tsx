@@ -6,10 +6,12 @@ import { User } from "@/interfaces/signin.response";
 import { AuthService } from "@/lib/auth-service";
 import { sleep } from "@/lib/sleep";
 import { WorkspaceService } from "@/lib/workspace-service";
+import { useWorkspaceStore } from "@/stores/useWorkspaceStore";
 import { useQueries } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useContext, useEffect, useMemo } from "react";
 import { toast } from "sonner";
+import Cookies from "js-cookie";
 
 interface SessionState {
   user: User | null;
@@ -30,6 +32,10 @@ const publicPages = ["/", "/signin", "/signup"];
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const setAvailableWorkspaces = useWorkspaceStore(
+    (state) => state.setAvailable
+  );
+  const setActiveWorkspace = useWorkspaceStore((state) => state.setActive);
 
   const results = useQueries({
     queries: [
@@ -53,7 +59,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     ],
   });
 
-  const [whoami] = results;
+  const [whoami, workspace] = results;
 
   // Determine loading state
   const isLoading = results.some((q) => q.isLoading);
@@ -68,6 +74,29 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       router.replace("/signin");
     }
   }, [whoami.isError, pathname, router]);
+
+  // populate workspace store
+  useEffect(() => {
+    console.log(workspace.data?.data);
+    if (workspace.isSuccess && workspace.data.data.length) {
+      const { data } = workspace.data;
+      setAvailableWorkspaces(data);
+      const lastActiveProject = Cookies.get("lap");
+      if (lastActiveProject) {
+        const slug = lastActiveProject.split("/")[0];
+        const workspace =
+          data.find((available) => available.workspace.slug === slug) ?? null;
+        router.push(`/${lastActiveProject}`);
+        setActiveWorkspace(workspace);
+      } else {
+        const activeWorkspace = data[0]?.workspace;
+        Cookies.set("lap", `${activeWorkspace.slug}/`);
+        router.push(`/${activeWorkspace.slug}/`);
+      }
+    } else {
+      router.push("/create-workspace");
+    }
+  }, [workspace.isSuccess, router]);
 
   // Show splash screen while loading
 

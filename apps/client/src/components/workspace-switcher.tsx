@@ -1,44 +1,47 @@
 "use client";
-import { Workspace } from "@/types";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuSub,
-  DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ChevronDown, LogOut, Settings, UsersRound } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useWorkspace } from "@/providers/workspace-provider";
 import { useAuth } from "@/hooks/use-auth";
+import { useWorkspaceStore } from "@/stores/useWorkspaceStore";
+import { WorkspacesDropdown } from "./workspace-dropdown";
+import { Workspaces } from "@/lib/workspace-service";
+import Cookies from "js-cookie";
 
-interface WorkspaceSwitcherProps {
-  workspace: Workspace;
-}
-
-export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
+export function WorkspaceSwitcher() {
   const { signoutMutation } = useAuth();
+  const workspaces = useWorkspaceStore();
+  const activeWorkspace = workspaces.active;
+
+  const onSelectHandler = (active: Workspaces[number]) => {
+    workspaces.setActive(active);
+    // TODO: append the project at the end.
+    Cookies.set("lap", `${active.workspace.slug}/`, { sameSite: "lax" });
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex gap-2 items-center cursor-pointer hover:bg-foreground/4 rounded-md py-1 px-2 max-w-60 truncate">
           <Avatar className="rounded-sm size-5">
-            <AvatarImage src={workspace?.logoUrl} alt="Irtiza" />
+            <AvatarImage src={activeWorkspace?.workspace.name} alt="Irtiza" />
             <AvatarFallback
-              style={{ background: workspace?.color }}
-              className={`rounded-sm text-white font-medium text-xs`}
+              className={`rounded-sm text-white font-medium text-xs bg-orange-600`}
             >
-              {workspace.name.charAt(0)}
+              {activeWorkspace?.workspace.name.slice(0, 2)}
             </AvatarFallback>
           </Avatar>
-          <span className="truncate font-medium">{workspace.name}</span>
+          <span className="truncate font-medium">
+            {activeWorkspace?.workspace.name}
+          </span>
           <ChevronDown size={13} />
         </div>
       </DropdownMenuTrigger>
@@ -49,14 +52,17 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
         </DropdownMenuItem>
         <DropdownMenuItem className="text-xs">
           <UsersRound />
-          <span>Invide Members</span>
+          <span>Invited Members</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className="text-xs">
             Switch workspace
           </DropdownMenuSubTrigger>
-          <WorkspacesDropdown />
+          <WorkspacesDropdown
+            workspaces={workspaces.available}
+            onSelect={onSelectHandler}
+          />
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -68,74 +74,5 @@ export function WorkspaceSwitcher({ workspace }: WorkspaceSwitcherProps) {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-}
-
-function WorkspacesDropdown() {
-  const { changeWorkspace } = useWorkspace();
-  const router = useRouter();
-
-  const workspaces: Workspace[] = [
-    {
-      color: "green",
-      id: 1,
-      logoUrl: "",
-      name: "Waredrop",
-      ownerId: "1",
-      slug: "waredrop",
-      description: "some description for waredrop",
-    },
-    {
-      color: "orange",
-      id: 2,
-      logoUrl: "",
-      name: "Shispare",
-      ownerId: "1",
-      slug: "shispare",
-      description: "some description for shispare",
-    },
-  ];
-
-  return (
-    <DropdownMenuPortal>
-      <DropdownMenuSubContent className="min-w-55">
-        <DropdownMenuLabel className="text-xs text-muted-foreground">
-          Workspaces
-        </DropdownMenuLabel>
-        {workspaces.map((workspace) => (
-          <DropdownMenuItem
-            key={workspace.name}
-            onClick={() => changeWorkspace(workspace.slug)}
-          >
-            <Avatar className="rounded-md size-5">
-              <AvatarImage src={workspace.logoUrl} alt="Irtiza" />
-              <AvatarFallback
-                style={{ background: workspace?.color }}
-                className={`rounded-md text-xs font-medium text-white`}
-              >
-                {workspace.name.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
-            <small>{workspace.name}</small>
-          </DropdownMenuItem>
-        ))}
-        <DropdownMenuSeparator />
-        <DropdownMenuLabel className="text-xs text-muted-foreground">
-          Account
-        </DropdownMenuLabel>
-        <DropdownMenuItem
-          className="text-xs"
-          onClick={() => router.push("/create-workspace")}
-        >
-          Create or join new workspace
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="text-xs"
-          onClick={() => router.push("/add-account")}
-        >
-          Add an other account
-        </DropdownMenuItem>
-      </DropdownMenuSubContent>
-    </DropdownMenuPortal>
   );
 }
