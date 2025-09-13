@@ -43,7 +43,7 @@ export function ProjectMenu({
           <SidebarMenuButton size="sm" className="group justify-between">
             <div className="flex items-center gap-2">
               <SquareTerminal className={iconClass} size={12} />
-              <span>{name}</span>
+              <span className="capitalize">{name}</span>
               <ChevronDown className="group-data-[state=closed]:-rotate-90 transition-transform text-muted-foreground size-3" />
             </div>
             <div className="size-3">
@@ -56,14 +56,14 @@ export function ProjectMenu({
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}
               projectSlug={projectSlug}
-              name="Epics"
-              icon={<Box size={13} />}
+              name="Tasks"
+              icon={<KanbanSquare size={13} />}
             />
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}
               projectSlug={projectSlug}
-              name="Tasks"
-              icon={<KanbanSquare size={13} />}
+              name="Epics"
+              icon={<Box size={13} />}
             />
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}

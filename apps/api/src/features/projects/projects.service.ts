@@ -72,7 +72,9 @@ export class ProjectsService {
       };
     } catch (error) {
       if (error instanceof UniqueConstraintViolationException) {
-        throw new ConflictException('workspace with this name already exist');
+        throw new ConflictException(
+          'project with this key or name already exist',
+        );
       }
       throw new RequestTimeoutException();
     }
