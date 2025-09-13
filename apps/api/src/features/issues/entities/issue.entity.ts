@@ -4,11 +4,6 @@ import { Priority } from '../enums/priority.enum';
 import { Project } from '@/features/projects/entities/project.entity';
 import { User } from '@/features/user/entities/user.entity';
 
-export interface Label {
-  name: string;
-  value: string;
-}
-
 @Entity()
 export class Issue extends BaseEntity {
   @Property()
@@ -21,7 +16,7 @@ export class Issue extends BaseEntity {
   priority: Priority;
 
   @Property({ type: 'jsonb', nullable: true })
-  labels?: Label[];
+  labels?: string[];
 
   @Property({ default: 0 })
   storyPoints: number;

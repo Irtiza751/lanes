@@ -8,7 +8,6 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { Label } from '../entities/issue.entity';
 import { Priority } from '../enums/priority.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
@@ -64,9 +63,9 @@ export class CreateIssueDto {
   @ApiProperty({
     name: 'labels',
     description: 'Labels describe what sort issue is this e.g (good first)',
-    example: '[{"name": "Good first", "value": "good-first"}]',
+    example: '["Good first"]',
   })
-  labels?: Label[];
+  labels?: string[];
 
   @IsNumber()
   @IsOptional()
