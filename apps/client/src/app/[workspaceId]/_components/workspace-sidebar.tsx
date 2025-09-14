@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Inbox, KanbanSquare } from "lucide-react";
+import { Focus, Inbox, KanbanSquare } from "lucide-react";
 import { ProjectMenu } from "./project-menu-item";
 import { WorkspaceSidebarFooter } from "./workspace-sidebar-footer";
 import { WorkspaceSidebarHeader } from "./workspace-sidebar-header";
@@ -41,7 +41,7 @@ export function WorkspaceSidebar() {
               >
                 <Link href={`/${workspaceId}/inbox`}>
                   <span className="text-muted-foreground">
-                    <Inbox size={14} />
+                    <Inbox size={15} />
                   </span>
                   <span>Inbox</span>
                 </Link>
@@ -55,7 +55,7 @@ export function WorkspaceSidebar() {
               >
                 <Link href={`/${workspaceId}/my-tasks`}>
                   <span className="text-muted-foreground">
-                    <KanbanSquare size={14} />
+                    <Focus size={15} />
                   </span>
                   <span>My Tasks</span>
                 </Link>

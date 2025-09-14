@@ -2,7 +2,13 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ListFilter, Settings2, Sidebar } from "lucide-react";
+import {
+  Group,
+  LayoutDashboard,
+  ListFilter,
+  Settings2,
+  Sidebar,
+} from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useWorkspaceStore } from "@/stores/useWorkspaceStore";
 
@@ -21,6 +27,7 @@ export function Header({
         className
       )}
     >
+      <LayoutDashboard className="size-4" />
       <HeaderTitle>{active?.workspace.name}</HeaderTitle>
       {children}
     </header>

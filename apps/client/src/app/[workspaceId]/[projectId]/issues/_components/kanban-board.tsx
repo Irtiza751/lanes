@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/kanban";
 import { Button } from "@/components/ui/button";
 import { Plus, UserCircle } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 
 interface Task {
   id: string;
@@ -40,8 +41,16 @@ interface TaskCardProps
 }
 
 function TaskCard({ task, asHandle, ...props }: TaskCardProps) {
+  const router = useRouter();
+  const { workspaceId, projectId } = useParams();
+
   const cardContent = (
-    <div className="rounded-sm border-input/20 border bg-kanban-card p-3 shadow-xs">
+    <div
+      onClick={() =>
+        router.push(`/${workspaceId}/${projectId}/issues/${task.id}`)
+      }
+      className="rounded-sm border-input/20 border bg-kanban-card p-3 shadow-xs"
+    >
       <div className="flex items-center justify-between mb-1">
         <span className="text-muted-foreground uppercase">{task.id}</span>
         {task.assignee && (
@@ -73,7 +82,7 @@ function TaskCard({ task, asHandle, ...props }: TaskCardProps) {
   return (
     <KanbanItem value={task.id} {...props}>
       {asHandle ? (
-        <KanbanItemHandle>{cardContent}</KanbanItemHandle>
+        <KanbanItemHandle cursor={false}>{cardContent}</KanbanItemHandle>
       ) : (
         cardContent
       )}
@@ -109,7 +118,7 @@ function TaskColumn({ value, tasks, isOverlay, ...props }: TaskColumnProps) {
         ))}
         <Button
           className="rounded opacity-0 group-hover:opacity-100 shadow-none bg-transparent transition"
-          size="xs"
+          size="sm"
           variant="outline"
         >
           <Plus />
