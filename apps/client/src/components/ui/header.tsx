@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sidebar } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
+import { useWorkspaceStore } from "@/stores/useWorkspaceStore";
 
 export function Header({
   children,
@@ -12,13 +13,15 @@ export function Header({
   children: React.ReactNode;
   className?: string;
 }) {
+  const active = useWorkspaceStore((state) => state.active);
   return (
     <header
       className={cn(
-        "px-2 h-9 flex items-center gap-2 border-b border-input",
+        "px-4 h-10 flex items-center gap-2 border-b border-input",
         className
       )}
     >
+      <HeaderTitle>{active?.workspace.name}</HeaderTitle>
       {children}
     </header>
   );
@@ -31,7 +34,7 @@ export function HeaderTitle({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <h4 className={cn("text-sm font-bold", className)}>{children}</h4>;
+  return <h4 className={cn("text-md font-semibold", className)}>{children}</h4>;
 }
 
 export function ToggleSidebarTrigger() {

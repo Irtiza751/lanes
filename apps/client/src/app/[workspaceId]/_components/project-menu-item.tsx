@@ -18,6 +18,8 @@ import {
   KanbanSquare,
   CircleDotDashed,
   Ellipsis,
+  Layers,
+  Layers2,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -59,20 +61,20 @@ export function ProjectMenu({
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}
               projectSlug={projectSlug}
-              name="Tasks"
-              icon={<KanbanSquare size={13} />}
+              name="Issues"
+              icon={<Layers2 size={15} />}
             />
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}
               projectSlug={projectSlug}
               name="Epics"
-              icon={<Box size={13} />}
+              icon={<Box size={15} />}
             />
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}
               projectSlug={projectSlug}
               name="Backlog"
-              icon={<CircleDotDashed size={13} />}
+              icon={<CircleDotDashed size={15} />}
             />
           </SidebarMenu>
         </CollapsibleContent>
@@ -121,7 +123,7 @@ export default function ProjectMenuItem({
       >
         <Link href={`/${workspaceSlug}/${projectSlug}/${name.toLowerCase()}`}>
           {icon && <span className="text-muted-foreground">{icon}</span>}
-          <span>{name}</span>
+          <span className="dark:text-gray-200">{name}</span>
         </Link>
       </SidebarMenuSubButton>
     </SidebarMenuSubItem>
