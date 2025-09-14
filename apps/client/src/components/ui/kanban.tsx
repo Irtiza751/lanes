@@ -339,7 +339,7 @@ function KanbanBoard({ children, className }: KanbanBoardProps) {
     <SortableContext items={columnIds} strategy={rectSortingStrategy}>
       <div
         data-slot="kanban-board"
-        className={cn("grid auto-rows-fr sm:grid-cols-3 gap-4", className)}
+        className={cn("flex items-stretch gap-2", className)}
       >
         {children}
       </div>

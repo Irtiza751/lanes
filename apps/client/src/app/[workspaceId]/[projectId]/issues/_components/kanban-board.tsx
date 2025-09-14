@@ -13,7 +13,7 @@ import {
   KanbanOverlay,
 } from "@/components/ui/kanban";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, UserCircle } from "lucide-react";
 
 interface Task {
   id: string;
@@ -28,6 +28,7 @@ interface Task {
 const COLUMN_TITLES: Record<string, string> = {
   backlog: "Backlog",
   inProgress: "In Progress",
+  testing: "Testing",
   review: "Review",
   done: "Done",
 };
@@ -40,23 +41,27 @@ interface TaskCardProps
 
 function TaskCard({ task, asHandle, ...props }: TaskCardProps) {
   const cardContent = (
-    <div className="rounded-md border bg-card p-3 shadow-xs">
+    <div className="rounded-sm border-input/20 border bg-kanban-card p-3 shadow-xs">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-muted-foreground uppercase">{task.id}</span>
+        {task.assignee && (
+          <div className="flex items-center gap-1">
+            <Avatar className="size-5">
+              <AvatarImage src={task.assigneeAvatar} />
+              <AvatarFallback>
+                <UserCircle className="text-muted-foreground" />
+              </AvatarFallback>
+            </Avatar>
+          </div>
+        )}
+      </div>
       <div className="flex flex-col gap-2.5">
         <div className="flex items-center justify-between gap-2">
           <span className="line-clamp-1 font-medium text-sm">{task.title}</span>
         </div>
         <div className="flex items-center justify-between text-muted-foreground text-xs">
-          {task.assignee && (
-            <div className="flex items-center gap-1">
-              <Avatar className="size-4">
-                <AvatarImage src={task.assigneeAvatar} />
-                <AvatarFallback>{task.assignee.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <span className="line-clamp-1">{task.assignee}</span>
-            </div>
-          )}
           {task.dueDate && (
-            <time className="text-[10px] tabular-nums whitespace-nowrap">
+            <time className="text-[10px] whitespace-nowrap">
               {task.dueDate}
             </time>
           )}
@@ -87,14 +92,12 @@ function TaskColumn({ value, tasks, isOverlay, ...props }: TaskColumnProps) {
     <KanbanColumn
       value={value}
       {...props}
-      className="group rounded-md bg-kanban-column p-2.5 min-w-[350px]"
+      className="group rounded-sm bg-kanban-column p-2.5 min-w-[350px]"
     >
       <div className="flex items-center justify-between mb-2.5">
         <div className="flex items-center gap-2.5">
-          <span className="font-semibold text-sm">{COLUMN_TITLES[value]}</span>
-          <Badge className="text-xs" variant="secondary">
-            {tasks.length}
-          </Badge>
+          <span className="font-semibold">{COLUMN_TITLES[value]}</span>
+          <span>{tasks.length}</span>
         </div>
       </div>
       <KanbanColumnContent
@@ -105,7 +108,7 @@ function TaskColumn({ value, tasks, isOverlay, ...props }: TaskColumnProps) {
           <TaskCard key={task.id} task={task} asHandle={!isOverlay} />
         ))}
         <Button
-          className="rounded opacity-0 group-hover:opacity-100"
+          className="rounded opacity-0 group-hover:opacity-100 shadow-none bg-transparent transition"
           size="xs"
           variant="outline"
         >
@@ -120,43 +123,43 @@ export default function Component() {
   const [columns, setColumns] = React.useState<Record<string, Task[]>>({
     backlog: [
       {
-        id: "1",
+        id: "TAS-1",
         title: "Add authentication",
         priority: "high",
         assignee: "John Doe",
         assigneeAvatar: "https://randomuser.me/api/portraits/men/1.jpg",
-        dueDate: "Jan 10, 2025",
+        // dueDate: "Jan 10, 2025",
       },
       {
-        id: "2",
+        id: "TAS-2",
         title: "Create API endpoints",
         priority: "medium",
         assignee: "Jane Smith",
-        assigneeAvatar: "https://randomuser.me/api/portraits/women/2.jpg",
-        dueDate: "Jan 15, 2025",
+        assigneeAvatar: "https://randomuser.me/api/portraits/women/2.jpg-12",
+        // dueDate: "Jan 15, 2025",
       },
       {
-        id: "3",
+        id: "TAS-3",
         title: "Write documentation",
         priority: "low",
         assignee: "Bob Johnson",
         assigneeAvatar: "https://randomuser.me/api/portraits/men/3.jpg",
-        dueDate: "Jan 20, 2025",
+        // dueDate: "Jan 20, 2025",
       },
     ],
     inProgress: [
       {
-        id: "4",
+        id: "TAS-4",
         title: "Design system updates",
         priority: "high",
         assignee: "Alice Brown",
-        assigneeAvatar: "https://randomuser.me/api/portraits/women/4.jpg",
+        assigneeAvatar: "https://randomuser.me/api/portraits/women/4.jpg-12",
         dueDate: "Aug 25, 2025",
       },
     ],
     testing: [
       {
-        id: "5",
+        id: "TAS-5",
         title: "Implement dark mode",
         priority: "medium",
         assignee: "Charlie Wilson",
@@ -166,7 +169,7 @@ export default function Component() {
     ],
     done: [
       {
-        id: "7",
+        id: "TAS-7",
         title: "Setup project",
         priority: "high",
         assignee: "Eve Davis",
@@ -174,7 +177,7 @@ export default function Component() {
         dueDate: "Sep 25, 2025",
       },
       {
-        id: "8",
+        id: "TAS-8",
         title: "Initial commit",
         priority: "low",
         assignee: "Frank White",
@@ -191,7 +194,7 @@ export default function Component() {
       getItemValue={(item) => item.id}
       className="h-full"
     >
-      <KanbanBoard className="flex items-stretch h-full">
+      <KanbanBoard className="h-full">
         {Object.entries(columns).map(([columnValue, tasks]) => (
           <TaskColumn key={columnValue} value={columnValue} tasks={tasks} />
         ))}

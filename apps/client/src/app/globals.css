@@ -41,11 +41,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --text-little: 0.78rem;
+  --text-little: 0.765rem;
   --text-base: 0.8rem;
   --ease-out-circular: cubic-bezier(0.08, 0.82, 0.17, 1);
   --animate-fade-in-scale: fade-in-scale 0.4s ease-out;
   --color-kanban-column: var(--kanban-column);
+  --color-kanban-card: var(--kanban-card);
+  --color-kanban-accent: var(--kanban-accent);
   @keyframes fade-in-scale {
     0% {
       opacity: 0;
@@ -95,7 +97,8 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.606 0.25 292.717);
-  --kanban-column: rgb(20, 20, 21);
+  --kanban-column: oklch(97.315% 0.00011 271.152);
+  --kanban-card: oklch(99.405% 0.00011 271.152);
 }
 
 .dark {
@@ -131,6 +134,8 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.541 0.281 293.009);
   --kanban-column: oklch(19.168% 0.00201 286.055);
+  --kanban-card: oklch(20.989% 0.00393 285.975);
+  --kanban-accent: oklch(23.503% 0.00003 271.152);
 }
 
 @layer base {

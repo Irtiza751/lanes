@@ -61,11 +61,11 @@ export function SubHeader({
       )}
     >
       {/* {children} */}
-      <Button variant="ghost" size="xs">
+      <Button className="text-little" variant="ghost" size="xs">
         <ListFilter className="text-muted-foreground" />
         Filter
       </Button>
-      <Button variant="ghost" size="xs">
+      <Button className="text-little" variant="secondary" size="xs">
         <Settings2 className="text-muted-foreground" />
         Display
       </Button>
