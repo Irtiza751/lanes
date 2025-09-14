@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 import { AnimateFadeFromTop, AnimateFadeScale } from "@/components/animate";
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
