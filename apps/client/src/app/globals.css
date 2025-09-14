@@ -45,7 +45,7 @@
   --text-base: 0.8rem;
   --ease-out-circular: cubic-bezier(0.08, 0.82, 0.17, 1);
   --animate-fade-in-scale: fade-in-scale 0.4s ease-out;
-
+  --color-kanban-column: var(--kanban-column);
   @keyframes fade-in-scale {
     0% {
       opacity: 0;
@@ -95,6 +95,7 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.606 0.25 292.717);
+  --kanban-column: rgb(20, 20, 21);
 }
 
 .dark {
@@ -129,6 +130,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.541 0.281 293.009);
+  --kanban-column: oklch(19.168% 0.00201 286.055);
 }
 
 @layer base {

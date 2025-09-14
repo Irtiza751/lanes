@@ -4,6 +4,8 @@ import { Header, SubHeader } from "@/components/ui/header";
 import { Layers2 } from "lucide-react";
 // import { SidebarTrigger } from "@/components/ui/sidebar";
 import React from "react";
+// import { KanbanBoard } from "./_components/kanban-board";
+import KanbanBoard from "./_components/kanban-board";
 
 export default function IssuesPage() {
   return (
@@ -16,7 +18,7 @@ export default function IssuesPage() {
       </Header>
       <SubHeader />
       <Container>
-        <div>Inbox Page</div>
+        <KanbanBoard />
       </Container>
     </React.Fragment>
   );
