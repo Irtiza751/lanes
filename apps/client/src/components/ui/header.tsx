@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Sidebar } from "lucide-react";
+import { ListFilter, Settings2, Sidebar } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useWorkspaceStore } from "@/stores/useWorkspaceStore";
 
@@ -43,5 +43,32 @@ export function ToggleSidebarTrigger() {
     <Button variant="ghost" size="sm-icon" onClick={sidebar.toggleSidebar}>
       <Sidebar />
     </Button>
+  );
+}
+
+export function SubHeader({
+  // children,
+  className,
+}: {
+  // children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "px-4 h-10 flex items-center justify-between gap-2 border-b border-input",
+        className
+      )}
+    >
+      {/* {children} */}
+      <Button variant="ghost" size="xs">
+        <ListFilter className="text-muted-foreground" />
+        Filter
+      </Button>
+      <Button variant="ghost" size="xs">
+        <Settings2 className="text-muted-foreground" />
+        Display
+      </Button>
+    </div>
   );
 }
