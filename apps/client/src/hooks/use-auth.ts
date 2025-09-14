@@ -46,7 +46,9 @@ export function useAuth() {
     mutationFn: () => AuthService.signout(),
     onSuccess: () => {
       queryClient.clear();
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({
+        queryKey: ["whoami", "workspaces"],
+      });
       router.push("/signin");
     },
   });

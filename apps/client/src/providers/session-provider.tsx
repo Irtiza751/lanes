@@ -77,7 +77,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   // populate workspace store
   useEffect(() => {
-    console.log(workspace.data?.data);
     if (workspace.isSuccess && workspace.data.data.length) {
       const { data } = workspace.data;
       setAvailableWorkspaces(data);
@@ -96,7 +95,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     } else {
       router.push("/create-workspace");
     }
-  }, [workspace.isSuccess, router]);
+  }, [workspace.isSuccess, router, setAvailableWorkspaces, setActiveWorkspace]);
 
   // Show splash screen while loading
 
