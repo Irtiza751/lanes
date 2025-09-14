@@ -106,7 +106,7 @@ export default function ProjectMenuItem({
       workspaceSlug: string;
       projectSlug: string;
     }) => {
-      Cookies.set("lap", `${workspaceSlug}/${projectSlug}/tasks`, {
+      Cookies.set("lap", `${workspaceSlug}/${projectSlug}/issues`, {
         sameSite: "lax",
       });
     },
