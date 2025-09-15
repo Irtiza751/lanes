@@ -20,14 +20,21 @@ import {
   Ellipsis,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useCallback } from "react";
+import Cookies from "js-cookie";
 
 interface ProjectMenuProps {
+  workspaceSlug: string;
+  projectSlug: string;
   name: string;
   iconClass?: string;
   defaultOpen?: boolean;
 }
 
 export function ProjectMenu({
+  workspaceSlug,
+  projectSlug,
   name,
   defaultOpen,
   iconClass,
@@ -39,7 +46,7 @@ export function ProjectMenu({
           <SidebarMenuButton size="sm" className="group justify-between">
             <div className="flex items-center gap-2">
               <SquareTerminal className={iconClass} size={12} />
-              <span>{name}</span>
+              <span className="capitalize">{name}</span>
               <ChevronDown className="group-data-[state=closed]:-rotate-90 transition-transform text-muted-foreground size-3" />
             </div>
             <div className="size-3">
@@ -49,9 +56,21 @@ export function ProjectMenu({
         </CollapsibleTrigger>
         <CollapsibleContent>
           <SidebarMenu className="pl-3">
-            <ProjectMenuItem name="Epics" icon={<Box size={13} />} />
-            <ProjectMenuItem name="Tasks" icon={<KanbanSquare size={13} />} />
             <ProjectMenuItem
+              workspaceSlug={workspaceSlug}
+              projectSlug={projectSlug}
+              name="Tasks"
+              icon={<KanbanSquare size={13} />}
+            />
+            <ProjectMenuItem
+              workspaceSlug={workspaceSlug}
+              projectSlug={projectSlug}
+              name="Epics"
+              icon={<Box size={13} />}
+            />
+            <ProjectMenuItem
+              workspaceSlug={workspaceSlug}
+              projectSlug={projectSlug}
               name="Backlog"
               icon={<CircleDotDashed size={13} />}
             />
@@ -63,16 +82,44 @@ export function ProjectMenu({
 }
 
 export default function ProjectMenuItem({
+  workspaceSlug,
+  projectSlug,
   name,
   icon,
 }: {
+  workspaceSlug: string;
+  projectSlug: string;
   name: string;
   icon?: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isActive =
+    pathname === `/${workspaceSlug}/${projectSlug}/${name.toLowerCase()}`;
+
+  const onClickHandler = useCallback(
+    ({
+      workspaceSlug,
+      projectSlug,
+    }: {
+      workspaceSlug: string;
+      projectSlug: string;
+    }) => {
+      Cookies.set("lap", `${workspaceSlug}/${projectSlug}/tasks`, {
+        sameSite: "lax",
+      });
+    },
+    []
+  );
+
   return (
     <SidebarMenuSubItem>
-      <SidebarMenuSubButton asChild size="sm">
-        <Link href={`${name.toLowerCase()}`}>
+      <SidebarMenuSubButton
+        isActive={isActive}
+        asChild
+        size="sm"
+        onClick={() => onClickHandler({ workspaceSlug, projectSlug })}
+      >
+        <Link href={`/${workspaceSlug}/${projectSlug}/${name.toLowerCase()}`}>
           {icon && <span className="text-muted-foreground">{icon}</span>}
           <span>{name}</span>
         </Link>

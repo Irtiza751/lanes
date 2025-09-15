@@ -1,7 +1,6 @@
 import {
   ConflictException,
   Injectable,
-  Logger,
   RequestTimeoutException,
   UnprocessableEntityException,
 } from '@nestjs/common';
@@ -73,7 +72,9 @@ export class ProjectsService {
       };
     } catch (error) {
       if (error instanceof UniqueConstraintViolationException) {
-        throw new ConflictException('workspace with this name already exist');
+        throw new ConflictException(
+          'project with this key or name already exist',
+        );
       }
       throw new RequestTimeoutException();
     }
@@ -93,5 +94,13 @@ export class ProjectsService {
 
   remove(id: number) {
     return `This action removes a #${id} project`;
+  }
+
+  findWorkspaceProjects(slug: string) {
+    return this.projectRepository
+      .createQueryBuilder('p')
+      .select(['name', 'key', 'id'])
+      .where({ workspace: { slug } })
+      .getResultList();
   }
 }

@@ -1,5 +1,8 @@
 import {
+  BadRequestException,
   ConflictException,
+  forwardRef,
+  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -17,6 +20,7 @@ import {
 } from '@mikro-orm/postgresql';
 import { User } from './entities/user.entity';
 import { StorageService } from '@/core/storage/storage.service';
+import { ProjectsService } from '../projects/projects.service';
 
 @Injectable()
 export class UserService {
@@ -34,6 +38,8 @@ export class UserService {
      * @description storage service to handle file uploads
      */
     private readonly storageService: StorageService,
+    @Inject(forwardRef(() => ProjectsService))
+    private readonly projectService: ProjectsService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -112,5 +118,17 @@ export class UserService {
       Logger.error(error, 'UserService.uploadAvatar');
       throw new RequestTimeoutException();
     }
+  }
+
+  async projectMenus(workspace: string) {
+    const projects = await this.projectService.findWorkspaceProjects(workspace);
+    Logger.log(projects, 'projects');
+    if (!projects || projects.length === 0) {
+      throw new BadRequestException('please provide a valid workspace name');
+    }
+    return {
+      workspace,
+      projects,
+    };
   }
 }

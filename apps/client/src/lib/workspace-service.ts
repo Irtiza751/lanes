@@ -14,6 +14,17 @@ export interface Workspace {
   slug: string;
 }
 
+export interface ProjectMenus {
+  workspace: string;
+  projects: Project[];
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  key: string;
+}
+
 export class WorkspaceService {
   static create(data: CreateWorkspaceForm) {
     return api.post<CreateWorkspaceResponse>("/workspace", data);
@@ -21,5 +32,9 @@ export class WorkspaceService {
 
   static fetch() {
     return api.get<Workspaces>("/workspace");
+  }
+
+  static fetchProjects(workspace: string) {
+    return api.get<ProjectMenus>(`/user/project-menus/${workspace}`);
   }
 }

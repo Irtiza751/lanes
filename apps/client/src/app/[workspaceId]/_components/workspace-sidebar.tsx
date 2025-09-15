@@ -14,11 +14,16 @@ import { WorkspaceSidebarFooter } from "./workspace-sidebar-footer";
 import { WorkspaceSidebarHeader } from "./workspace-sidebar-header";
 import Link from "next/link";
 import React from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import { useProjectMenus } from "@/hooks/use-project-menus";
 
 export function WorkspaceSidebar() {
   const params = useParams();
+  const pathname = usePathname();
+  // slug of the workspace
   const workspaceId = params?.workspaceId as string;
+  const { data } = useProjectMenus();
+  const projects = data?.data.projects;
 
   return (
     <React.Fragment>
@@ -28,7 +33,12 @@ export function WorkspaceSidebar() {
           <SidebarGroupLabel>General</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild size="sm" tooltip="Go to inbox">
+              <SidebarMenuButton
+                isActive={pathname === `/${workspaceId}/inbox`}
+                asChild
+                size="sm"
+                tooltip="Go to inbox"
+              >
                 <Link href={`/${workspaceId}/inbox`}>
                   <span className="text-muted-foreground">
                     <Inbox size={14} />
@@ -38,7 +48,11 @@ export function WorkspaceSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild size="sm">
+              <SidebarMenuButton
+                isActive={pathname === `/${workspaceId}/my-tasks`}
+                asChild
+                size="sm"
+              >
                 <Link href={`/${workspaceId}/my-tasks`}>
                   <span className="text-muted-foreground">
                     <KanbanSquare size={14} />
@@ -52,16 +66,16 @@ export function WorkspaceSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Projects</SidebarGroupLabel>
           <SidebarMenu>
-            <ProjectMenu
-              name="Waredrop"
-              iconClass="text-indigo-400"
-              defaultOpen
-            />
-            <ProjectMenu
-              name="Shispare"
-              iconClass="text-orange-400"
-              defaultOpen
-            />
+            {projects?.map((project) => (
+              <ProjectMenu
+                key={project.id}
+                workspaceSlug={workspaceId}
+                projectSlug={project.key}
+                name={project.name}
+                iconClass="text-indigo-400"
+                defaultOpen
+              />
+            ))}
           </SidebarMenu>
         </SidebarGroup>
         {/* group end */}

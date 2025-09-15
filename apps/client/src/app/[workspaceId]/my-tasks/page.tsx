@@ -3,7 +3,7 @@ import {
   Header,
   HeaderTitle,
   ToggleSidebarTrigger,
-} from "../../../../components/ui/header";
+} from "@/components/ui/header";
 import { Container } from "@/components/ui/container";
 
 export default function MyTasksPage() {

@@ -71,4 +71,9 @@ export class UserController {
   ) {
     return this.userService.uploadAvatar(file, user.sub);
   }
+
+  @Get('project-menus/:workspace')
+  getProjectMenus(@Param('workspace') workspace: string) {
+    return this.userService.projectMenus(workspace);
+  }
 }

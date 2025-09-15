@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { WorkspaceService } from './workspace.service';
 import { WorkspaceController } from './workspace.controller';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
@@ -15,7 +15,7 @@ import { RolesModule } from '../roles/roles.module';
   imports: [
     MikroOrmModule.forFeature([WorkspaceUser, Workspace]),
     CommonModule,
-    UserModule,
+    forwardRef(() => UserModule),
     RolesModule,
   ],
   exports: [WorkspaceProvider],
