@@ -2,8 +2,11 @@ select * from "user";
 select * from "role";
 select * from "workspace";
 select * from "workspace_users";
+select * from "project";
+select * from "issue";
 
 select
+	w.id as "id",
 	u.name as "user",
 	r.name as "role",
 	w.name as "workspace",

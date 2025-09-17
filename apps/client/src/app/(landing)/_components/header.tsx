@@ -22,10 +22,11 @@ export function Header() {
         opacity: 1,
       }}
       transition={{ duration: 0.5, delay: 0 }}
+      className="sticky top-0 z-20"
     >
       <nav
         data-state={menuState && "active"}
-        className="fixed z-20 w-full border-b border-dashed bg-white backdrop-blur md:relative dark:bg-zinc-950/50 lg:dark:bg-transparent"
+        className="fixed z-20 w-full border-b border-dashed backdrop-blur md:relative dark:bg-zinc-950/80"
       >
         <div className="m-auto max-w-5xl px-6">
           <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">

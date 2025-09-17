@@ -2,7 +2,7 @@ import { OptionalProps, PrimaryKey, Property } from '@mikro-orm/core';
 import { v4 } from 'uuid';
 
 /**
- * @deiscription BaseEntity class that provides common properties for all entities
+ * @description BaseEntity class that provides common properties for all entities
  * @template Optional - Optional properties that can be added to the entity
  */
 export abstract class BaseEntity<Optional = never> {

@@ -85,7 +85,11 @@ export class ProjectsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} project`;
+    return this.projectRepository
+      .createQueryBuilder('p')
+      .select('*')
+      .where({ id })
+      .getSingleResult();
   }
 
   update(id: number, updateProjectDto: UpdateProjectDto) {
@@ -102,5 +106,13 @@ export class ProjectsService {
       .select(['name', 'key', 'id'])
       .where({ workspace: { slug } })
       .getResultList();
+  }
+
+  findOneByKey(key: string) {
+    return this.projectRepository
+      .createQueryBuilder('p')
+      .leftJoinAndSelect('p.issues', 'i')
+      .where({ key })
+      .getSingleResult();
   }
 }

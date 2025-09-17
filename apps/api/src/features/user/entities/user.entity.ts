@@ -16,6 +16,7 @@ import { BaseEntity } from '@/core/classes/base-entity';
 import { WorkspaceUser } from '@/features/workspace/entities/workspace-user.entity';
 import { Project } from '@/features/projects/entities/project.entity';
 import { Workspace } from '@/features/workspace/entities/workspace.entity';
+import { Issue } from '@/features/issues/entities/issue.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -61,6 +62,16 @@ export class User extends BaseEntity {
     cascade: [Cascade.REMOVE],
   })
   projects = new Collection<Project>(this);
+
+  @OneToMany(() => Issue, (issue) => issue.assignee, {
+    cascade: [Cascade.REMOVE],
+  })
+  assignedIssues = new Collection<Issue>(this);
+
+  @OneToMany(() => Issue, (issue) => issue.creator, {
+    cascade: [Cascade.REMOVE],
+  })
+  createdIssues = new Collection<Issue>(this);
 
   @BeforeCreate()
   @BeforeUpdate()

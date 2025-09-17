@@ -20,6 +20,7 @@ import { join } from 'path';
 import { RolesModule } from './features/roles/roles.module';
 import { WorkspaceModule } from './features/workspace/workspace.module';
 import { ProjectsModule } from './features/projects/projects.module';
+import { IssuesModule } from './features/issues/issues.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { ProjectsModule } from './features/projects/projects.module';
     RolesModule,
     WorkspaceModule,
     ProjectsModule,
+    IssuesModule,
   ],
   controllers: [AppController],
   providers: [
