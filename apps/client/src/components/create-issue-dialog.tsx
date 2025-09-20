@@ -13,6 +13,7 @@ import { Badge } from "./ui/badge";
 import { SquareSlash, Terminal } from "lucide-react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { Editor } from "./ui/editor";
 
 export default function CreateIssueDialog({
   children,
@@ -20,7 +21,7 @@ export default function CreateIssueDialog({
   children: React.ReactNode;
 }) {
   return (
-    <Dialog open>
+    <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         showCloseButton={false}
@@ -43,10 +44,16 @@ export default function CreateIssueDialog({
           placeholder="Issue title"
           className="bg-transparent dark:bg-transparent border-none lg:text-xl font-semibold focus-visible:ring-0 p-0 h-auto"
         />
-        <Textarea
+        {/* <Textarea
           placeholder="Add description..."
           className="bg-transparent dark:bg-transparent border-none lg:text-md focus-visible:ring-0 p-0"
-        />
+        /> */}
+        <div className="relative">
+          <Editor
+            namespace="issue-description"
+            placeholder="Enter some text..."
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );
