@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
@@ -18,7 +20,9 @@ import {
   $createParagraphNode,
   $getRoot,
   TextFormatType,
+  $createTextNode,
 } from "lexical";
+import { $createCodeNode, $isCodeNode } from "@lexical/code";
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
 import {
   INSERT_ORDERED_LIST_COMMAND,
@@ -39,6 +43,8 @@ import {
   Link,
   Quote,
   Code,
+  CodeXml,
+  ChevronsLeftRightEllipsis,
 } from "lucide-react";
 
 // Theme configuration following shad cn patterns
@@ -50,7 +56,7 @@ const theme: EditorThemeClasses = {
     strikethrough: "line-through",
     code: "bg-muted px-0.5 py-0.2 rounded text-xs border border-input font-mono",
   },
-  paragraph: "mb-2 last:mb-0",
+  paragraph: "mb-2 last:mb-0 text-sm",
   quote:
     "border-l-4 border-muted-foreground/20 pl-4 italic text-muted-foreground my-4",
   heading: {
@@ -67,9 +73,9 @@ const theme: EditorThemeClasses = {
     listitem: "ml-4",
   },
   link: "text-primary underline hover:no-underline cursor-pointer",
-  code: "bg-muted p-4 rounded-md font-mono text-sm block my-4 overflow-x-auto",
+  code: "bg-muted p-2 rounded font-mono text-xs border border-input block my-4 overflow-x-auto",
   codeHighlight: {
-    atrule: "text-purple-600",
+    atrule: "text-primary",
     attr: "text-blue-600",
     boolean: "text-red-600",
     builtin: "text-purple-600",
@@ -119,12 +125,20 @@ function FloatingToolbarPlugin() {
       if (selection.hasFormat("bold")) formats.add("bold");
       if (selection.hasFormat("italic")) formats.add("italic");
       if (selection.hasFormat("underline")) formats.add("underline");
+      if (selection.hasFormat("code")) formats.add("code");
 
       // Check for links
       const node = selection.anchor.getNode();
       const parent = node.getParent();
       if ($isLinkNode(parent) || $isLinkNode(node)) {
         formats.add("link");
+      }
+
+      // Check for code block
+      const anchorNode = selection.anchor.getNode();
+      const topLevelNode = anchorNode.getTopLevelElementOrThrow();
+      if ($isCodeNode(topLevelNode)) {
+        formats.add("codeBlock");
       }
 
       setActiveFormats(formats);
@@ -184,7 +198,6 @@ function FloatingToolbarPlugin() {
 
   const formatText = (format: TextFormatType) => {
     editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
-    // Keep selection after formatting
     editor.focus();
   };
 
@@ -202,6 +215,36 @@ function FloatingToolbarPlugin() {
     } else {
       editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
     }
+    editor.focus();
+  };
+
+  const insertCodeBlock = () => {
+    editor.update(() => {
+      const selection = $getSelection();
+      if ($isRangeSelection(selection)) {
+        const anchorNode = selection.anchor.getNode();
+        const topLevelNode = anchorNode.getTopLevelElementOrThrow();
+
+        // Remove list formatting if the selection is in a list
+        if ($isListNode(topLevelNode)) {
+          editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+        }
+
+        // If already in a code block, convert to paragraph
+        if ($isCodeNode(topLevelNode)) {
+          const paragraph = $createParagraphNode();
+          topLevelNode.replace(paragraph);
+          paragraph.select();
+        } else {
+          // Create a new code block
+          const codeNode = $createCodeNode();
+          const textNode = $createTextNode("");
+          codeNode.append(textNode);
+          topLevelNode.replace(codeNode);
+          textNode.select();
+        }
+      }
+    });
     editor.focus();
   };
 
@@ -223,9 +266,7 @@ function FloatingToolbarPlugin() {
       }}
       title={title}
       className={`p-2 rounded-md hover:bg-muted/80 transition-colors ${
-        active
-          ? "bg-muted text-primary"
-          : "text-muted-foreground hover:text-foreground"
+        active ? "bg-muted" : "text-muted-foreground hover:text-foreground"
       }`}
     >
       {children}
@@ -239,7 +280,7 @@ function FloatingToolbarPlugin() {
       ref={toolbarRef}
       className="absolute z-50 flex items-center gap-1 p-1 bg-popover border border-border rounded-lg shadow-lg"
       style={{
-        top: Math.max(10, position.top),
+        top: Math.max(15, position.top),
         left: Math.max(10, Math.min(position.left, window.innerWidth - 220)),
       }}
     >
@@ -285,6 +326,22 @@ function FloatingToolbarPlugin() {
 
       <ToolbarButton onClick={() => insertList(true)} title="Numbered List">
         <ListOrdered size={14} />
+      </ToolbarButton>
+
+      <ToolbarButton
+        onClick={() => formatText("code")}
+        active={activeFormats.has("code")}
+        title="Code inline"
+      >
+        <ChevronsLeftRightEllipsis size={14} />
+      </ToolbarButton>
+
+      <ToolbarButton
+        onClick={insertCodeBlock}
+        active={activeFormats.has("codeBlock")}
+        title="Code Block"
+      >
+        <Code size={14} /> {/* Use Code icon for code block */}
       </ToolbarButton>
     </div>
   );
