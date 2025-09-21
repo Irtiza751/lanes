@@ -4,6 +4,7 @@ import { Header } from "@/components/ui/header";
 import { ChevronRight, Ellipsis, Layers2, Star } from "lucide-react";
 // import { SidebarTrigger } from "@/components/ui/sidebar";
 import React from "react";
+import { IssueDetail } from "../_components/issue-detail";
 
 export default function IssuesPage() {
   return (
@@ -18,9 +19,14 @@ export default function IssuesPage() {
           <Ellipsis className="text-muted-foreground" />
         </Button>
       </Header>
-      <Container>
-        <p>Issue details</p>
-      </Container>
+      <div className="flex h-full">
+        <Container className="flex-1 w-full">
+          <IssueDetail />
+        </Container>
+        <aside className="max-w-xs bg-kanban-card w-full">
+          <p>Side</p>
+        </aside>
+      </div>
     </React.Fragment>
   );
 }
