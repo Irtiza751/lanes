@@ -1,5 +1,3 @@
-import { Roles } from '@/core/enums/roles.enum';
-
 export interface JwtPayload {
   /**
    * @description user's uuid v4
