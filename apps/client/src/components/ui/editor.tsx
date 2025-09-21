@@ -21,6 +21,7 @@ import {
   $getRoot,
   TextFormatType,
   $createTextNode,
+  EditorState,
 } from "lexical";
 import { $createCodeNode, $isCodeNode } from "@lexical/code";
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
@@ -373,25 +374,46 @@ export function Editor({
   maxHeight = 400,
   autoFocus = false,
 }: EditorProps) {
-  const config = {
-    namespace,
-    theme,
-    nodes: [
-      HeadingNode,
-      ListNode,
-      ListItemNode,
-      QuoteNode,
-      CodeNode,
-      CodeHighlightNode,
-      LinkNode,
-    ],
-    onError: (error: Error) => {
-      console.error("Lexical Editor Error:", error);
-    },
-    editorState: value
-      ? `{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"${value}","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}`
-      : undefined,
-  };
+  // Create initial editor state from value
+  const initialConfig = React.useMemo(() => {
+    let editorState;
+
+    if (value) {
+      try {
+        // Try to parse as JSON first (for serialized editor state)
+        const parsedValue = JSON.parse(value);
+        editorState = JSON.stringify(parsedValue);
+      } catch {
+        // If not JSON, treat as plain text
+        editorState = () => {
+          const root = $getRoot();
+          if (root.getFirstChild() === null) {
+            const paragraph = $createParagraphNode();
+            paragraph.append($createTextNode(value));
+            root.append(paragraph);
+          }
+        };
+      }
+    }
+
+    return {
+      namespace,
+      theme,
+      nodes: [
+        HeadingNode,
+        ListNode,
+        ListItemNode,
+        QuoteNode,
+        CodeNode,
+        CodeHighlightNode,
+        LinkNode,
+      ],
+      onError: (error: Error) => {
+        console.error("Lexical Editor Error:", error);
+      },
+      editorState,
+    };
+  }, [namespace, value]);
 
   // Component to handle onChange
   function OnChangePlugin({
@@ -406,9 +428,10 @@ export function Editor({
 
       return editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
-          const root = $getRoot();
-          const textContent = root.getTextContent();
-          onChange(textContent);
+          // const root = $getRoot();
+          // const textContent = root.getChildren();
+          const editorStateJson = editorState.toJSON();
+          onChange(JSON.stringify(editorStateJson));
         });
       });
     }, [editor, onChange]);
@@ -418,7 +441,7 @@ export function Editor({
 
   return (
     <div className={cn("overflow-hidden", className)}>
-      <LexicalComposer initialConfig={config}>
+      <LexicalComposer initialConfig={initialConfig}>
         <div className="relative">
           <FloatingToolbarPlugin />
 

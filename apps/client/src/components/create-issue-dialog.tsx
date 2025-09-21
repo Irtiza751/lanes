@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -24,6 +23,20 @@ export default function CreateIssueDialog({
 }: {
   children: React.ReactNode;
 }) {
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>();
+
+  const createIssue = () => {
+    console.log({ title, description });
+  };
+
+  useEffect(() => {
+    return () => {
+      setTitle("");
+      setDescription("");
+    };
+  }, []);
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -49,11 +62,15 @@ export default function CreateIssueDialog({
             autoFocus
             placeholder="Issue title"
             className="bg-transparent dark:bg-transparent border-none lg:text-xl font-semibold focus-visible:ring-0 p-0 h-auto"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
           <div className="relative">
             <Editor
+              value={description}
               namespace="issue-description"
               placeholder="Enter some text..."
+              onChange={(desc) => setDescription(desc)}
             />
           </div>
         </div>
@@ -73,7 +90,12 @@ export default function CreateIssueDialog({
                 Create more
               </Label>
             </div>
-            <Button className="rounded text-xs h-7" size="sm">
+            <Button
+              onClick={createIssue}
+              className="rounded text-xs h-7"
+              size="sm"
+              disabled={!title}
+            >
               Create issue
             </Button>
           </div>
