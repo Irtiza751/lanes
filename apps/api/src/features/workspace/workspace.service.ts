@@ -24,6 +24,7 @@ import { UserProvider } from '../user/providers/user-provider';
 import { WorkspaceUser } from './entities/workspace-user.entity';
 import { Role } from '../roles/entities/role.entity';
 import { RoleService } from '../roles/services/role.service';
+import { Project } from '../projects/entities/project.entity';
 
 @Injectable()
 export class WorkspaceService {
@@ -38,6 +39,9 @@ export class WorkspaceService {
      */
     @InjectRepository(WorkspaceUser)
     private readonly workspaceUserRepo: EntityRepository<WorkspaceUser>,
+
+    @InjectRepository(Project)
+    private readonly projectRepository: EntityRepository<Project>,
     /**
      * @description entity manager
      */
@@ -72,9 +76,15 @@ export class WorkspaceService {
         role,
         workspace,
       });
+      const project = this.projectRepository.create({
+        name: createWorkspaceDto.name,
+        startDate: new Date(),
+        targetDate: null,
+        workspace: workspace,
+      });
 
       // this.em.persist([workspace, workspaceUser]);
-      await this.em.persistAndFlush([workspace, workspaceUser]);
+      await this.em.persistAndFlush([workspace, workspaceUser, project]);
       return {
         message: 'Workspace created successfully',
         data: {
