@@ -57,7 +57,7 @@ const theme: EditorThemeClasses = {
     strikethrough: "line-through",
     code: "bg-muted px-0.5 py-0.2 rounded text-xs border border-input font-mono",
   },
-  paragraph: "mb-2 last:mb-0 text-sm",
+  paragraph: "mb-2 last:mb-0 text-[0.9rem]",
   quote:
     "border-l-4 border-muted-foreground/20 pl-4 italic text-muted-foreground my-4",
   heading: {
