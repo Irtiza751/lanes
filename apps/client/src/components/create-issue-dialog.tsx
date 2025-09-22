@@ -70,7 +70,7 @@ export default function CreateIssueDialog({
   }, []);
 
   return (
-    <Dialog open={show}>
+    <Dialog open={show} onOpenChange={() => setShow(!show)}>
       <DialogTrigger onClick={() => setShow(true)} asChild>
         {children}
       </DialogTrigger>
@@ -86,7 +86,7 @@ export default function CreateIssueDialog({
             >
               <SquareSlash />
               <span className="font-bold">
-                {(projectId as string).toUpperCase()}
+                {(projectId as string)?.toUpperCase()}
               </span>
             </Badge>
             <ChevronRight className="size-3 text-muted-foreground" />

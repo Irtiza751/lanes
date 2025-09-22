@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus, UserCircle } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import CreateIssueDialog from "@/components/create-issue-dialog";
 
 interface Task {
   id: string;
@@ -116,13 +117,15 @@ function TaskColumn({ value, tasks, isOverlay, ...props }: TaskColumnProps) {
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} asHandle={!isOverlay} />
         ))}
-        <Button
-          className="rounded opacity-0 group-hover:opacity-100 shadow-none bg-transparent transition"
-          size="sm"
-          variant="outline"
-        >
-          <Plus />
-        </Button>
+        <CreateIssueDialog>
+          <Button
+            className="rounded opacity-0 group-hover:opacity-100 shadow-none bg-transparent transition"
+            size="sm"
+            variant="outline"
+          >
+            <Plus />
+          </Button>
+        </CreateIssueDialog>
       </KanbanColumnContent>
     </KanbanColumn>
   );
