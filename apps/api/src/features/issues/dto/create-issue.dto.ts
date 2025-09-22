@@ -50,13 +50,13 @@ export class CreateIssueDto {
   })
   projectKey: string; // should be project key
 
-  // @IsUUID()
-  // @IsNotEmpty()
-  // @ApiProperty({
-  //   name: 'creatorId',
-  //   description: 'Id of the user who created this issue',
-  // })
-  // creatorId: string; // user id who created the issue
+  @IsUUID()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Group issues by status like, backlog, todo, etc..',
+    example: 'uuid-uuid-uuid-uud',
+  })
+  status: string;
 
   @IsJSON()
   @IsOptional()

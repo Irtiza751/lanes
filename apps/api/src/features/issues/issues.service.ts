@@ -15,6 +15,7 @@ import { ProjectsService } from '../projects/projects.service';
 import { JwtPayload } from '@/core/interfaces/jwt-payload.interface';
 import { User } from '../user/entities/user.entity';
 import { Project } from '../projects/entities/project.entity';
+import { StatusWorkflow } from './entities/status-workflows';
 
 @Injectable()
 export class IssuesService {
@@ -32,15 +33,22 @@ export class IssuesService {
     private readonly userProvider: UserProvider,
 
     private readonly projectService: ProjectsService,
+
+    @InjectRepository(StatusWorkflow)
+    private readonly statusWorkflowRepo: EntityRepository<StatusWorkflow>,
   ) {}
 
   async create(user: JwtPayload, createIssueDto: CreateIssueDto) {
     let creator: User | null = null;
     let project: Project | null = null;
     let assignee: User | null = null;
+    let status: StatusWorkflow | null = null;
 
     creator = await this.userProvider.findById(user.sub);
     project = await this.projectService.findOneByKey(createIssueDto.projectKey);
+    status = await this.statusWorkflowRepo.findOne({
+      id: createIssueDto.status,
+    });
 
     if (createIssueDto.assigneeId) {
       assignee = await this.userProvider.findById(createIssueDto.assigneeId);
@@ -58,6 +66,10 @@ export class IssuesService {
       throw new BadRequestException('Invalid project key');
     }
 
+    if (!status) {
+      throw new BadRequestException('Invalid status id');
+    }
+
     try {
       let issueKey: string = `${project.key}-${project.issues.count() + 1}`;
 
@@ -67,6 +79,7 @@ export class IssuesService {
         project,
         creator,
         assignee,
+        status,
       });
 
       this.em.persistAndFlush(issue);
