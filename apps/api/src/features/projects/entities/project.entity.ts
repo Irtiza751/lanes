@@ -34,8 +34,8 @@ export class Project extends BaseEntity<'workspace' | 'key'> {
   @Property({ type: 'timestamptz' })
   startDate: Date;
 
-  @Property({ type: 'timestamptz' })
-  targetDate: Date;
+  @Property({ type: 'timestamptz', nullable: true })
+  targetDate?: Date;
 
   @ManyToOne(() => Workspace)
   workspace: Workspace;
