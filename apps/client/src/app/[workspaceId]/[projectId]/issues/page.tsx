@@ -12,7 +12,7 @@ export default function IssuesPage() {
     <React.Fragment>
       <Header>
         <Button className="text-muted-foreground" size="xs" variant="outline">
-          <Layers2 />
+          <Layers2 className="size-3" />
           All Issues
         </Button>
       </Header>

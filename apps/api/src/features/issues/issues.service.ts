@@ -75,7 +75,7 @@ export class IssuesService {
         data: issue,
       };
     } catch (error) {
-      Logger.debug(error.message);
+      Logger.debug(error.message, 'IssueService');
       throw new RequestTimeoutException();
     }
   }

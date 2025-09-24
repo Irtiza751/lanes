@@ -12,7 +12,7 @@ export class Issue extends BaseEntity {
   @Property()
   title: string;
 
-  @Property({ nullable: true })
+  @Property({ type: 'json', nullable: true })
   description?: string;
 
   @Enum({ items: () => Priority, default: Priority.MEDIUM })
