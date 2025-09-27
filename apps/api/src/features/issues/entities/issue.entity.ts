@@ -3,6 +3,7 @@ import { Entity, Enum, ManyToOne, Property } from '@mikro-orm/core';
 import { Priority } from '../enums/priority.enum';
 import { Project } from '@/features/projects/entities/project.entity';
 import { User } from '@/features/user/entities/user.entity';
+import { StatusWorkflow } from './status-workflows';
 
 @Entity()
 export class Issue extends BaseEntity {
@@ -26,6 +27,9 @@ export class Issue extends BaseEntity {
 
   @Property({ type: 'timestamptz', nullable: true })
   completedAt?: Date;
+
+  @ManyToOne(() => StatusWorkflow, { nullable: true })
+  status?: StatusWorkflow;
 
   @ManyToOne(() => Project)
   project: Project;

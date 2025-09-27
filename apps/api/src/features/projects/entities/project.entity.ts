@@ -13,6 +13,7 @@ import { ProjectStatus } from '../enums/project-status.enum';
 import { Workspace } from '@/features/workspace/entities/workspace.entity';
 import { User } from '@/features/user/entities/user.entity';
 import { Issue } from '@/features/issues/entities/issue.entity';
+import { StatusWorkflow } from '@/features/issues/entities/status-workflows';
 
 @Entity()
 export class Project extends BaseEntity<'workspace' | 'key'> {
@@ -47,6 +48,11 @@ export class Project extends BaseEntity<'workspace' | 'key'> {
     cascade: [Cascade.REMOVE],
   })
   issues = new Collection<Issue>(this);
+
+  @OneToMany(() => StatusWorkflow, (status) => status.project, {
+    cascade: [Cascade.REMOVE],
+  })
+  statusWorkflow = new Collection<StatusWorkflow>(this);
 
   @BeforeCreate()
   generateKey() {
