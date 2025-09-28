@@ -26,8 +26,8 @@ export class StatusWorkflow extends BaseEntity {
   })
   category?: WorkflowCategory;
 
-  @ManyToOne(() => Project)
-  project: Project;
+  @ManyToOne(() => Project, { nullable: true })
+  project?: Project;
 
   @OneToMany(() => Issue, (issue) => issue.status)
   issues = new Collection<Issue>(this);
