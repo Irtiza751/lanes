@@ -46,6 +46,9 @@ export function useAuth() {
     mutationFn: () => AuthService.signout(),
     onSuccess: () => {
       queryClient.clear();
+      queryClient.removeQueries({
+        queryKey: ["whoami", "workspaces"],
+      });
       queryClient.invalidateQueries({
         queryKey: ["whoami", "workspaces"],
       });
