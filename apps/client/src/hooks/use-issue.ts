@@ -25,5 +25,6 @@ export function useIssueQuery(projectId?: string) {
     queryKey: ["issues", projectId],
     queryFn: () => IssueService.findByProjectId(projectId || ""),
     enabled: !!projectId,
+    staleTime: 2 * 60 * 60 * 1000,
   });
 }

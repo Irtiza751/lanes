@@ -26,12 +26,18 @@ import { usePathname } from "next/navigation";
 import { useCallback } from "react";
 import Cookies from "js-cookie";
 
+export interface MenuChangeEvent {
+  workspace: string; // slug of the workspace
+  project: string; // slug or key of the project
+}
+
 interface ProjectMenuProps {
   workspaceSlug: string;
   projectSlug: string;
   name: string;
   iconClass?: string;
   defaultOpen?: boolean;
+  onMenuItemChange?: (event: MenuChangeEvent) => void;
 }
 
 export function ProjectMenu({
@@ -40,6 +46,7 @@ export function ProjectMenu({
   name,
   defaultOpen,
   iconClass,
+  onMenuItemChange = () => {},
 }: ProjectMenuProps) {
   return (
     <Collapsible defaultOpen={defaultOpen}>
@@ -63,18 +70,21 @@ export function ProjectMenu({
               projectSlug={projectSlug}
               name="Issues"
               icon={<Layers2 size={15} />}
+              onChange={onMenuItemChange}
             />
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}
               projectSlug={projectSlug}
               name="Epics"
               icon={<Box size={15} />}
+              onChange={onMenuItemChange}
             />
             <ProjectMenuItem
               workspaceSlug={workspaceSlug}
               projectSlug={projectSlug}
               name="Backlog"
               icon={<CircleDotDashed size={15} />}
+              onChange={onMenuItemChange}
             />
           </SidebarMenu>
         </CollapsibleContent>
@@ -88,11 +98,13 @@ export default function ProjectMenuItem({
   projectSlug,
   name,
   icon,
+  onChange = () => {},
 }: {
   workspaceSlug: string;
   projectSlug: string;
   name: string;
   icon?: React.ReactNode;
+  onChange?: (event: MenuChangeEvent) => void;
 }) {
   const pathname = usePathname();
   const isActive =
@@ -106,6 +118,7 @@ export default function ProjectMenuItem({
       workspaceSlug: string;
       projectSlug: string;
     }) => {
+      onChange({ workspace: workspaceSlug, project: projectSlug });
       Cookies.set("lap", `${workspaceSlug}/${projectSlug}/issues`, {
         sameSite: "lax",
       });

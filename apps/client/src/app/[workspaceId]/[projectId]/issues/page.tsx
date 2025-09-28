@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Header, SubHeader } from "@/components/ui/header";
@@ -6,8 +8,16 @@ import { Layers2 } from "lucide-react";
 import React from "react";
 // import { KanbanBoard } from "./_components/kanban-board";
 import KanbanBoard from "./_components/kanban-board";
+import { useParams } from "next/navigation";
+import { useIssueQuery } from "@/hooks/use-issue";
 
 export default function IssuesPage() {
+  const { projectId } = useParams();
+
+  // const activeProject = useProjectMenuStore((state) => state.active);
+  const { data } = useIssueQuery(projectId as string);
+  const tasks = data?.data;
+
   return (
     <React.Fragment>
       <Header>
@@ -18,7 +28,7 @@ export default function IssuesPage() {
       </Header>
       <SubHeader />
       <Container>
-        <KanbanBoard />
+        <KanbanBoard tasks={tasks || {}} />
       </Container>
     </React.Fragment>
   );

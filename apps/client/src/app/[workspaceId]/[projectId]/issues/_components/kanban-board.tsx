@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import {
   Kanban,
   KanbanBoard,
@@ -16,16 +15,17 @@ import { Button } from "@/components/ui/button";
 import { Plus, UserCircle } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import CreateIssueDialog from "@/components/create-issue-dialog";
+import { Task } from "@/lib/issue-service";
 
-interface Task {
-  id: string;
-  title: string;
-  priority: "low" | "medium" | "high";
-  description?: string;
-  assignee?: string;
-  assigneeAvatar?: string;
-  dueDate?: string;
-}
+// interface Task {
+//   id: string;
+//   title: string;
+//   priority: "low" | "medium" | "high";
+//   description?: string;
+//   assignee?: string;
+//   assigneeAvatar?: string;
+//   dueDate?: string;
+// }
 
 const COLUMN_TITLES: Record<string, string> = {
   backlog: "Backlog",
@@ -53,11 +53,11 @@ function TaskCard({ task, asHandle, ...props }: TaskCardProps) {
       className="rounded-sm border-input/20 border bg-kanban-card p-3 shadow-xs"
     >
       <div className="flex items-center justify-between mb-1">
-        <span className="text-muted-foreground uppercase">{task.id}</span>
+        <span className="text-muted-foreground uppercase">{task.key}</span>
         {task.assignee && (
           <div className="flex items-center gap-1">
             <Avatar className="size-5">
-              <AvatarImage src={task.assigneeAvatar} />
+              <AvatarImage src={task.assignee.id} />
               <AvatarFallback>
                 <UserCircle className="text-muted-foreground" />
               </AvatarFallback>
@@ -70,9 +70,9 @@ function TaskCard({ task, asHandle, ...props }: TaskCardProps) {
           <span className="line-clamp-1 font-medium text-sm">{task.title}</span>
         </div>
         <div className="flex items-center justify-between text-muted-foreground text-xs">
-          {task.dueDate && (
+          {task.completedAt && (
             <time className="text-[10px] whitespace-nowrap">
-              {task.dueDate}
+              {new Date(task.completedAt).toDateString()}
             </time>
           )}
         </div>
@@ -131,73 +131,12 @@ function TaskColumn({ value, tasks, isOverlay, ...props }: TaskColumnProps) {
   );
 }
 
-export default function Component() {
-  const [columns, setColumns] = React.useState<Record<string, Task[]>>({
-    backlog: [
-      {
-        id: "TAS-1",
-        title: "Add authentication",
-        priority: "high",
-        assignee: "John Doe",
-        assigneeAvatar: "https://randomuser.me/api/portraits/men/1.jpg",
-        // dueDate: "Jan 10, 2025",
-      },
-      {
-        id: "TAS-2",
-        title: "Create API endpoints",
-        priority: "medium",
-        assignee: "Jane Smith",
-        assigneeAvatar: "https://randomuser.me/api/portraits/women/2.jpg-12",
-        // dueDate: "Jan 15, 2025",
-      },
-      {
-        id: "TAS-3",
-        title: "Write documentation",
-        priority: "low",
-        assignee: "Bob Johnson",
-        assigneeAvatar: "https://randomuser.me/api/portraits/men/3.jpg",
-        // dueDate: "Jan 20, 2025",
-      },
-    ],
-    inProgress: [
-      {
-        id: "TAS-4",
-        title: "Design system updates",
-        priority: "high",
-        assignee: "Alice Brown",
-        assigneeAvatar: "https://randomuser.me/api/portraits/women/4.jpg-12",
-        dueDate: "Aug 25, 2025",
-      },
-    ],
-    testing: [
-      {
-        id: "TAS-5",
-        title: "Implement dark mode",
-        priority: "medium",
-        assignee: "Charlie Wilson",
-        assigneeAvatar: "https://randomuser.me/api/portraits/men/5.jpg",
-        dueDate: "Aug 25, 2025",
-      },
-    ],
-    done: [
-      {
-        id: "TAS-7",
-        title: "Setup project",
-        priority: "high",
-        assignee: "Eve Davis",
-        assigneeAvatar: "https://randomuser.me/api/portraits/women/6.jpg",
-        dueDate: "Sep 25, 2025",
-      },
-      {
-        id: "TAS-8",
-        title: "Initial commit",
-        priority: "low",
-        assignee: "Frank White",
-        assigneeAvatar: "https://randomuser.me/api/portraits/men/7.jpg",
-        dueDate: "Sep 20, 2025",
-      },
-    ],
-  });
+export default function Component({
+  tasks,
+}: {
+  tasks: Record<string, Task[]>;
+}) {
+  const [columns, setColumns] = React.useState<Record<string, Task[]>>(tasks);
 
   return (
     <Kanban
