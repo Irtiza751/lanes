@@ -8,7 +8,7 @@ export function useProjectMenus() {
   return useQuery({
     queryKey: ["project-menus", active?.workspace.slug],
     queryFn: () => WorkspaceService.fetchProjects(active?.workspace.slug || ""),
-    staleTime: Infinity,
+    staleTime: 2 * 60 * 60 * 1000,
     enabled: !!active,
     retry: 2,
   });

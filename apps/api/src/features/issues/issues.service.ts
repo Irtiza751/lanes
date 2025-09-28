@@ -93,8 +93,22 @@ export class IssuesService {
     }
   }
 
-  findAll() {
-    return `This action returns all issues`;
+  async findAll(projectId: string) {
+    return this.issueRepository
+      .createQueryBuilder('issue')
+      .select([
+        'id',
+        'title',
+        'assignee',
+        'status',
+        'storyPoints',
+        'priority',
+        'labels',
+        'key',
+        'updatedAt',
+        'completedAt',
+      ])
+      .where({ project: projectId });
   }
 
   findOne(id: number) {

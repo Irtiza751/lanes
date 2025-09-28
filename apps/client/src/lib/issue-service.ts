@@ -14,4 +14,8 @@ export class IssueService {
   static create(data: CreateIssue) {
     return api.post("/issues", data);
   }
+
+  static findByProjectId(projectId: string) {
+    return api.get(`/issues/${projectId}`);
+  }
 }
