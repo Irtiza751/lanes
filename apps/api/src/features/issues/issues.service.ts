@@ -16,6 +16,8 @@ import { JwtPayload } from '@/core/interfaces/jwt-payload.interface';
 import { User } from '../user/entities/user.entity';
 import { Project } from '../projects/entities/project.entity';
 import { StatusWorkflow } from './entities/status-workflows';
+import { WorkflowCategory } from './enums/workflow-category.enum';
+import { Utils } from '@/core/classes/utils';
 
 @Injectable()
 export class IssuesService {
@@ -46,9 +48,15 @@ export class IssuesService {
 
     creator = await this.userProvider.findById(user.sub);
     project = await this.projectService.findOneByKey(createIssueDto.projectKey);
-    status = await this.statusWorkflowRepo.findOne({
-      id: createIssueDto.status,
-    });
+    if (createIssueDto.status) {
+      status = await this.statusWorkflowRepo.findOne({
+        id: createIssueDto.status,
+      });
+    } else {
+      status = await this.statusWorkflowRepo.findOne({
+        category: WorkflowCategory.BACKLOG,
+      });
+    }
 
     if (createIssueDto.assigneeId) {
       assignee = await this.userProvider.findById(createIssueDto.assigneeId);
@@ -93,8 +101,35 @@ export class IssuesService {
     }
   }
 
-  findAll() {
-    return `This action returns all issues`;
+  async findAll(key: string) {
+    const result = await this.issueRepository.find(
+      {
+        project: { key },
+      },
+      {
+        populate: ['status', 'assignee'],
+        fields: [
+          'id',
+          'title',
+          'key',
+          'completedAt',
+          'priority',
+          'labels',
+          'storyPoints',
+          'status.name',
+          'status.id',
+          'status.color',
+          'status.sortOrder',
+          'status.category',
+          'assignee',
+        ],
+      },
+    );
+
+    return Utils.groupBy(
+      result,
+      (issue) => issue.status?.category || 'backlog',
+    );
   }
 
   findOne(id: number) {

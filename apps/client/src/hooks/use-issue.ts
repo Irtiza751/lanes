@@ -1,5 +1,5 @@
 import { CreateIssue, IssueService } from "@/lib/issue-service";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export function useIssue() {
@@ -18,4 +18,13 @@ export function useIssue() {
   return {
     createIssueMutation,
   };
+}
+
+export function useIssueQuery(projectId?: string) {
+  return useQuery({
+    queryKey: ["issues", projectId],
+    queryFn: () => IssueService.findByProjectId(projectId || ""),
+    enabled: !!projectId,
+    staleTime: 2 * 60 * 60 * 1000,
+  });
 }

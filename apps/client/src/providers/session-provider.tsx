@@ -42,14 +42,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       {
         queryKey: ["whoami"],
         queryFn: () => AuthService.whoami(), // fetch user data
-        staleTime: Infinity,
+        staleTime: 2 * 60 * 60 * 1000,
         retry: 1,
         enabled: !publicPages.includes(pathname), // don’t call on public pages
       },
       {
         queryKey: ["workspaces"],
         queryFn: () => WorkspaceService.fetch(),
-        staleTime: Infinity,
+        staleTime: 2 * 60 * 60 * 1000,
         enabled: !publicPages.includes(pathname),
       },
       {

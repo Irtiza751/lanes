@@ -26,6 +26,7 @@ const mikroOrmConfig: Options = {
   seeder: {
     path: 'dist/seeders',
     pathTs: 'src/seeders',
+    defaultSeeder: 'DatabaseSeeder',
   },
   extensions: [Migrator, SeedManager],
 };

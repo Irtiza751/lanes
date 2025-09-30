@@ -16,6 +16,7 @@ import Link from "next/link";
 import React from "react";
 import { useParams, usePathname } from "next/navigation";
 import { useProjectMenus } from "@/hooks/use-project-menus";
+import { useProjectMenuStore } from "@/stores/use-project-menus-store";
 
 export function WorkspaceSidebar() {
   const params = useParams();
@@ -24,6 +25,7 @@ export function WorkspaceSidebar() {
   const workspaceId = params?.workspaceId as string;
   const { data } = useProjectMenus();
   const projects = data?.data.projects;
+  const setActiveProject = useProjectMenuStore((state) => state.setActive);
 
   return (
     <React.Fragment>
@@ -74,6 +76,9 @@ export function WorkspaceSidebar() {
                 name={project.name}
                 iconClass="text-indigo-400"
                 defaultOpen
+                onMenuItemChange={() => {
+                  setActiveProject(project);
+                }}
               />
             ))}
           </SidebarMenu>

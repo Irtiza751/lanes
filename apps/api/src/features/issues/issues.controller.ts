@@ -25,9 +25,14 @@ export class IssuesController {
     return this.issuesService.create(user, createIssueDto);
   }
 
-  @Get()
-  findAll() {
-    return this.issuesService.findAll();
+  // @Get(':projectId')
+  // findAll(@Param('projectId') projectId: string) {
+  //   return this.issuesService.findAll(projectId);
+  // }
+
+  @Get(':projectSlug')
+  findBySlug(@Param('projectSlug') projectSlug: string) {
+    return this.issuesService.findAll(projectSlug);
   }
 
   @Get(':id')

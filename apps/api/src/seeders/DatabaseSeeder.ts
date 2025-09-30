@@ -4,6 +4,7 @@ import { UserSeeder } from './UserSeeder';
 import { RoleSeeder } from './RoleSeeder';
 import { WorkspaceSeeder } from './WorkspaceSeeder';
 import { WorkspaceUserSeeder } from './WorkspaceUserSeeder';
+import { StatusWorkflowSeeder } from './StatusWorkflowSeeder';
 
 export class DatabaseSeeder extends Seeder {
   async run(em: EntityManager): Promise<void> {
@@ -12,6 +13,7 @@ export class DatabaseSeeder extends Seeder {
       RoleSeeder,
       WorkspaceSeeder,
       WorkspaceUserSeeder,
+      StatusWorkflowSeeder,
     ]);
   }
 }

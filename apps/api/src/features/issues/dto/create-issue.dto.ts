@@ -51,12 +51,12 @@ export class CreateIssueDto {
   projectKey: string; // should be project key
 
   @IsUUID()
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty({
     description: 'Group issues by status like, backlog, todo, etc..',
     example: 'uuid-uuid-uuid-uud',
   })
-  status: string;
+  status?: string;
 
   @IsJSON()
   @IsOptional()
