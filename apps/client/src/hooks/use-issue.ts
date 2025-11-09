@@ -9,6 +9,9 @@ export function useIssue() {
     mutationKey: ["create-issue"],
     mutationFn: (data: CreateIssue) => IssueService.create(data),
     onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ["issues"],
+      });
       toast.success("Success", {
         description: "Issue successfully created",
       });

@@ -10,16 +10,16 @@ export interface CreateIssue {
   assigneeId?: string;
 }
 
-export interface Task {
+export interface Issue {
   id: string;
   key: string;
   title: string;
   priority: string;
   labels: any;
   storyPoints: number;
-  completedAt: string;
+  completedAt?: string;
   status: Status;
-  assignee: Assignee;
+  assignee?: Assignee;
 }
 
 export interface Status {
@@ -40,6 +40,6 @@ export class IssueService {
   }
 
   static findByProjectId(projectId: string) {
-    return api.get<Record<string, Task[]>>(`/issues/${projectId}`);
+    return api.get<Issue[]>(`/issues/${projectId}`);
   }
 }

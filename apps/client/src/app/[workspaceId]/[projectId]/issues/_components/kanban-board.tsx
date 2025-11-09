@@ -15,9 +15,9 @@ import { Button } from "@/components/ui/button";
 import { Plus, UserCircle } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import CreateIssueDialog from "@/components/create-issue-dialog";
-import { Task } from "@/lib/issue-service";
+import { Issue } from "@/lib/issue-service";
 
-// interface Task {
+// interface Issue {
 //   id: string;
 //   title: string;
 //   priority: "low" | "medium" | "high";
@@ -37,7 +37,7 @@ const COLUMN_TITLES: Record<string, string> = {
 
 interface TaskCardProps
   extends Omit<React.ComponentProps<typeof KanbanItem>, "value" | "children"> {
-  task: Task;
+  task: Issue;
   asHandle?: boolean;
 }
 
@@ -93,7 +93,7 @@ function TaskCard({ task, asHandle, ...props }: TaskCardProps) {
 
 interface TaskColumnProps
   extends Omit<React.ComponentProps<typeof KanbanColumn>, "children"> {
-  tasks: Task[];
+  tasks: Issue[];
   isOverlay?: boolean;
 }
 
@@ -134,9 +134,9 @@ function TaskColumn({ value, tasks, isOverlay, ...props }: TaskColumnProps) {
 export default function Component({
   tasks,
 }: {
-  tasks: Record<string, Task[]>;
+  tasks: Record<string, Issue[]>;
 }) {
-  const [columns, setColumns] = React.useState<Record<string, Task[]>>(tasks);
+  const [columns, setColumns] = React.useState<Record<string, Issue[]>>(tasks);
 
   return (
     <Kanban

@@ -20,6 +20,7 @@ join "role" r on r.id = wu.role_id
 join "workspace" w on w.id = wu.workspace_id
 -- where u.id = '1d14a251-9309-47b9-a047-59525c0824f4'
 
+
 select * from "status_workflow";
 
 select * from "workspace"
