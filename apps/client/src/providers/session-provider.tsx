@@ -85,15 +85,15 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         const slug = lastActiveProject.split("/")[0];
         const workspace =
           data.find((available) => available.workspace.slug === slug) ?? null;
-        router.push(`/${lastActiveProject}`);
+        // router.push(`/${lastActiveProject}`);
         setActiveWorkspace(workspace);
       } else {
-        const activeWorkspace = data[0]?.workspace;
-        Cookies.set("lap", `${activeWorkspace.slug}/`);
-        router.push(`/${activeWorkspace.slug}/`);
+        // const activeWorkspace = data[0]?.workspace;
+        // Cookies.set("lap", `${activeWorkspace.slug}/`);
+        // router.push(`/${activeWorkspace.slug}/`);
       }
     } else {
-      router.push("/create-workspace");
+      // router.push("/create-workspace");
     }
   }, [workspace.isSuccess, router, setAvailableWorkspaces, setActiveWorkspace]);
 

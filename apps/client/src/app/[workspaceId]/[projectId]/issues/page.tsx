@@ -16,7 +16,7 @@ export default function IssuesPage() {
 
   // const activeProject = useProjectMenuStore((state) => state.active);
   const { data } = useIssueQuery(projectId as string);
-  const tasks = data?.data;
+  const issues = data?.data;
 
   return (
     <React.Fragment>
@@ -28,7 +28,7 @@ export default function IssuesPage() {
       </Header>
       <SubHeader />
       <Container>
-        <KanbanBoard tasks={tasks || {}} />
+        <KanbanBoard tasks={{}} />
       </Container>
     </React.Fragment>
   );

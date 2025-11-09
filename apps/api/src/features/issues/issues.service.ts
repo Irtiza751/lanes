@@ -102,10 +102,15 @@ export class IssuesService {
   }
 
   async findAll(key: string) {
-    const result = await this.issueRepository.find(
-      {
-        project: { key },
-      },
+    // 1️⃣ Get all workflow statuses for the project
+    const workflows = await this.statusWorkflowRepo.find(
+      { project: { key } },
+      { fields: ['id', 'name', 'category', 'sortOrder', 'color'] },
+    );
+
+    // 2️⃣ Get all issues for the project
+    const issues = await this.issueRepository.find(
+      { project: { key } },
       {
         populate: ['status', 'assignee'],
         fields: [
@@ -126,10 +131,19 @@ export class IssuesService {
       },
     );
 
-    return Utils.groupBy(
-      result,
-      (issue) => issue.status?.category || 'backlog',
-    );
+    // const grouped = Utils.groupBy(
+    //   issues,
+    //   (issue) => issue.status?.category || 'backlog',
+    // );
+
+    // workflows.forEach((wf) => {
+    //   const key = wf.category || 'backlog';
+    //   if (!grouped[key]) grouped[key] = [];
+    // });
+
+    // return grouped;
+
+    return issues;
   }
 
   findOne(id: number) {
@@ -142,5 +156,9 @@ export class IssuesService {
 
   remove(id: number) {
     return `This action removes a #${id} issue`;
+  }
+
+  findWorkflowByProject(key: string) {
+    return this.statusWorkflowRepo.find({ project: { key } });
   }
 }

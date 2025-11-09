@@ -21,9 +21,9 @@ export function useAuth() {
       queryClient.invalidateQueries();
       const lastActiveProject = Cookies.get("lap");
       if (lastActiveProject) {
-        router.push(`/${lastActiveProject}`);
+        // router.push(`/${lastActiveProject}`);
       } else {
-        router.push("/create-workspace");
+        // router.push("/create-workspace");
       }
     },
     onError: (error) => {
