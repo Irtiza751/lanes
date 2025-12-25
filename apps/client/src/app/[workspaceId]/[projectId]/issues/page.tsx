@@ -4,17 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Header, SubHeader } from "@/components/ui/header";
 import { Layers2 } from "lucide-react";
-// import { SidebarTrigger } from "@/components/ui/sidebar";
 import React from "react";
-// import { KanbanBoard } from "./_components/kanban-board";
-import KanbanBoard from "./_components/kanban-board";
 import { useParams } from "next/navigation";
 import { useIssueQuery } from "@/hooks/use-issue";
+import { IssuesBoard } from "./_components/issues-board";
+
+const COLUMNS: Record<string, string> = {
+  backlog: "Backlog",
+  inProgress: "In Progress",
+  testing: "Testing",
+  review: "Review",
+  done: "Done",
+};
 
 export default function IssuesPage() {
   const { projectId } = useParams();
 
-  // const activeProject = useProjectMenuStore((state) => state.active);
   const { data } = useIssueQuery(projectId as string);
   const issues = data?.data;
 
@@ -28,7 +33,24 @@ export default function IssuesPage() {
       </Header>
       <SubHeader />
       <Container>
-        <KanbanBoard tasks={{}} />
+        <IssuesBoard
+          issues={
+            issues?.map((issue) => ({
+              id: issue.id,
+              name: issue.title,
+              column: issue.status.category,
+              owner: {
+                image: "https://avatar.iran.liara.run/public",
+                name: "John doe",
+              },
+            })) || []
+          }
+          columns={Object.entries(COLUMNS).map(([key, value]) => ({
+            id: key,
+            name: value,
+            color: "orange",
+          }))}
+        />
       </Container>
     </React.Fragment>
   );
